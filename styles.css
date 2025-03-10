@@ -1,71 +1,103 @@
-/* Resetear márgenes y padding */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Estilos globales */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
-    line-height: 1.6;
-    padding: 20px;
+    background: url('assets/images/fondo2.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: black;
+    text-align: center;
 }
 
-header {
-    background-color: #333;
+#chat-container {
+    width: 90%;
+    max-width: 400px;
+    height: 80vh;
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+}
+
+#chat-header {
+    background-color: #0a84ff;
     color: white;
     padding: 15px;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
 }
 
-header .logo img {
-    width: 50px;
-    height: auto;
+.bot-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
 }
 
-nav a {
+#chat-box {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #252525;
     color: white;
-    margin: 0 10px;
-    text-decoration: none;
 }
 
-nav a:hover {
-    text-decoration: underline;
-}
-
-/* Secciones */
-section {
-    padding: 20px;
-    margin: 20px 0;
-    background-color: #fff;
+.message {
+    max-width: 75%;
+    padding: 10px;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    word-wrap: break-word;
 }
 
-h1, h2 {
-    color: #333;
+.user {
+    align-self: flex-end;
+    background-color: #0a84ff;
 }
 
-p {
-    margin: 10px 0;
+.bot {
+    align-self: flex-start;
+    background-color: #2e2e2e;
+    border: 1px solid #444;
 }
 
-a {
-    color: #007bff;
-    text-decoration: none;
+#chat-input {
+    display: flex;
+    padding: 10px;
+    background-color: #1e1e1e;
+    border-top: 1px solid #333;
 }
 
-a:hover {
-    text-decoration: underline;
+#user-input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #444;
+    border-radius: 20px;
+    background-color: #252525;
+    color: white;
+    outline: none;
 }
 
-/* Footer */
-footer {
-    text-align: center;
-    margin-top: 40px;
-    font-size: 0.9rem;
-    color: #777;
+#send-btn {
+    background-color: #0a84ff;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    margin-left: 8px;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#send-btn:hover {
+    background-color: #0073e6;
 }
