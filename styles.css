@@ -1,188 +1,70 @@
-ñ/* Variables para mantener la consistencia del tema */
-:root {
-  --primary-color: #ff6600;
-  --secondary-color: #cc5200;
-  --background-gradient: linear-gradient(135deg, #1f1c2c, #928dab);
-  --text-color: #ffffff;
-  --shadow-color: rgba(255, 255, 255, 0.2);
-}
-
-/* Reset general y tipografía */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
 body {
-  background: var(--background-gradient);
-  color: var(--text-color);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  overflow-x: hidden;
-  padding: 20px;
-}
-
-/* Logo pequeño estilo futurista */
-.logo-container {
-  margin: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.logo {
-  width: 100px;  /* Tamaño ajustado para que sea más pequeño */
-  height: 100px; /* Mantener proporción cuadrada */
-  object-fit: cover; /* Asegura que la imagen se ajuste bien sin deformarse */
-  border-radius: 50%;
-  border: 2px solid var(--primary-color);
-  box-shadow: 0 0 10px var(--shadow-color);
-  transition: transform 0.3s ease;
-}
-
-.logo:hover {
-  transform: scale(1.1); /* Efecto de escala al pasar el cursor */
-}
-
-/* También asegurate de que el contenedor sea responsivo */
-@media (max-width: 600px) {
-  .logo {
-    width: 80px;  /* Tamaño más pequeño en pantallas pequeñas */
-    height: 80px;
-  }
-}
-
-/* Encabezado con animación y tipografía futurista */
-header {
-  text-align: center;
-  margin-bottom: 30px;
-  animation: fadeInDown 1s ease-out both;
+    background: linear-gradient(to right, #1f1c2c, #928dab);
+    color: #fff;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
 }
 
 header h1 {
-  font-size: 3rem;
-  font-weight: 600;
-  letter-spacing: 3px;
-  text-shadow: 2px 2px 6px var(--shadow-color);
-  margin-bottom: 10px;
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 10px;
 }
 
 header h2 {
-  font-size: 1.5rem;
-  font-weight: 400;
-  margin-top: 10px;
-  text-shadow: 1px 1px 4px var(--shadow-color);
+    font-size: 2rem;
+    font-weight: 500;
 }
 
-/* Sección de información del bot con fondo translúcido y desenfoque */
-.bot-info {
-  width: 90%;
-  max-width: 500px;
-  margin: 40px 0;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-  text-align: center;
-  backdrop-filter: blur(5px);
-  animation: fadeInUp 1s ease-out both;
+.bot-card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.bot-info h3 {
-  font-size: 1.8rem;
-  margin-bottom: 10px;
-  text-shadow: 1px 1px 6px var(--shadow-color);
+.bot-card img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 15px;
 }
 
-.bot-info p {
-  font-size: 1rem;
-  line-height: 1.5;
-  margin-bottom: 10px;
+.bot-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
 }
 
-/* Sección de botones para enlaces con transiciones y hover */
-.buttons-section {
-  margin: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-}
-
-.btn {
-  background-color: var(--primary-color);
-  color: var(--text-color);
-  padding: 15px 25px;
-  font-size: 1.1rem;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
-  text-transform: uppercase;
-}
-
-.btn:hover {
-  background-color: var(--secondary-color);
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px var(--shadow-color);
-}
-
-.btn:active {
-  transform: scale(0.98);
-}
-
-/* Pie de página */
-footer {
-  margin-top: 40px;
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.7);
-}
-
-/* Animaciones clave */
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Diseño responsivo para dispositivos móviles */
-@media (max-width: 600px) {
-  header h1 {
-    font-size: 2.5rem;
-  }
-  
-  header h2 {
-    font-size: 1.2rem;
-  }
-  
-  .btn {
+button {
+    background: #ff6600;
+    color: white;
+    border: none;
     padding: 12px 20px;
     font-size: 1rem;
-  }
-  
-  .bot-info {
-    padding: 15px;
-  }
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background: #cc5200;
+}
+
+footer {
+    margin-top: 30px;
+    font-size: 0.9rem;
 }
