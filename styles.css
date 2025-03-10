@@ -1,4 +1,4 @@
-/* Variables para mantener la consistencia del tema */
+ñ/* Variables para mantener la consistencia del tema */
 :root {
   --primary-color: #ff6600;
   --secondary-color: #cc5200;
@@ -36,11 +36,25 @@ body {
 }
 
 .logo {
-  width: 80px; /* Tamaño pequeño, ideal como logo */
-  height: auto;
+  width: 100px;  /* Tamaño ajustado para que sea más pequeño */
+  height: 100px; /* Mantener proporción cuadrada */
+  object-fit: cover; /* Asegura que la imagen se ajuste bien sin deformarse */
   border-radius: 50%;
   border: 2px solid var(--primary-color);
-  box-shadow: 0 0 8px var(--shadow-color);
+  box-shadow: 0 0 10px var(--shadow-color);
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.1); /* Efecto de escala al pasar el cursor */
+}
+
+/* También asegurate de que el contenedor sea responsivo */
+@media (max-width: 600px) {
+  .logo {
+    width: 80px;  /* Tamaño más pequeño en pantallas pequeñas */
+    height: 80px;
+  }
 }
 
 /* Encabezado con animación y tipografía futurista */
