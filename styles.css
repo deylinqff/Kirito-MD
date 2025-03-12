@@ -14,78 +14,29 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    position: relative;
 }
 
 .menu-toggle {
     position: absolute;
     top: 20px;
     left: 20px;
-    font-size: 30px;
     cursor: pointer;
-    color: #fff;
-    z-index: 1000; /* Asegura que el botón esté encima del contenido */
+    z-index: 999;
 }
 
 .side-menu {
     position: fixed;
+    left: -250px;
     top: 0;
-    left: -250px;  /* Menú oculto al principio */
-    width: 250px;
     height: 100%;
-    background-color: #111;
-    transition: 0.3s ease;
-    padding-top: 20px;
-    z-index: 999;
-}
-
-.side-menu ul {
-    list-style: none;
-    padding: 0;
-}
-
-.side-menu ul li {
-    padding: 15px;
-    text-align: left;
-}
-
-.side-menu ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 18px;
-    display: block;
-    transition: 0.3s;
-}
-
-.side-menu ul li a:hover {
-    background-color: #575757;
-}
-
-.bot-card {
+    width: 250px;
     background: #111;
+    color: #fff;
+    transition: left 0.3s ease;
     padding: 20px;
-    border-radius: 10px;
-    margin-top: 20px;
-    text-align: center;
-    width: 90%;
-    max-width: 400px;
-    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
-    border: 2px solid #222;
 }
 
-.bot-card img {
-    width: 120px;
-    border-radius: 50%;
-    margin-bottom: 15px;
-    border: 3px solid #007bff;
-}
-
-.bot-card h3 {
-    font-size: 1.4rem;
-    margin-bottom: 10px;
-}
-
-button {
+.side-menu button {
     background: #007bff;
     color: white;
     border: none;
@@ -94,13 +45,21 @@ button {
     border-radius: 5px;
     cursor: pointer;
     transition: background 0.3s ease;
-    width: 90%;
-    max-width: 250px;
+    width: 100%;
     margin: 10px 0;
 }
 
-button:hover {
+.side-menu button:hover {
     background: #0056b3;
+}
+
+#close-icon {
+    font-size: 30px;
+    color: #fff;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
 }
 
 footer {
@@ -112,7 +71,8 @@ footer {
     background-color: #fff;
     padding: 10px 0;
     box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
-    font-size: 0.9rem;
-    color: #007bff;
-    font-weight: bold;
+}
+
+footer p {
+    margin: 0;
 }
