@@ -6,7 +6,7 @@
 }
 
 body {
-    background: linear-gradient(to right, #1f1c2c, #928dab);
+    background: #0d0d0d;
     color: #fff;
     text-align: center;
     display: flex;
@@ -16,32 +16,23 @@ body {
     min-height: 100vh;
 }
 
-header h1 {
-    font-size: 2.5rem;
-    font-weight: 600;
-    margin-bottom: 10px;
-}
-
-header h2 {
-    font-size: 2rem;
-    font-weight: 500;
-}
-
 .bot-card {
-    background: rgba(255, 255, 255, 0.1);
+    background: #111;
     padding: 20px;
     border-radius: 10px;
     margin-top: 20px;
     text-align: center;
     width: 90%;
     max-width: 400px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+    border: 2px solid #222;
 }
 
 .bot-card img {
-    width: 100%;
-    border-radius: 10px;
+    width: 120px;
+    border-radius: 50%;
     margin-bottom: 15px;
+    border: 3px solid #007bff;
 }
 
 .bot-card h3 {
@@ -50,7 +41,7 @@ header h2 {
 }
 
 button {
-    background: #ff6600;
+    background: #007bff;
     color: white;
     border: none;
     padding: 12px 20px;
@@ -58,13 +49,21 @@ button {
     border-radius: 5px;
     cursor: pointer;
     transition: background 0.3s ease;
+    width: 90%;
+    max-width: 250px;
+    margin: 10px 0;
 }
 
 button:hover {
-    background: #cc5200;
+    background: #0056b3;
 }
 
 footer {
     margin-top: 30px;
     font-size: 0.9rem;
+    background: #007bff;
+    color: white;
+    width: 100%;
+    padding: 10px 0;
+    font-weight: bold;
 }
