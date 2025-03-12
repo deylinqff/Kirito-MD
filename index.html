@@ -14,26 +14,13 @@
 </head>
 <body>
 
-    <!-- Botón de menú (☰) -->
-    <div class="menu-toggle" onclick="toggleMenu()">
-        <span>&#9776;</span>  <!-- Aquí está el icono del menú ☰ -->
+    <div class="menu-toggle" onclick="toggleSideMenu()">
+        <span id="menu-icon">&#9776;</span> <!-- Ícono del menú -->
     </div>
 
-    <!-- Menú lateral -->
-    <div class="side-menu" id="sideMenu">
-        <ul>
-            <li><a href="https://chat.whatsapp.com/F8KwM3rVqkS9HhR5msoRqQ">Grupo Oficial</a></li>
-            <li><a href="https://whatsapp.com/channel/0029VawF8fBBvvsktcInIz3m">Canal Oficial</a></li>
-            <li><a href="https://github.com/deylinqff/Kirito-Bot-MD">Repositorio</a></li>
-        </ul>
-    </div>
-
-    <div class="bot-card">
-        <img src="https://i.ibb.co/Mk871YM8/file.jpg" alt="Kirito Bot Logo">
-        <h2>Kirito-Bot MD</h2>
-    </div>
-
-    <div class="bot-info">
+    <div id="sideMenu" class="side-menu">
+        <span id="close-icon" onclick="toggleSideMenu()">&#10006;</span> <!-- Ícono de la "X" -->
+        <!-- Aquí va tu contenido del menú -->
         <button onclick="window.location.href='https://chat.whatsapp.com/F8KwM3rVqkS9HhR5msoRqQ'">Grupo Oficial</button>
         <button onclick="window.location.href='https://whatsapp.com/channel/0029VawF8fBBvvsktcInIz3m'">Canal Oficial</button>
         <button onclick="window.location.href='https://github.com/deylinqff/Kirito-Bot-MD'">Repositorio</button>
@@ -44,6 +31,5 @@
     </footer>
 
     <script src="script.js"></script>
-
 </body>
 </html>
