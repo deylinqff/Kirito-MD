@@ -16,15 +16,14 @@
 
     <!-- Botón de menú (☰) -->
     <div class="menu-toggle" onclick="toggleMenu()">
-        <span>&#9776;</span>  <!-- Aquí está el icono del menú ☰ -->
+        <span id="menu-icon">&#9776;</span>  <!-- Aquí está el icono del menú ☰ -->
     </div>
 
-   <div id="sideMenu" class="side-menu">
-        <span id="close-icon" onclick="toggleSideMenu()">&#10006;</span> <!-- Ícono de la "X" -->
-        <!-- Aquí va tu contenido del menú -->
-
     <!-- Menú lateral -->
-    <div class="side-menu" id="sideMenu">
+    <div id="sideMenu" class="side-menu">
+        <!-- Botón de cierre "X" -->
+        <span id="close-icon" onclick="toggleMenu()">&#10006;</span>
+
         <ul>
             <li><a href="https://chat.whatsapp.com/F8KwM3rVqkS9HhR5msoRqQ">Grupo Oficial</a></li>
             <li><a href="https://whatsapp.com/channel/0029VawF8fBBvvsktcInIz3m">Canal Oficial</a></li>
