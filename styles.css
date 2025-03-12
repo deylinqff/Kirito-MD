@@ -14,7 +14,51 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    position: relative; /* Agregado para permitir el posicionamiento absoluto del menú */
+    position: relative;
+}
+
+.menu-toggle {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 30px;
+    cursor: pointer;
+    color: #fff;
+    z-index: 1000; /* Asegura que el botón esté encima del contenido */
+}
+
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: -250px;  /* Menú oculto al principio */
+    width: 250px;
+    height: 100%;
+    background-color: #111;
+    transition: 0.3s ease;
+    padding-top: 20px;
+    z-index: 999;
+}
+
+.side-menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+.side-menu ul li {
+    padding: 15px;
+    text-align: left;
+}
+
+.side-menu ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    transition: 0.3s;
+}
+
+.side-menu ul li a:hover {
+    background-color: #575757;
 }
 
 .bot-card {
@@ -59,24 +103,15 @@ button:hover {
     background: #0056b3;
 }
 
-.menu-toggle {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    font-size: 30px;
-    cursor: pointer;
-    color: #fff; /* Puedes cambiar el color si lo deseas */
-}
-
 footer {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
     text-align: center;
-    background-color: #fff; /* Puedes cambiar el color si lo deseas */
+    background-color: #fff;
     padding: 10px 0;
-    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1); /* Sombra opcional */
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
     font-size: 0.9rem;
     color: #007bff;
     font-weight: bold;
