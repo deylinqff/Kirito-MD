@@ -3,65 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subir Archivo</title>
+    <title>Subir Archivos</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h2>Subir archivo</h2>
+    <h2>Subir archivos</h2>
     <form id="uploadForm">
-        <input type="file" id="fileInput" required>
-        <button type="button" onclick="uploadFile()">Subir</button>
+        <input type="file" id="fileInput" multiple required>
+        <button type="button" onclick="uploadFiles()">Subir</button>
     </form>
-    <p id="status"></p>
-    <p id="link"></p>
+    <div id="status"></div>
+    <div id="links"></div>
 
     <script>
-        async function uploadFile() {
+        async function uploadFiles() {
             const fileInput = document.getElementById("fileInput");
             const status = document.getElementById("status");
-            const link = document.getElementById("link");
+            const links = document.getElementById("links");
 
             if (!fileInput.files.length) {
-                status.textContent = "Selecciona un archivo primero.";
+                status.textContent = "Selecciona al menos un archivo.";
                 return;
             }
 
-            status.textContent = "Subiendo archivo...";
-            link.innerHTML = "";
+            status.innerHTML = "⏳ Subiendo archivos...";
+            links.innerHTML = "";
 
-            const formData = new FormData();
-            formData.append("image", fileInput.files[0]);
+            const apiKey = "10604ee79e478b08aba6de5005e6c798";
 
-            try {
-                const response = await axios.post('https://api.imgbb.com/1/upload?key=10604ee79e478b08aba6de5005e6c798', formData);
+            for (const file of fileInput.files) {
+                const formData = new FormData();
+                formData.append("image", file); 
 
-                if (response.data.success) {
-                    status.textContent = "✅ Archivo subido con éxito.";
+                try {
+                    const response = await axios.post(`https://api.imgbb.com/1/upload?key=${apiKey}`, formData);
 
-                    // Obtener la URL de la imagen
-                    const imageUrl = response.data.data.url;
+                    if (response.data.success) {
+                        const imageUrl = response.data.data.url;
+                        const encodedUrl = encodeURIComponent(imageUrl);
+                        const result = await axios.get(`https://kirito-md.vercel.app/api/imagen?url=${encodedUrl}`);
 
-                    // Codificar la URL antes de enviarla al backend
-                    const encodedUrl = encodeURIComponent(imageUrl);
-
-                    // Llamar a la API para redirigir a la URL de la imagen
-                    const result = await axios.get(`https://kirito-md.vercel.app/api/imagen?url=${encodedUrl}`);
-
-                    // Si la redirección fue exitosa, mostrar la URL completa
-                    if (result.status === 200) {
-                        const modifiedUrl = result.config.url; // Suponemos que la URL modificada está en result.config.url
-                        link.innerHTML = `URL del archivo: <a href="${modifiedUrl}" target="_blank">${modifiedUrl}</a>`;
+                        if (result.status === 200) {
+                            const modifiedUrl = result.config.url;
+                            links.innerHTML += `<p>✅ Archivo subido: <a href="${modifiedUrl}" target="_blank">${modifiedUrl}</a></p>`;
+                        } else {
+                            links.innerHTML += `<p>❌ Error al generar URL personalizada para ${file.name}.</p>`;
+                        }
                     } else {
-                        status.textContent = "❌ Error al generar URL personalizada.";
+                        links.innerHTML += `<p>❌ Error al subir ${file.name}.</p>`;
                     }
-                } else {
-                    status.textContent = "❌ Error al subir archivo.";
+                } catch (error) {
+                    console.error(error);
+                    links.innerHTML += `<p>❌ Error en la solicitud para ${file.name}.</p>`;
                 }
-            } catch (error) {
-                console.error(error);
-                status.textContent = "❌ Error en la solicitud.";
             }
+            status.innerHTML = "✅ Todos los archivos procesados.";
         }
     </script>
 </body>
