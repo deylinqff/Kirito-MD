@@ -1,4 +1,5 @@
 import axios from 'axios';
+import FormData from 'form-data';
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
@@ -12,19 +13,23 @@ export default async function handler(req, res) {
             throw new Error('No se recibió ninguna imagen');
         }
 
-        // Crear FormData para enviarlo a la página
+        // Crear FormData para enviarlo a Catbox
         const formData = new FormData();
-        formData.append("image", image);
+        formData.append("reqtype", "fileupload");
+        formData.append("userhash", "TU_USERHASH_AQUÍ");  // Debes obtener tu UserHash desde Catbox
+        formData.append("fileToUpload", image);
 
-        // Subir la imagen a file.html (usando imgbb en este caso)
-        const uploadResponse = await axios.post('https://api.imgbb.com/1/upload?key=10604ee79e478b08aba6de5005e6c798', formData);
+        // Subir la imagen a Catbox
+        const uploadResponse = await axios.post('https://catbox.moe/user/api.php', formData, {
+            headers: formData.getHeaders(),
+        });
 
-        if (uploadResponse.data.success) {
-            const imageUrl = uploadResponse.data.data.url;
+        if (uploadResponse.status === 200) {
+            const imageUrl = uploadResponse.data.trim(); // Catbox devuelve solo la URL
 
             return res.status(200).json({ success: true, imageUrl });
         } else {
-            throw new Error('Error al subir la imagen');
+            throw new Error('Error al subir la imagen a Catbox');
         }
     } catch (error) {
         console.error('Error en la API:', error.message);
