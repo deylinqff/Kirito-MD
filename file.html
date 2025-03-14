@@ -62,6 +62,7 @@
             let linksHtml = "";
 
             for (let file of files) {
+                console.log("Subiendo archivo:", file.name, file.size); // Añade este log para ver el nombre y tamaño del archivo
                 let url = await uploadImage(file);
                 if (url) {
                     linksHtml += `
