@@ -37,7 +37,17 @@
 
                 if (response.data.success) {
                     status.textContent = "✅ Archivo subido con éxito.";
-                    link.innerHTML = `<a href="${response.data.data.url}" target="_blank">📂 Ver archivo</a>`;
+
+                    // Enviar la URL de la imagen a tu servidor
+                    const imageUrl = response.data.data.url;
+
+                    const result = await axios.post('https://kirito-md.vercel.app/api/redirect', { url: imageUrl });
+
+                    if (result.data.success) {
+                        link.innerHTML = `<a href="${result.data.customUrl}" target="_blank">📂 Ver archivo</a>`;
+                    } else {
+                        status.textContent = "❌ Error al generar URL personalizada.";
+                    }
                 } else {
                     status.textContent = "❌ Error al subir archivo.";
                 }
