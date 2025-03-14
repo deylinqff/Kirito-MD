@@ -26,17 +26,18 @@
             const file = fileInput.files[0];
             const formData = new FormData();
             formData.append("file", file);
+            formData.append("upload_preset", "tu_upload_preset"); // Cambia esto por tu configuración
 
             try {
-                const response = await fetch("/upload", {
+                const response = await fetch("https://api.cloudinary.com/v1_1/tu_cloud_name/upload", {
                     method: "POST",
                     body: formData
                 });
 
                 const data = await response.json();
-                if (data.success) {
+                if (data.secure_url) {
                     document.getElementById("fileLink").innerHTML = 
-                        `Archivo subido: <a href="${data.url}" target="_blank">${data.url}</a>`;
+                        `Archivo subido: <a href="${data.secure_url}" target="_blank">${data.secure_url}</a>`;
                 } else {
                     alert("Error al subir el archivo.");
                 }
