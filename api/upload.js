@@ -13,13 +13,12 @@ export default async function handler(req, res) {
             throw new Error('No se recibió ninguna imagen');
         }
 
-        // Crear FormData para enviarlo a Catbox
+        // Crear FormData para enviarlo a Catbox (sin userhash)
         const formData = new FormData();
         formData.append("reqtype", "fileupload");
-        formData.append("userhash", "TU_USERHASH_AQUÍ");  // Debes obtener tu UserHash desde Catbox
         formData.append("fileToUpload", image);
 
-        // Subir la imagen a Catbox
+        // Subir la imagen a Catbox de forma anónima
         const uploadResponse = await axios.post('https://catbox.moe/user/api.php', formData, {
             headers: formData.getHeaders(),
         });
