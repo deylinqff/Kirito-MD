@@ -1,29 +1,33 @@
-// api/upload.js
+import axios from 'axios';
 
-const fs = require('fs');
-const path = require('path');
-const { nanoid } = require('nanoid');  // Usa nanoid para generar un ID único
-const multer = require('multer');
+export default async function handler(req, res) {
+    if (req.method !== 'POST') {
+        return res.status(405).json({ success: false, message: 'Método no permitido' });
+    }
 
-const upload = multer({ dest: 'uploads/' }); // Carpeta temporal para los archivos
-
-module.exports = (req, res) => {
-    upload.single('file')(req, res, async (err) => {
-        if (err) {
-            return res.status(500).json({ error: 'Error al subir el archivo' });
+    try {
+        // Recibir el archivo desde la petición
+        const { image } = req.body;
+        if (!image) {
+            throw new Error('No se recibió ninguna imagen');
         }
 
-        const file = req.file;
-        const uniqueID = nanoid();  // Generar ID único
+        // Crear FormData para enviarlo a la página
+        const formData = new FormData();
+        formData.append("image", image);
 
-        const newFilePath = path.join('uploads', uniqueID + path.extname(file.originalname));
+        // Subir la imagen a file.html (usando imgbb en este caso)
+        const uploadResponse = await axios.post('https://api.imgbb.com/1/upload?key=10604ee79e478b08aba6de5005e6c798', formData);
 
-        // Renombrar el archivo con el ID único
-        fs.renameSync(file.path, newFilePath);
+        if (uploadResponse.data.success) {
+            const imageUrl = uploadResponse.data.data.url;
 
-        // Generar la URL personalizada
-        const fileUrl = `https://cdnmega.vercel.app/media/${uniqueID}`;
-
-        return res.json({ success: true, url: fileUrl });
-    });
-};
+            return res.status(200).json({ success: true, imageUrl });
+        } else {
+            throw new Error('Error al subir la imagen');
+        }
+    } catch (error) {
+        console.error('Error en la API:', error.message);
+        return res.status(500).json({ success: false, message: error.message });
+    }
+}
