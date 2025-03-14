@@ -4,16 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subir Archivo</title>
-    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <div class="upload-container">
-        <h2>Subir Imagen o Video</h2>
-        <input type="file" id="fileInput" accept="image/*,video/*">
-        <button onclick="uploadFile()">Subir</button>
-        <p id="fileLink"></p>
-    </div>
+    <h2>Subir Imagen o Video</h2>
+    <input type="file" id="fileInput">
+    <button onclick="uploadFile()">Subir</button>
+    <p id="fileLink"></p>
 
     <script>
         async function uploadFile() {
@@ -26,18 +23,18 @@
             const file = fileInput.files[0];
             const formData = new FormData();
             formData.append("file", file);
-            formData.append("upload_preset", "default_preset"); // Si cambiaste el preset, pon el nuevo nombre
 
             try {
-                const response = await fetch("https://api.cloudinary.com/v1_1/dggrlpmw2/upload", {
+                const response = await fetch("/api/upload", {
                     method: "POST",
                     body: formData
                 });
 
                 const data = await response.json();
-                if (data.secure_url) {
+
+                if (data.url) {
                     document.getElementById("fileLink").innerHTML = 
-                        `Archivo subido: <a href="${data.secure_url}" target="_blank">${data.secure_url}</a>`;
+                        `Archivo subido: <a href="${data.url}" target="_blank">${data.url}</a>`;
                 } else {
                     alert("Error al subir el archivo.");
                 }
