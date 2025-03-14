@@ -1,0 +1,12 @@
+{
+  "routes": [
+    {
+      "src": "/api/upload",
+      "dest": "/api/upload.js"
+    },
+    {
+      "src": "/media/(.*)",
+      "dest": "/public/media/$1"
+    }
+  ]
+}
