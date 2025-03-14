@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subir Archivo</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h2>Subir archivo</h2>
@@ -45,9 +44,10 @@
                     // Codificar la URL antes de enviarla al backend
                     const encodedUrl = encodeURIComponent(imageUrl);
 
-                    // Crear la URL para redirigir con el backend
+                    // Llamar a la API para redirigir a la URL de la imagen
                     const result = await axios.get(`https://kirito-md.vercel.app/imagen/${encodedUrl}`);
 
+                    // Si la redirección fue exitosa, mostrar el enlace
                     if (result.status === 200) {
                         link.innerHTML = `<a href="${result.config.url}" target="_blank">📂 Ver archivo</a>`;
                     } else {
@@ -57,6 +57,7 @@
                     status.textContent = "❌ Error al subir archivo.";
                 }
             } catch (error) {
+                console.error(error);
                 status.textContent = "❌ Error en la solicitud.";
             }
         }
