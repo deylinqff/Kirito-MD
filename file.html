@@ -30,26 +30,17 @@
             status.innerHTML = "⏳ Subiendo archivos...";
             links.innerHTML = "";
 
-            const apiKey = "10604ee79e478b08aba6de5005e6c798";
-
             for (const file of fileInput.files) {
                 const formData = new FormData();
-                formData.append("image", file); 
+                formData.append("reqtype", "fileupload");
+                formData.append("fileToUpload", file);
 
                 try {
-                    const response = await axios.post(`https://api.imgbb.com/1/upload?key=${apiKey}`, formData);
+                    const response = await axios.post("https://catbox.moe/user/api.php", formData);
 
-                    if (response.data.success) {
-                        const imageUrl = response.data.data.url;
-                        const encodedUrl = encodeURIComponent(imageUrl);
-                        const result = await axios.get(`https://kirito-md.vercel.app/api/imagen?url=${encodedUrl}`);
-
-                        if (result.status === 200) {
-                            const modifiedUrl = result.config.url;
-                            links.innerHTML += `<p>✅ Archivo subido: <a href="${modifiedUrl}" target="_blank">${modifiedUrl}</a></p>`;
-                        } else {
-                            links.innerHTML += `<p>❌ Error al generar URL personalizada para ${file.name}.</p>`;
-                        }
+                    if (response.status === 200) {
+                        const imageUrl = response.data.trim();
+                        links.innerHTML += `<p>✅ Archivo subido: <a href="${imageUrl}" target="_blank">${imageUrl}</a></p>`;
                     } else {
                         links.innerHTML += `<p>❌ Error al subir ${file.name}.</p>`;
                     }
