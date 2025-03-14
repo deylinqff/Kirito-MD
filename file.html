@@ -1,54 +1,29 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subir Archivo</title>
-</head>
-<body>
-    <h2>Subir archivo</h2>
-    <form id="uploadForm">
-        <input type="file" id="fileInput" required>
-        <button type="button" onclick="uploadFile()">Subir</button>
-    </form>
-    <p id="status"></p>
-    <p id="link"></p>
+async function uploadFile() {
+    const fileInput = document.getElementById("fileInput");
+    const status = document.getElementById("status");
+    const link = document.getElementById("link");
 
-    <script>
-        async function uploadFile() {
-            const fileInput = document.getElementById("fileInput");
-            const status = document.getElementById("status");
-            const link = document.getElementById("link");
+    if (!fileInput.files.length) {
+        status.textContent = "Selecciona un archivo primero.";
+        return;
+    }
 
-            if (!fileInput.files.length) {
-                status.textContent = "Selecciona un archivo primero.";
-                return;
-            }
+    status.textContent = "Subiendo archivo...";
+    link.innerHTML = "";
 
-            status.textContent = "Subiendo archivo...";
-            link.innerHTML = "";
+    const formData = new FormData();
+    formData.append("image", fileInput.files[0]);
 
-            const formData = new FormData();
-            formData.append("file", fileInput.files[0]);
+    try {
+        const response = await axios.post('https://api.imgbb.com/1/upload?key=10604ee79e478b08aba6de5005e6c798', formData);
 
-            try {
-                const response = await fetch("/api/upload", {
-                    method: "POST",
-                    body: formData
-                });
-
-                const data = await response.json();
-
-                if (response.ok) {
-                    status.textContent = "✅ Archivo subido con éxito.";
-                    link.innerHTML = `<a href="${data.url}" target="_blank">📂 Ver archivo</a>`;
-                } else {
-                    status.textContent = "❌ Error al subir archivo.";
-                }
-            } catch (error) {
-                status.textContent = "❌ Error en la solicitud.";
-            }
+        if (response.data.success) {
+            status.textContent = "✅ Archivo subido con éxito.";
+            link.innerHTML = `<a href="${response.data.data.url}" target="_blank">📂 Ver archivo</a>`;
+        } else {
+            status.textContent = "❌ Error al subir archivo.";
         }
-    </script>
-</body>
-</html>
+    } catch (error) {
+        status.textContent = "❌ Error en la solicitud.";
+    }
+}
