@@ -1,3 +1,5 @@
+mkdir -p public/media
+touch public/media/.gitkeep
 git add public/media/.gitkeep
-git commit -m "Añadiendo carpeta media con .gitkeep"
+git commit -m "Añadiendo media/.gitkeep"
 git push origin main
