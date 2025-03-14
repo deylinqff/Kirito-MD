@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subir Archivo</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h2>Subir archivo</h2>
@@ -33,18 +34,27 @@
             formData.append("image", fileInput.files[0]);
 
             try {
-                // Enviar a la API en Vercel
-                const response = await axios.post('https://tu-api.vercel.app/api/upload', formData, {
-                    headers: { "Content-Type": "multipart/form-data" }
-                });
+                const response = await axios.post('https://api.imgbb.com/1/upload?key=10604ee79e478b08aba6de5005e6c798', formData);
 
                 if (response.data.success) {
-                    const imageUrl = response.data.imageUrl;
                     status.textContent = "✅ Archivo subido con éxito.";
-                    link.innerHTML = `<a href="${imageUrl}" target="_blank">${imageUrl}</a>`;
 
-                    // Agregar botón de copiar
-                    link.innerHTML += `<button onclick="copyToClipboard('${imageUrl}')">📋 Copiar</button>`;
+                    // Obtener la URL de la imagen
+                    const imageUrl = response.data.data.url;
+
+                    // Codificar la URL antes de enviarla al backend
+                    const encodedUrl = encodeURIComponent(imageUrl);
+
+                    // Llamar a la API para redirigir a la URL de la imagen
+                    const result = await axios.get(`https://kirito-md.vercel.app/api/imagen?url=${encodedUrl}`);
+
+                    // Si la redirección fue exitosa, mostrar la URL completa
+                    if (result.status === 200) {
+                        const modifiedUrl = result.config.url; // Suponemos que la URL modificada está en result.config.url
+                        link.innerHTML = `URL del archivo: <a href="${modifiedUrl}" target="_blank">${modifiedUrl}</a>`;
+                    } else {
+                        status.textContent = "❌ Error al generar URL personalizada.";
+                    }
                 } else {
                     status.textContent = "❌ Error al subir archivo.";
                 }
@@ -52,14 +62,6 @@
                 console.error(error);
                 status.textContent = "❌ Error en la solicitud.";
             }
-        }
-
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                alert("Enlace copiado al portapapeles.");
-            }).catch(err => {
-                console.error("Error al copiar:", err);
-            });
         }
     </script>
 </body>
