@@ -22,7 +22,8 @@
 
     <script>
         async function uploadImage(file) {
-            let formData = new FormData();
+            const formData = new FormData();
+            formData.append("reqtype", "fileupload");
             formData.append("fileToUpload", file);
 
             try {
@@ -33,7 +34,11 @@
                         "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36"
                     },
                 });
+
                 let link = await res.text();
+                if (link.includes("Error")) {
+                    return null;
+                }
                 return link;
             } catch (error) {
                 console.error("Error al subir imagen:", error);
