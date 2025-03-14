@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subir Archivo</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h2>Subir archivo</h2>
@@ -39,13 +38,13 @@
                 if (response.data.success) {
                     status.textContent = "✅ Archivo subido con éxito.";
 
-                    // Enviar la URL de la imagen a tu servidor
+                    // Enviar la URL de la imagen a tu servidor para obtener la URL personalizada
                     const imageUrl = response.data.data.url;
 
                     const result = await axios.post('https://kirito-md.vercel.app/api/redirect', { url: imageUrl });
 
-                    if (result.data.success) {
-                        link.innerHTML = `<a href="${result.data.customUrl}" target="_blank">📂 Ver archivo</a>`;
+                    if (result.status === 200) {
+                        link.innerHTML = `<a href="${imageUrl}" target="_blank">📂 Ver archivo</a>`;
                     } else {
                         status.textContent = "❌ Error al generar URL personalizada.";
                     }
