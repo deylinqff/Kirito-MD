@@ -1,19 +1,29 @@
-import fs from 'fs';
-import path from 'path';
+// api/upload.js
 
-export default async function handler(req, res) {
-    if (req.method !== 'POST') {
-        return res.status(405).json({ error: 'Método no permitido' });
-    }
+const fs = require('fs');
+const path = require('path');
+const { nanoid } = require('nanoid');  // Usa nanoid para generar un ID único
+const multer = require('multer');
 
-    const file = req.body.file; // Suponiendo que envías el archivo en base64
-    const fileName = `file_${Date.now()}.jpg`; // Puedes cambiar la extensión según el archivo
-    const uploadPath = path.join(process.cwd(), 'api/uploads', fileName);
+const upload = multer({ dest: 'uploads/' }); // Carpeta temporal para los archivos
 
-    try {
-        fs.writeFileSync(uploadPath, Buffer.from(file, 'base64'));
-        res.status(200).json({ url: `/media/${fileName}` });
-    } catch (error) {
-        res.status(500).json({ error: 'Error al guardar el archivo' });
-    }
-}
+module.exports = (req, res) => {
+    upload.single('file')(req, res, async (err) => {
+        if (err) {
+            return res.status(500).json({ error: 'Error al subir el archivo' });
+        }
+
+        const file = req.file;
+        const uniqueID = nanoid();  // Generar ID único
+
+        const newFilePath = path.join('uploads', uniqueID + path.extname(file.originalname));
+
+        // Renombrar el archivo con el ID único
+        fs.renameSync(file.path, newFilePath);
+
+        // Generar la URL personalizada
+        const fileUrl = `https://cdnmega.vercel.app/media/${uniqueID}`;
+
+        return res.json({ success: true, url: fileUrl });
+    });
+};
