@@ -38,13 +38,17 @@
                 if (response.data.success) {
                     status.textContent = "✅ Archivo subido con éxito.";
 
-                    // Enviar la URL de la imagen a tu servidor para obtener la URL personalizada
+                    // Obtener la URL de la imagen
                     const imageUrl = response.data.data.url;
 
-                    const result = await axios.post('https://kirito-md.vercel.app/api/redirect', { url: imageUrl });
+                    // Codificar la URL antes de enviarla al backend
+                    const encodedUrl = encodeURIComponent(imageUrl);
+
+                    // Crear la URL para redirigir con el backend
+                    const result = await axios.get(`https://kirito-md.vercel.app/imagen/${encodedUrl}`);
 
                     if (result.status === 200) {
-                        link.innerHTML = `<a href="${imageUrl}" target="_blank">📂 Ver archivo</a>`;
+                        link.innerHTML = `<a href="${result.config.url}" target="_blank">📂 Ver archivo</a>`;
                     } else {
                         status.textContent = "❌ Error al generar URL personalizada.";
                     }
