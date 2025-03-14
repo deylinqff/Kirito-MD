@@ -3,63 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subir Archivos</title>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <link rel="stylesheet" href="styles.css">
+    <title>Subir Imágenes y Obtener Enlaces</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        input { margin-bottom: 10px; }
+        .enlace-container { margin-top: 10px; padding: 10px; border: 1px solid #ddd; display: flex; flex-direction: column; align-items: center; }
+        .enlace { margin: 5px 0; }
+        button { cursor: pointer; margin-left: 5px; }
+    </style>
 </head>
 <body>
-    <h2>Subir archivos</h2>
-    <form id="uploadForm">
-        <input type="file" id="fileInput" multiple required>
-        <button type="button" onclick="uploadFiles()">Subir</button>
-    </form>
-    <div id="status"></div>
-    <div id="links"></div>
+
+    <h2>Subir Imágenes y Obtener Enlaces</h2>
+    <input type="file" id="fileInput" multiple accept="image/*">
+    <button onclick="uploadImages()">Subir</button>
+    
+    <div id="linksContainer"></div>
 
     <script>
-        async function uploadFiles() {
-            const fileInput = document.getElementById("fileInput");
-            const status = document.getElementById("status");
-            const links = document.getElementById("links");
+        async function uploadImage(file) {
+            let formData = new FormData();
+            formData.append("file", file);
 
-            if (!fileInput.files.length) {
-                status.textContent = "Selecciona al menos un archivo.";
+            try {
+                let res = await fetch("https://telegra.ph/upload", {
+                    method: "POST",
+                    body: formData
+                });
+                let json = await res.json();
+                return "https://telegra.ph" + json[0].src;
+            } catch {
+                return null;
+            }
+        }
+
+        async function shortUrl(url) {
+            let res = await fetch(`https://tinyurl.com/api-create.php?url=${url}`);
+            return await res.text();
+        }
+
+        async function uploadImages() {
+            let files = document.getElementById("fileInput").files;
+            if (files.length === 0) {
+                alert("Selecciona al menos una imagen.");
                 return;
             }
 
-            status.innerHTML = "⏳ Subiendo archivos...";
-            links.innerHTML = "";
+            let linksContainer = document.getElementById("linksContainer");
+            linksContainer.innerHTML = "<p>Subiendo imágenes...</p>";
 
-            const apiKey = "10604ee79e478b08aba6de5005e6c798";
+            let linksHtml = "";
 
-            for (const file of fileInput.files) {
-                const formData = new FormData();
-                formData.append("image", file); 
-
-                try {
-                    const response = await axios.post(`https://catbox.moe/user/api.php`, formData);
-
-                    if (response.data.success) {
-                        const imageUrl = response.data.data.url;
-                        const encodedUrl = encodeURIComponent(imageUrl);
-                        const result = await axios.get(`https://kirito-md.vercel.app/api/imagen?url=${encodedUrl}`);
-
-                        if (result.status === 200) {
-                            const modifiedUrl = result.config.url;
-                            links.innerHTML += `<p>✅ Archivo subido: <a href="${modifiedUrl}" target="_blank">${modifiedUrl}</a></p>`;
-                        } else {
-                            links.innerHTML += `<p>❌ Error al generar URL personalizada para ${file.name}.</p>`;
-                        }
-                    } else {
-                        links.innerHTML += `<p>❌ Error al subir ${file.name}.</p>`;
-                    }
-                } catch (error) {
-                    console.error(error);
-                    links.innerHTML += `<p>❌ Error en la solicitud para ${file.name}.</p>`;
+            for (let file of files) {
+                let url = await uploadImage(file);
+                if (url) {
+                    let shortLink = await shortUrl(url);
+                    linksHtml += `
+                        <div class="enlace-container">
+                            <p class="enlace"><strong>Enlace:</strong> <a href="${url}" target="_blank">${url}</a></p>
+                            <p class="enlace"><strong>Acortado:</strong> <a href="${shortLink}" target="_blank">${shortLink}</a></p>
+                            <button onclick="copyToClipboard('${shortLink}')">Copiar Enlace</button>
+                        </div>
+                    `;
                 }
             }
-            status.innerHTML = "✅ Todos los archivos procesados.";
+
+            linksContainer.innerHTML = linksHtml || "<p>Error al subir imágenes.</p>";
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert("Enlace copiado al portapapeles.");
+            });
         }
     </script>
+
 </body>
 </html>
