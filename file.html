@@ -26,12 +26,12 @@
             formData.append("file", file);
 
             try {
-                let res = await fetch("https://telegra.ph/upload", {
+                let res = await fetch("https://file.io", {
                     method: "POST",
                     body: formData
                 });
                 let json = await res.json();
-                return "https://telegra.ph" + json[0].src;
+                return json.success ? json.link : null;
             } catch {
                 return null;
             }
