@@ -47,9 +47,10 @@
                     // Llamar a la API para redirigir a la URL de la imagen
                     const result = await axios.get(`https://kirito-md.vercel.app/api/imagen?url=${encodedUrl}`);
 
-                    // Si la redirección fue exitosa, mostrar el enlace
+                    // Si la redirección fue exitosa, mostrar la URL completa
                     if (result.status === 200) {
-                        link.innerHTML = `<a href="${result.config.url}" target="_blank">📂 Ver archivo</a>`;
+                        const modifiedUrl = result.config.url; // Suponemos que la URL modificada está en result.config.url
+                        link.innerHTML = `URL del archivo: <a href="${modifiedUrl}" target="_blank">${modifiedUrl}</a>`;
                     } else {
                         status.textContent = "❌ Error al generar URL personalizada.";
                     }
