@@ -7,6 +7,10 @@
     {
       "src": "/media/(.*)",
       "dest": "/public/media/$1"
+    },
+    {
+      "src": "/",
+      "dest": "/index.html"
     }
   ]
 }
