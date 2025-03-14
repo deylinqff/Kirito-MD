@@ -26,10 +26,10 @@
             const file = fileInput.files[0];
             const formData = new FormData();
             formData.append("file", file);
-            formData.append("upload_preset", "tu_upload_preset"); // Cambia esto por tu configuración
+            formData.append("upload_preset", "default_preset"); // Si cambiaste el preset, pon el nuevo nombre
 
             try {
-                const response = await fetch("https://api.cloudinary.com/v1_1/tu_cloud_name/upload", {
+                const response = await fetch("https://api.cloudinary.com/v1_1/dggrlpmw2/upload", {
                     method: "POST",
                     body: formData
                 });
