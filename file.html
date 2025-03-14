@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subir Archivo</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h2>Subir archivo</h2>
@@ -58,7 +57,7 @@
 
                         // Mostrar el botón de copiar enlace
                         copyButton.style.display = "inline-block";
-                        copyButton.dataset.url = modifiedUrl; // Almacenamos la URL en el botón para copiar
+                        copyButton.dataset.url = modifiedUrl; // Almacenamos la URL en el atributo data-url del botón
                     } else {
                         status.textContent = "❌ Error al generar URL personalizada.";
                     }
@@ -73,7 +72,7 @@
 
         function copyLink() {
             const copyButton = document.getElementById("copyButton");
-            const urlToCopy = copyButton.dataset.url;
+            const urlToCopy = copyButton.dataset.url; // Accedemos correctamente al atributo data-url
 
             if (urlToCopy) {
                 // Copiar la URL al portapapeles
