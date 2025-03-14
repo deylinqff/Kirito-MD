@@ -1,31 +1,19 @@
-const express = require("express");
-const multer = require("multer");
-const fs = require("fs");
-const path = require("path");
+import fs from 'fs';
+import path from 'path';
 
-const app = express();
+export default async function handler(req, res) {
+    if (req.method !== 'POST') {
+        return res.status(405).json({ error: 'Método no permitido' });
+    }
 
-// Configurar almacenamiento en la carpeta "public/media"
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const dir = path.join(__dirname, "../public/media/");
-    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-    cb(null, dir);
-  },
-  filename: (req, file, cb) => {
-    const ext = path.extname(file.originalname);
-    const uniqueName = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}${ext}`;
-    cb(null, uniqueName);
-  },
-});
+    const file = req.body.file; // Suponiendo que envías el archivo en base64
+    const fileName = `file_${Date.now()}.jpg`; // Puedes cambiar la extensión según el archivo
+    const uploadPath = path.join(process.cwd(), 'api/uploads', fileName);
 
-const upload = multer({ storage });
-
-app.post("/api/upload", upload.single("file"), (req, res) => {
-  if (!req.file) return res.status(400).json({ error: "No se envió ningún archivo" });
-
-  const fileUrl = `https://kirito-md.vercel.app/media/${req.file.filename}`;
-  res.json({ url: fileUrl });
-});
-
-app.listen(3000, () => console.log("🚀 Servidor corriendo en el puerto 3000"));
+    try {
+        fs.writeFileSync(uploadPath, Buffer.from(file, 'base64'));
+        res.status(200).json({ url: `/media/${fileName}` });
+    } catch (error) {
+        res.status(500).json({ error: 'Error al guardar el archivo' });
+    }
+}
