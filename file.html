@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subir Imágenes y Obtener Enlaces</title>
+    <title>Subir Imágenes a Catbox</title>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
         input { margin-bottom: 10px; }
@@ -15,7 +15,7 @@
 <body>
 
     <h2>Subir Imágenes y Obtener Enlaces</h2>
-    <input type="file" id="fileInput" multiple accept="image/*">
+    <input type="file" id="fileInput" multiple accept="image/*,video/*">
     <button onclick="uploadImages()">Subir</button>
     
     <div id="linksContainer"></div>
@@ -23,23 +23,22 @@
     <script>
         async function uploadImage(file) {
             let formData = new FormData();
-            formData.append("file", file);
+            formData.append("fileToUpload", file);
 
             try {
-                let res = await fetch("https://file.io", {
+                let res = await fetch("https://catbox.moe/user/api.php", {
                     method: "POST",
-                    body: formData
+                    body: formData,
+                    headers: {
+                        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36"
+                    },
                 });
-                let json = await res.json();
-                return json.success ? json.link : null;
-            } catch {
+                let link = await res.text();
+                return link;
+            } catch (error) {
+                console.error("Error al subir imagen:", error);
                 return null;
             }
-        }
-
-        async function shortUrl(url) {
-            let res = await fetch(`https://tinyurl.com/api-create.php?url=${url}`);
-            return await res.text();
         }
 
         async function uploadImages() {
@@ -57,12 +56,10 @@
             for (let file of files) {
                 let url = await uploadImage(file);
                 if (url) {
-                    let shortLink = await shortUrl(url);
                     linksHtml += `
                         <div class="enlace-container">
                             <p class="enlace"><strong>Enlace:</strong> <a href="${url}" target="_blank">${url}</a></p>
-                            <p class="enlace"><strong>Acortado:</strong> <a href="${shortLink}" target="_blank">${shortLink}</a></p>
-                            <button onclick="copyToClipboard('${shortLink}')">Copiar Enlace</button>
+                            <button onclick="copyToClipboard('${url}')">Copiar Enlace</button>
                         </div>
                     `;
                 }
