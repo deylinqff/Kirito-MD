@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subir Archivo</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h2>Subir archivo</h2>
@@ -14,12 +15,14 @@
     </form>
     <p id="status"></p>
     <p id="link"></p>
+    <button id="copyButton" style="display:none;" onclick="copyLink()">Copiar Enlace</button>
 
     <script>
         async function uploadFile() {
             const fileInput = document.getElementById("fileInput");
             const status = document.getElementById("status");
             const link = document.getElementById("link");
+            const copyButton = document.getElementById("copyButton");
 
             if (!fileInput.files.length) {
                 status.textContent = "Selecciona un archivo primero.";
@@ -28,6 +31,7 @@
 
             status.textContent = "Subiendo archivo...";
             link.innerHTML = "";
+            copyButton.style.display = "none"; // Ocultamos el botón al principio
 
             const formData = new FormData();
             formData.append("image", fileInput.files[0]);
@@ -49,7 +53,12 @@
 
                     // Si la redirección fue exitosa, mostrar el enlace
                     if (result.status === 200) {
-                        link.innerHTML = `<a href="${result.config.url}" target="_blank">📂 Ver archivo</a>`;
+                        const modifiedUrl = result.data.url; // Suponemos que el backend responde con la URL modificada
+                        link.innerHTML = `<a href="${modifiedUrl}" target="_blank">📂 Ver archivo</a>`;
+
+                        // Mostrar el botón de copiar enlace
+                        copyButton.style.display = "inline-block";
+                        copyButton.dataset.url = modifiedUrl; // Almacenamos la URL en el botón para copiar
                     } else {
                         status.textContent = "❌ Error al generar URL personalizada.";
                     }
@@ -59,6 +68,20 @@
             } catch (error) {
                 console.error(error);
                 status.textContent = "❌ Error en la solicitud.";
+            }
+        }
+
+        function copyLink() {
+            const copyButton = document.getElementById("copyButton");
+            const urlToCopy = copyButton.dataset.url;
+
+            if (urlToCopy) {
+                // Copiar la URL al portapapeles
+                navigator.clipboard.writeText(urlToCopy).then(() => {
+                    alert('URL copiada al portapapeles');
+                }).catch((error) => {
+                    alert('Error al copiar al portapapeles');
+                });
             }
         }
     </script>
