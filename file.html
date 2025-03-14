@@ -6,23 +6,30 @@
     <title>Subir Archivo</title>
 </head>
 <body>
-
-    <h2>Subir Imagen o Video</h2>
-    <input type="file" id="fileInput">
-    <button onclick="uploadFile()">Subir</button>
-    <p id="fileLink"></p>
+    <h2>Subir archivo</h2>
+    <form id="uploadForm">
+        <input type="file" id="fileInput" required>
+        <button type="button" onclick="uploadFile()">Subir</button>
+    </form>
+    <p id="status"></p>
+    <p id="link"></p>
 
     <script>
         async function uploadFile() {
             const fileInput = document.getElementById("fileInput");
-            if (fileInput.files.length === 0) {
-                alert("Selecciona un archivo primero.");
+            const status = document.getElementById("status");
+            const link = document.getElementById("link");
+
+            if (!fileInput.files.length) {
+                status.textContent = "Selecciona un archivo primero.";
                 return;
             }
 
-            const file = fileInput.files[0];
+            status.textContent = "Subiendo archivo...";
+            link.innerHTML = "";
+
             const formData = new FormData();
-            formData.append("file", file);
+            formData.append("file", fileInput.files[0]);
 
             try {
                 const response = await fetch("/api/upload", {
@@ -32,17 +39,16 @@
 
                 const data = await response.json();
 
-                if (data.url) {
-                    document.getElementById("fileLink").innerHTML = 
-                        `Archivo subido: <a href="${data.url}" target="_blank">${data.url}</a>`;
+                if (response.ok) {
+                    status.textContent = "✅ Archivo subido con éxito.";
+                    link.innerHTML = `<a href="${data.url}" target="_blank">📂 Ver archivo</a>`;
                 } else {
-                    alert("Error al subir el archivo.");
+                    status.textContent = "❌ Error al subir archivo.";
                 }
             } catch (error) {
-                alert("Hubo un problema con la subida.");
+                status.textContent = "❌ Error en la solicitud.";
             }
         }
     </script>
-
 </body>
 </html>
