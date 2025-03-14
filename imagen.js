@@ -1,43 +1,13 @@
-async function uploadFile() {
-    const fileInput = document.getElementById("fileInput");
-    const status = document.getElementById("status");
-    const link = document.getElementById("link");
+module.exports = (req, res) => {
+    const { url } = req.query;
 
-    if (!fileInput.files.length) {
-        status.textContent = "Selecciona un archivo primero.";
-        return;
+    if (!url) {
+        return res.status(400).json({ success: false, message: 'No se proporcionó URL de la imagen.' });
     }
 
-    status.textContent = "Subiendo archivo...";
-    link.innerHTML = "";
+    // Decodificar la URL codificada
+    const decodedUrl = decodeURIComponent(url);
 
-    const formData = new FormData();
-    formData.append("image", fileInput.files[0]);
-
-    try {
-        const response = await axios.post('https://api.imgbb.com/1/upload?key=10604ee79e478b08aba6de5005e6c798', formData);
-
-        if (response.data.success) {
-            status.textContent = "✅ Archivo subido con éxito.";
-
-            // Obtener la URL de la imagen
-            const imageUrl = response.data.data.url;
-
-            // Codificar la URL antes de enviarla
-            const encodedUrl = encodeURIComponent(imageUrl);
-
-            // Enviar la URL al backend para redirigirla correctamente
-            const result = await axios.get(`https://kirito-md.vercel.app/imagen/${encodedUrl}`);
-
-            if (result.status === 200) {
-                link.innerHTML = `<a href="${result.data}" target="_blank">📂 Ver archivo</a>`;
-            } else {
-                status.textContent = "❌ Error al generar URL personalizada.";
-            }
-        } else {
-            status.textContent = "❌ Error al subir archivo.";
-        }
-    } catch (error) {
-        status.textContent = "❌ Error en la solicitud.";
-    }
-}
+    // Redirigir a la URL de ImgBB
+    return res.redirect(decodedUrl);
+};
