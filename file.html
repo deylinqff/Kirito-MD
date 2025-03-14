@@ -36,7 +36,7 @@
                 });
 
                 let link = await res.text();
-                console.log("Respuesta de la API:", link); // Añade este log para ver la respuesta de la API
+                console.log("Respuesta de la API:", link);
 
                 if (link.includes("Error")) {
                     console.error("Error en la respuesta de la API:", link);
@@ -70,6 +70,8 @@
                             <button onclick="copyToClipboard('${url}')">Copiar Enlace</button>
                         </div>
                     `;
+                } else {
+                    linksHtml += `<p>Error al subir la imagen: ${file.name}</p>`;
                 }
             }
 
