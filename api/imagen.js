@@ -1,5 +1,7 @@
+// api/imagen.js
+
 module.exports = (req, res) => {
-    const { url } = req.query;
+    const { url } = req.query;  // Recupera el parámetro 'url' de la solicitud
 
     if (!url) {
         return res.status(400).json({ success: false, message: 'No se proporcionó URL de la imagen.' });
