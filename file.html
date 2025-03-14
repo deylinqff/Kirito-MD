@@ -1,29 +1,50 @@
-async function uploadFile() {
-    const fileInput = document.getElementById("fileInput");
-    const status = document.getElementById("status");
-    const link = document.getElementById("link");
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subir Archivo</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h2>Subir archivo</h2>
+    <form id="uploadForm">
+        <input type="file" id="fileInput" required>
+        <button type="button" onclick="uploadFile()">Subir</button>
+    </form>
+    <p id="status"></p>
+    <p id="link"></p>
 
-    if (!fileInput.files.length) {
-        status.textContent = "Selecciona un archivo primero.";
-        return;
-    }
+    <script>
+        async function uploadFile() {
+            const fileInput = document.getElementById("fileInput");
+            const status = document.getElementById("status");
+            const link = document.getElementById("link");
 
-    status.textContent = "Subiendo archivo...";
-    link.innerHTML = "";
+            if (!fileInput.files.length) {
+                status.textContent = "Selecciona un archivo primero.";
+                return;
+            }
 
-    const formData = new FormData();
-    formData.append("image", fileInput.files[0]);
+            status.textContent = "Subiendo archivo...";
+            link.innerHTML = "";
 
-    try {
-        const response = await axios.post('https://api.imgbb.com/1/upload?key=10604ee79e478b08aba6de5005e6c798', formData);
+            const formData = new FormData();
+            formData.append("image", fileInput.files[0]);
 
-        if (response.data.success) {
-            status.textContent = "✅ Archivo subido con éxito.";
-            link.innerHTML = `<a href="${response.data.data.url}" target="_blank">📂 Ver archivo</a>`;
-        } else {
-            status.textContent = "❌ Error al subir archivo.";
+            try {
+                const response = await axios.post('https://api.imgbb.com/1/upload?key=10604ee79e478b08aba6de5005e6c798', formData);
+
+                if (response.data.success) {
+                    status.textContent = "✅ Archivo subido con éxito.";
+                    link.innerHTML = `<a href="${response.data.data.url}" target="_blank">📂 Ver archivo</a>`;
+                } else {
+                    status.textContent = "❌ Error al subir archivo.";
+                }
+            } catch (error) {
+                status.textContent = "❌ Error en la solicitud.";
+            }
         }
-    } catch (error) {
-        status.textContent = "❌ Error en la solicitud.";
-    }
-}
+    </script>
+</body>
+</html>
