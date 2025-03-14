@@ -36,7 +36,10 @@
                 });
 
                 let link = await res.text();
+                console.log("Respuesta de la API:", link); // Añade este log para ver la respuesta de la API
+
                 if (link.includes("Error")) {
+                    console.error("Error en la respuesta de la API:", link);
                     return null;
                 }
                 return link;
