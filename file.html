@@ -11,13 +11,13 @@
     <h2>Subir archivo</h2>
     <form id="uploadForm">
         <input type="file" id="fileInput" multiple required>
-        <button type="button" onclick="uploadFiles()">Subir</button>
+        <button type="button" onclick="uploadFile()">Subir</button>
     </form>
     <p id="status"></p>
     <div id="links"></div>
 
     <script>
-        async function uploadFiles() {
+        async function uploadFile() {
             const fileInput = document.getElementById("fileInput");
             const status = document.getElementById("status");
             const links = document.getElementById("links");
@@ -28,7 +28,7 @@
             }
 
             status.textContent = "Subiendo archivos...";
-            links.innerHTML = "";
+            links.innerHTML = "";  // Limpiar los links anteriores
 
             const formData = new FormData();
             for (let file of fileInput.files) {
@@ -41,7 +41,6 @@
                 if (response.data.success) {
                     status.textContent = "✅ Archivos subidos con éxito.";
 
-                    // Procesar las URL de las imágenes y videos
                     response.data.data.forEach((item) => {
                         const fileUrl = item.url;
                         const truncatedUrl = fileUrl.length > 30 ? fileUrl.substring(0, 30) + "..." : fileUrl;
