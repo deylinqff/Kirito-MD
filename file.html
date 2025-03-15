@@ -3,97 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subir Archivo</title>
+    <title>Subir Archivos</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h2>Subir archivo</h2>
+    <h2>Subir Archivos</h2>
     <form id="uploadForm">
         <input type="file" id="fileInput" multiple required>
-        <button type="button" onclick="uploadFile()">Subir</button>
+        <button type="button" onclick="uploadFiles()">Subir</button>
     </form>
     <p id="status"></p>
-    <div id="links"></div>
+    <div id="linksContainer"></div>
 
     <script>
-        async function uploadFile() {
+        async function uploadFiles() {
             const fileInput = document.getElementById("fileInput");
             const status = document.getElementById("status");
-            const links = document.getElementById("links");
+            const linksContainer = document.getElementById("linksContainer");
 
             if (!fileInput.files.length) {
-                status.textContent = "Selecciona archivos primero.";
+                status.textContent = "Selecciona al menos un archivo.";
                 return;
             }
 
             status.textContent = "Subiendo archivos...";
-            links.innerHTML = "";  // Limpiar los links anteriores
+            linksContainer.innerHTML = "";
 
-            const formData = new FormData();
-            for (let file of fileInput.files) {
-                formData.append("files[]", file);
-            }
+            const files = fileInput.files;
+            const apiKey = "10604ee79e478b08aba6de5005e6c798";
 
-            try {
-                const response = await axios.post('https://api.imgbb.com/1/upload?key=10604ee79e478b08aba6de5005e6c798', formData);
+            for (let file of files) {
+                const formData = new FormData();
+                formData.append("image", file);
 
-                if (response.data.success) {
-                    status.textContent = "✅ Archivos subidos con éxito.";
+                try {
+                    const response = await axios.post(`https://api.imgbb.com/1/upload?key=${apiKey}`, formData);
 
-                    response.data.data.forEach((item) => {
-                        const fileUrl = item.url;
-                        const truncatedUrl = fileUrl.length > 30 ? fileUrl.substring(0, 30) + "..." : fileUrl;
+                    if (response.data.success) {
+                        const imageUrl = response.data.data.url;
+                        const encodedUrl = encodeURIComponent(imageUrl);
+                        const result = await axios.get(`https://kirito-md.vercel.app/api/imagen?url=${encodedUrl}`);
 
-                        const urlBlock = document.createElement("div");
-                        urlBlock.classList.add("url-block");
+                        if (result.status === 200) {
+                            const modifiedUrl = result.config.url;
+                            const shortUrl = modifiedUrl.length > 50 ? modifiedUrl.substring(0, 50) + "..." : modifiedUrl;
 
-                        const urlText = document.createElement("p");
-                        urlText.textContent = truncatedUrl;
-
-                        const copyButton = document.createElement("button");
-                        copyButton.textContent = "Copiar URL";
-                        copyButton.onclick = () => copyToClipboard(fileUrl);
-
-                        urlBlock.appendChild(urlText);
-                        urlBlock.appendChild(copyButton);
-                        links.appendChild(urlBlock);
-                    });
-                } else {
-                    status.textContent = "❌ Error al subir archivos.";
+                            const linkBlock = document.createElement("div");
+                            linkBlock.innerHTML = `
+                                <p style="display: inline-block; width: 300px; overflow: hidden; text-overflow: ellipsis;">
+                                    ${shortUrl}
+                                </p>
+                                <button onclick="copyToClipboard('${modifiedUrl}')">Copiar</button>
+                                <br>
+                            `;
+                            linksContainer.appendChild(linkBlock);
+                        } else {
+                            status.textContent = "❌ Error al generar URL personalizada.";
+                        }
+                    } else {
+                        status.textContent = "❌ Error al subir archivo.";
+                    }
+                } catch (error) {
+                    console.error(error);
+                    status.textContent = "❌ Error en la solicitud.";
                 }
-            } catch (error) {
-                console.error(error);
-                status.textContent = "❌ Error en la solicitud.";
             }
+            status.textContent = "✅ Subida completada.";
         }
 
-        function copyToClipboard(url) {
-            const textarea = document.createElement("textarea");
-            textarea.value = url;
-            document.body.appendChild(textarea);
-            textarea.select();
-            document.execCommand("copy");
-            document.body.removeChild(textarea);
-            alert("URL copiada al portapapeles");
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert("URL copiada al portapapeles.");
+            }).catch(err => {
+                console.error("Error al copiar:", err);
+            });
         }
     </script>
-
-    <style>
-        .url-block {
-            margin-top: 10px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        .url-block p {
-            margin: 0;
-        }
-
-        .url-block button {
-            margin-top: 5px;
-        }
-    </style>
 </body>
 </html>
