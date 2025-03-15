@@ -10,59 +10,91 @@
 <body>
     <h2>Subir archivo</h2>
     <form id="uploadForm">
-        <input type="file" id="fileInput" required>
-        <button type="button" onclick="uploadFile()">Subir</button>
+        <input type="file" id="fileInput" multiple required>
+        <button type="button" onclick="uploadFiles()">Subir</button>
     </form>
     <p id="status"></p>
-    <p id="link"></p>
+    <div id="links"></div>
 
     <script>
-        async function uploadFile() {
+        async function uploadFiles() {
             const fileInput = document.getElementById("fileInput");
             const status = document.getElementById("status");
-            const link = document.getElementById("link");
+            const links = document.getElementById("links");
 
             if (!fileInput.files.length) {
-                status.textContent = "Selecciona un archivo primero.";
+                status.textContent = "Selecciona archivos primero.";
                 return;
             }
 
-            status.textContent = "Subiendo archivo...";
-            link.innerHTML = "";
+            status.textContent = "Subiendo archivos...";
+            links.innerHTML = "";
 
             const formData = new FormData();
-            formData.append("image", fileInput.files[0]);
+            for (let file of fileInput.files) {
+                formData.append("files[]", file);
+            }
 
             try {
                 const response = await axios.post('https://api.imgbb.com/1/upload?key=10604ee79e478b08aba6de5005e6c798', formData);
 
                 if (response.data.success) {
-                    status.textContent = "✅ Archivo subido con éxito.";
+                    status.textContent = "✅ Archivos subidos con éxito.";
 
-                    // Obtener la URL de la imagen
-                    const imageUrl = response.data.data.url;
+                    // Procesar las URL de las imágenes y videos
+                    response.data.data.forEach((item) => {
+                        const fileUrl = item.url;
+                        const truncatedUrl = fileUrl.length > 30 ? fileUrl.substring(0, 30) + "..." : fileUrl;
 
-                    // Codificar la URL antes de enviarla al backend
-                    const encodedUrl = encodeURIComponent(imageUrl);
+                        const urlBlock = document.createElement("div");
+                        urlBlock.classList.add("url-block");
 
-                    // Llamar a la API para redirigir a la URL de la imagen
-                    const result = await axios.get(`https://kirito-md.vercel.app/api/imagen?url=${encodedUrl}`);
+                        const urlText = document.createElement("p");
+                        urlText.textContent = truncatedUrl;
 
-                    // Si la redirección fue exitosa, mostrar la URL completa
-                    if (result.status === 200) {
-                        const modifiedUrl = result.config.url; // Suponemos que la URL modificada está en result.config.url
-                        link.innerHTML = `URL del archivo: <a href="${modifiedUrl}" target="_blank">${modifiedUrl}</a>`;
-                    } else {
-                        status.textContent = "❌ Error al generar URL personalizada.";
-                    }
+                        const copyButton = document.createElement("button");
+                        copyButton.textContent = "Copiar URL";
+                        copyButton.onclick = () => copyToClipboard(fileUrl);
+
+                        urlBlock.appendChild(urlText);
+                        urlBlock.appendChild(copyButton);
+                        links.appendChild(urlBlock);
+                    });
                 } else {
-                    status.textContent = "❌ Error al subir archivo.";
+                    status.textContent = "❌ Error al subir archivos.";
                 }
             } catch (error) {
                 console.error(error);
                 status.textContent = "❌ Error en la solicitud.";
             }
         }
+
+        function copyToClipboard(url) {
+            const textarea = document.createElement("textarea");
+            textarea.value = url;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+            alert("URL copiada al portapapeles");
+        }
     </script>
+
+    <style>
+        .url-block {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .url-block p {
+            margin: 0;
+        }
+
+        .url-block button {
+            margin-top: 5px;
+        }
+    </style>
 </body>
 </html>
