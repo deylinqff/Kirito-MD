@@ -27,12 +27,6 @@
             height: auto;
             max-height: 150px;
         }
-        .image-container a {
-            text-decoration: none;
-            color: #333;
-            font-weight: bold;
-            margin-top: 10px;
-        }
         .download-btn {
             margin-top: 10px;
             padding: 10px;
@@ -53,19 +47,16 @@
         <!-- Imagen 1 -->
         <div class="image-container">
             <img src="https://kirito-md.vercel.app/api/imagen?url=https%3A%2F%2Fi.ibb.co%2FXxTwpqT2%2F202503132358141.jpg" alt="Imagen 1">
-            <a href="https://kirito-md.vercel.app/api/imagen?url=https%3A%2F%2Fi.ibb.co%2FXxTwpqT2%2F202503132358141.jpg" target="_blank">Ver imagen</a>
             <button class="download-btn" onclick="downloadImage('https://kirito-md.vercel.app/api/imagen?url=https%3A%2F%2Fi.ibb.co%2FXxTwpqT2%2F202503132358141.jpg')">Descargar</button>
         </div>
         <!-- Imagen 2 -->
         <div class="image-container">
             <img src="https://via.placeholder.com/150" alt="Imagen 2">
-            <a href="https://via.placeholder.com/150" target="_blank">Ver imagen</a>
             <button class="download-btn" onclick="downloadImage('https://via.placeholder.com/150')">Descargar</button>
         </div>
         <!-- Imagen 3 -->
         <div class="image-container">
             <img src="https://via.placeholder.com/150" alt="Imagen 3">
-            <a href="https://via.placeholder.com/150" target="_blank">Ver imagen</a>
             <button class="download-btn" onclick="downloadImage('https://via.placeholder.com/150')">Descargar</button>
         </div>
     </div>
@@ -74,8 +65,8 @@
         function downloadImage(url) {
             const link = document.createElement('a');
             link.href = url;
-            link.download = url.split('/').pop();
-            link.click();
+            link.download = url.split('/').pop(); // Esto tomará el nombre del archivo desde la URL
+            link.click(); // Dispara la descarga automáticamente
         }
     </script>
 </body>
