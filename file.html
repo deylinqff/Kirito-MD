@@ -3,88 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subir Imágenes a Catbox</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
-        input { margin-bottom: 10px; }
-        .enlace-container { margin-top: 10px; padding: 10px; border: 1px solid #ddd; display: flex; flex-direction: column; align-items: center; }
-        .enlace { margin: 5px 0; }
-        button { cursor: pointer; margin-left: 5px; }
-    </style>
+    <title>Subir Archivo</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-    <h2>Subir Imágenes y Obtener Enlaces</h2>
-    <input type="file" id="fileInput" multiple accept="image/*,video/*">
-    <button onclick="uploadImages()">Subir</button>
-    
-    <div id="linksContainer"></div>
+    <h2>Subir archivo</h2>
+    <form id="uploadForm">
+        <input type="file" id="fileInput" required>
+        <button type="button" onclick="uploadFile()">Subir</button>
+    </form>
+    <p id="status"></p>
+    <p id="link"></p>
 
     <script>
-        async function uploadImage(file) {
-            const formData = new FormData();
-            formData.append("reqtype", "fileupload");
-            formData.append("fileToUpload", file);
+        async function uploadFile() {
+            const fileInput = document.getElementById("fileInput");
+            const status = document.getElementById("status");
+            const link = document.getElementById("link");
 
-            try {
-                let res = await fetch("https://catbox.moe/user/api.php", {
-                    method: "POST",
-                    body: formData,
-                    headers: {
-                        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36"
-                    },
-                });
-
-                let link = await res.text();
-                console.log("Respuesta de la API:", link);
-
-                if (link.includes("Error")) {
-                    console.error("Error en la respuesta de la API:", link);
-                    return null;
-                }
-                return link;
-            } catch (error) {
-                console.error("Error al subir imagen:", error);
-                return null;
-            }
-        }
-
-        async function uploadImages() {
-            let files = document.getElementById("fileInput").files;
-            if (files.length === 0) {
-                alert("Selecciona al menos una imagen.");
+            if (!fileInput.files.length) {
+                status.textContent = "Selecciona un archivo primero.";
                 return;
             }
 
-            let linksContainer = document.getElementById("linksContainer");
-            linksContainer.innerHTML = "<p>Subiendo imágenes...</p>";
+            status.textContent = "Subiendo archivo...";
+            link.innerHTML = "";
 
-            let linksHtml = "";
+            const formData = new FormData();
+            formData.append("image", fileInput.files[0]);
 
-            for (let file of files) {
-                console.log("Subiendo archivo:", file.name, file.size); // Añade este log para ver el nombre y tamaño del archivo
-                let url = await uploadImage(file);
-                if (url) {
-                    linksHtml += `
-                        <div class="enlace-container">
-                            <p class="enlace"><strong>Enlace:</strong> <a href="${url}" target="_blank">${url}</a></p>
-                            <button onclick="copyToClipboard('${url}')">Copiar Enlace</button>
-                        </div>
-                    `;
+            try {
+                const response = await axios.post('https://api.imgbb.com/1/upload?key=10604ee79e478b08aba6de5005e6c798', formData);
+
+                if (response.data.success) {
+                    status.textContent = "✅ Archivo subido con éxito.";
+
+                    // Obtener la URL de la imagen
+                    const imageUrl = response.data.data.url;
+
+                    // Codificar la URL antes de enviarla al backend
+                    const encodedUrl = encodeURIComponent(imageUrl);
+
+                    // Llamar a la API para redirigir a la URL de la imagen
+                    const result = await axios.get(`https://kirito-md.vercel.app/api/imagen?url=${encodedUrl}`);
+
+                    // Si la redirección fue exitosa, mostrar la URL completa
+                    if (result.status === 200) {
+                        const modifiedUrl = result.config.url; // Suponemos que la URL modificada está en result.config.url
+                        link.innerHTML = `URL del archivo: <a href="${modifiedUrl}" target="_blank">${modifiedUrl}</a>`;
+                    } else {
+                        status.textContent = "❌ Error al generar URL personalizada.";
+                    }
                 } else {
-                    linksHtml += `<p>Error al subir la imagen: ${file.name}</p>`;
+                    status.textContent = "❌ Error al subir archivo.";
                 }
+            } catch (error) {
+                console.error(error);
+                status.textContent = "❌ Error en la solicitud.";
             }
-
-            linksContainer.innerHTML = linksHtml || "<p>Error al subir imágenes.</p>";
-        }
-
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                alert("Enlace copiado al portapapeles.");
-            });
         }
     </script>
-
 </body>
 </html>
