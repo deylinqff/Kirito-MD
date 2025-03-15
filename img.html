@@ -46,19 +46,50 @@
     <div class="gallery">
         <!-- Imagen 1 -->
         <div class="image-container">
-            <img src="https://kirito-md.vercel.app/api/imagen?url=https%3A%2F%2Fi.ibb.co%2FXxTwpqT2%2F202503132358141.jpg" alt="Imagen 1">
-            <a href="https://kirito-md.vercel.app/api/imagen?url=https%3A%2F%2Fi.ibb.co%2FXxTwpqT2%2F202503132358141.jpg" download="imagen_1" class="download-btn">Descargar</a>
+            <img src="https://kirito-md.vercel.app/api/imagen?url=https%3A%2F%2Fi.ibb.co%2FLzxgnCtP%2F202503141944163.png" alt="Imagen 1">
+            <button class="download-btn" onclick="downloadImage('https://kirito-md.vercel.app/api/imagen?url=https%3A%2F%2Fi.ibb.co%2FLzxgnCtP%2F202503141944163.png', 'imagen_1.png')">Descargar</button>
         </div>
         <!-- Imagen 2 -->
         <div class="image-container">
-            <img src="https://via.placeholder.com/150" alt="Imagen 2">
-            <a href="https://via.placeholder.com/150" download="imagen_2" class="download-btn">Descargar</a>
+            <img src="https://kirito-md.vercel.app/api/imagen?url=https%3A%2F%2Fi.ibb.co%2FRGQS1pnY%2F202503141944161.png" alt="Imagen 2">
+            <button class="download-btn" onclick="downloadImage('https://kirito-md.vercel.app/api/imagen?url=https%3A%2F%2Fi.ibb.co%2FRGQS1pnY%2F202503141944161.png', 'imagen_2.png')">Descargar</button>
         </div>
         <!-- Imagen 3 -->
         <div class="image-container">
-            <img src="https://via.placeholder.com/150" alt="Imagen 3">
-            <a href="https://via.placeholder.com/150" download="imagen_3" class="download-btn">Descargar</a>
+            <img src="https://kirito-md.vercel.app/api/imagen?url=https%3A%2F%2Fi.ibb.co%2FTDLfzs46%2F202503141944162.jpg" alt="Imagen 3">
+            <button class="download-btn" onclick="downloadImage('https://kirito-md.vercel.app/api/imagen?url=https%3A%2F%2Fi.ibb.co%2FTDLfzs46%2F202503141944162.jpg', 'imagen_3.jpg')">Descargar</button>
+        </div>
+        <!-- Imagen 4 -->
+        <div class="image-container">
+            <img src="https://kirito-md.vercel.app/api/imagen?url=https%3A%2F%2Fi.ibb.co%2FrKWJRLhD%2F202503141944165.jpg" alt="Imagen 4">
+            <button class="download-btn" onclick="downloadImage('https://kirito-md.vercel.app/api/imagen?url=https%3A%2F%2Fi.ibb.co%2FrKWJRLhD%2F202503141944165.jpg', 'imagen_4.jpg')">Descargar</button>
+        </div>
+        <!-- Imagen 5 -->
+        <div class="image-container">
+            <img src="https://kirito-md.vercel.app/api/imagen?url=https%3A%2F%2Fi.ibb.co%2F1JZJfBL9%2F202503141944166.png" alt="Imagen 5">
+            <button class="download-btn" onclick="downloadImage('https://kirito-md.vercel.app/api/imagen?url=https%3A%2F%2Fi.ibb.co%2F1JZJfBL9%2F202503141944166.png', 'imagen_5.png')">Descargar</button>
+        </div>
+        <!-- Imagen 6 -->
+        <div class="image-container">
+            <img src="https://kirito-md.vercel.app/api/imagen?url=https%3A%2F%2Fi.ibb.co%2Fdw4jFmgj%2F202503141944164.png" alt="Imagen 6">
+            <button class="download-btn" onclick="downloadImage('https://kirito-md.vercel.app/api/imagen?url=https%3A%2F%2Fi.ibb.co%2Fdw4jFmgj%2F202503141944164.png', 'imagen_6.png')">Descargar</button>
+        </div>
+        <!-- Imagen 7 -->
+        <div class="image-container">
+            <img src="https://kirito-md.vercel.app/api/imagen?url=https%3A%2F%2Fi.ibb.co%2F1JZJfBL9%2F202503141944166.png" alt="Imagen 7">
+            <button class="download-btn" onclick="downloadImage('https://kirito-md.vercel.app/api/imagen?url=https%3A%2F%2Fi.ibb.co%2F1JZJfBL9%2F202503141944166.png', 'imagen_7.png')">Descargar</button>
         </div>
     </div>
+
+    <script>
+        function downloadImage(url, filename) {
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = filename; // Nombre del archivo a descargar
+            document.body.appendChild(link); // Necesario para algunos navegadores
+            link.click();
+            document.body.removeChild(link); // Limpiar el DOM después de la descarga
+        }
+    </script>
 </body>
 </html>
