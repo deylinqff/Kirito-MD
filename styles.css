@@ -49,10 +49,10 @@ body::before {
     animation: slideIn 2.8s ease-in-out forwards;
 }
 
-.menu-toggle { animation-delay: 5.2s; }
-.side-menu { animation-delay: 5.4s; }
-.bot-card { animation-delay: 5.6s; }
-button { animation-delay: 5.8s; }
+.menu-toggle { animation-delay: 1.2s; }
+.side-menu { animation-delay: 1.4s; }
+.bot-card { animation-delay: 1.6s; }
+button { animation-delay: 1.8s; }
 footer { animation-delay: 1s; }
 
 /* Estilo NEÓN */
