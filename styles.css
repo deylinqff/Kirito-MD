@@ -6,7 +6,6 @@
 }
 
 body {
-    background: #0d0d0d;
     color: #fff;
     text-align: center;
     display: flex;
@@ -19,135 +18,120 @@ body {
     animation: fadeIn 1s ease-in-out forwards;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+/* Video de fondo */
+.background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    filter: blur(2px) brightness(0.4);
 }
 
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Aplicando animación en cadena */
 .menu-toggle, .side-menu, .bot-card, button, footer {
     opacity: 0;
     transform: translateY(20px);
     animation: slideIn 0.8s ease-in-out forwards;
 }
 
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Animación escalonada */
 .menu-toggle { animation-delay: 0.2s; }
 .side-menu { animation-delay: 0.4s; }
 .bot-card { animation-delay: 0.6s; }
 button { animation-delay: 0.8s; }
 footer { animation-delay: 1s; }
 
-.menu-toggle {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    font-size: 30px;
+/* Estilo NEÓN */
+h3, .menu-toggle, .side-menu ul li a, footer {
+    text-shadow: 0 0 10px #00ffea, 0 0 20px #00ffea, 0 0 30px #00b7ff;
+}
+
+/* Botones neón */
+button {
+    background: transparent;
+    color: #00ffea;
+    border: 2px solid #00ffea;
+    padding: 12px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
     cursor: pointer;
-    color: #fff;
-    z-index: 1000;
-}
-
-.side-menu {
-    position: fixed;
-    top: 0;
-    left: -250px;
-    width: 250px;
-    height: 100%;
-    background-color: #111;
     transition: 0.3s ease;
-    padding-top: 20px;
-    z-index: 999;
+    width: 90%;
+    max-width: 250px;
+    margin: 10px 0;
+    text-shadow: 0 0 5px #00ffea;
+    box-shadow: 0 0 10px #00ffea, 0 0 20px #00b7ff;
 }
 
-.side-menu ul {
-    list-style: none;
-    padding: 0;
+button:hover {
+    background: #00ffea;
+    color: #111;
+    box-shadow: 0 0 15px #00ffea, 0 0 30px #00b7ff;
 }
 
-.side-menu ul li {
-    padding: 15px;
-    text-align: left;
-}
-
-.side-menu ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 18px;
-    display: block;
-    transition: 0.3s;
-}
-
-.side-menu ul li a:hover {
-    background-color: #575757;
-}
-
+/* Tarjeta del bot con efecto neón */
 .bot-card {
-    background: #111;
+    background: rgba(17, 17, 17, 0.8);
     padding: 20px;
     border-radius: 10px;
     margin-top: 20px;
     text-align: center;
     width: 90%;
     max-width: 400px;
-    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
-    border: 2px solid #222;
+    box-shadow: 0 0 10px #00ffea, 0 0 20px #00b7ff;
+    border: 2px solid #00b7ff;
 }
 
 .bot-card img {
     width: 120px;
     border-radius: 50%;
     margin-bottom: 15px;
-    border: 3px solid #007bff;
+    border: 3px solid #00ffea;
 }
 
-.bot-card h3 {
-    font-size: 1.4rem;
-    margin-bottom: 10px;
+/* Menú lateral */
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    transition: 0.3s ease;
+    padding-top: 20px;
+    z-index: 999;
+    box-shadow: 0 0 10px #00b7ff;
 }
 
-button {
-    background: #007bff;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    font-size: 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    width: 90%;
-    max-width: 250px;
-    margin: 10px 0;
+.side-menu ul li a:hover {
+    background-color: #00ffea;
+    color: #111;
 }
 
-button:hover {
-    background: #0056b3;
-}
-
+/* Footer */
 footer {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
     text-align: center;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.1);
     padding: 10px 0;
-    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
     font-size: 0.9rem;
-    color: #007bff;
+    color: #00ffea;
     font-weight: bold;
+    box-shadow: 0 -1px 10px #00b7ff;
 }
