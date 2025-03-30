@@ -34,7 +34,7 @@ body::before {
 /* Animaciones */
 @keyframes fadeIn {
     from { opacity: 0; }
-    to { opacity: 50; }
+    to { opacity: 20; }
 }
 
 @keyframes slideIn {
