@@ -45,8 +45,8 @@ body::before {
 /* Aplicando animación en cadena */
 .menu-toggle, .side-menu, .bot-card, button, footer {
     opacity: 0;
-    transform: translateY(50px);
-    animation: slideIn 9.8s ease-in-out forwards;
+    transform: translateY(20px);
+    animation: slideIn 2.8s ease-in-out forwards;
 }
 
 .menu-toggle { animation-delay: 5.2s; }
