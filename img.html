@@ -10,13 +10,31 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #ffff;
+            background-color: #000;
+            color: white;
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
         #text {
             font-size: 20px;
             white-space: pre-wrap;
             width: 60%;
+        }
+        .emoji {
+            position: absolute;
+            font-size: 30px;
+            animation: float 5s linear infinite;
+        }
+        @keyframes float {
+            from {
+                transform: translateY(100vh);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(-10vh);
+                opacity: 0;
+            }
         }
     </style>
 </head>
@@ -32,7 +50,21 @@
                 setTimeout(typeText, 50);
             }
         }
-        typeText();
-    </script>
+        typeText();function createEmoji() {
+        const emojiList = ['🔥', '🚀', '💡', '✨', '🤖'];
+        const emoji = document.createElement("div");
+        emoji.classList.add("emoji");
+        emoji.innerText = emojiList[Math.floor(Math.random() * emojiList.length)];
+        emoji.style.left = Math.random() * 100 + "vw";
+        emoji.style.top = "100vh";
+        emoji.style.animationDuration = Math.random() * 3 + 3 + "s";
+        document.body.appendChild(emoji);
+        setTimeout(() => {
+            emoji.remove();
+        }, 5000);
+    }
+    setInterval(createEmoji, 500);
+</script>
+
 </body>
 </html>
