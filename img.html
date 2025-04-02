@@ -13,22 +13,23 @@
         }
         .container {
             position: relative;
-            height: 90vh;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: start;
         }
         .falling-text {
-            font-size: 0.5rem;
+            font-size: 1.5rem;
             opacity: 0;
             position: relative;
-            animation: fall 1s ease-in-out forwards;
+            display: inline-block;
+            animation: fall 0.2s ease-in-out forwards;
         }
         @keyframes fall {
             from {
                 opacity: 0;
-                transform: translateY(-40px);
+                transform: translateY(-20px);
             }
             to {
                 opacity: 1;
@@ -38,25 +39,20 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <span class="falling-text" style="animation-delay: 0s;">Hola, soy Kirito-Bot MD,</span>
-        <span class="falling-text" style="animation-delay: 2s;">desarrollado por Deylin.</span>
-        <span class="falling-text" style="animation-delay: 4s;">Soy su mejor proyecto hasta ahora.</span>
-        <span class="falling-text" style="animation-delay: 6s;">Antes, él se dedicaba a jugar Minecraft,</span>
-        <span class="falling-text" style="animation-delay: 8s;">pero desde el momento que supo</span>
-        <span class="falling-text" style="animation-delay: 10s;">que los bots de WhatsApp existían,</span>
-        <span class="falling-text" style="animation-delay: 12s;">optó por desarrollarme.</span>
-        <span class="falling-text" style="animation-delay: 14s;">Soy una copia de Yukisuou-Bot,</span>
-        <span class="falling-text" style="animation-delay: 16s;">desarrollada por Destroy.</span>
-        <span class="falling-text" style="animation-delay: 18s;">Fui mejorado por Deylin,</span>
-        <span class="falling-text" style="animation-delay: 20s;">optimizado y perfeccionado.</span>
-        <span class="falling-text" style="animation-delay: 22s;">En mi REPOSITORIO no se encuentra</span>
-        <span class="falling-text" style="animation-delay: 24s;">ninguna evidencia de que soy</span>
-        <span class="falling-text" style="animation-delay: 26s;">una copia de Yukisaub-Bot MD,</span>
-        <span class="falling-text" style="animation-delay: 28s;">pero sí se encuentran los créditos</span>
-        <span class="falling-text" style="animation-delay: 30s;">del creador de Yuki Bot.</span>
-        <span class="falling-text" style="animation-delay: 32s;">Gracias por apoyarme.</span>
-        <span class="falling-text" style="animation-delay: 34s;">> Atte: © Deylin</span>
-    </div>
+    <div class="container" id="text-container"></div><script>
+    const text = "Hola soy Kirito-Bot MD, desarrollado por Deylin. Soy su mejor proyecto hasta ahora. Antes, él se dedicaba a jugar Minecraft, pero desde el momento que supo que los bots de WhatsApp existían, optó por desarrollarme. Yo soy una copia de Yukisaub-Bot MD, desarrollada por Destroy. Fui mejorado por Deylin y optimizado. En mi REPOSITORIO no se encuentra ninguna evidencia de que soy una copia de Yukisaub-Bot MD, pero sí se encuentran los créditos del creador de Yuki Bot. Gracias por apoyarme. > Atte: © Deylin";
+    const container = document.getElementById("text-container");
+
+    let delay = 0;
+    text.split('').forEach(char => {
+        const span = document.createElement("span");
+        span.textContent = char;
+        span.classList.add("falling-text");
+        span.style.animationDelay = `${delay}s`;
+        container.appendChild(span);
+        delay += 0.1;
+    });
+</script>
+
 </body>
 </html>
