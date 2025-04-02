@@ -1,0 +1,49 @@
+<!DOCTYPE html><html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejecutor de Código HTML y CSS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+        }
+        textarea {
+            width: 80%;
+            height: 150px;
+            margin-bottom: 10px;
+            font-family: monospace;
+            padding: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        iframe {
+            width: 80%;
+            height: 300px;
+            border: 1px solid #ccc;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Ejecutor de Código HTML y CSS</h2>
+    <textarea id="code" placeholder="Escribe tu código HTML y CSS aquí..."></textarea>
+    <button onclick="ejecutarCodigo()">Ejecutar</button>
+    <iframe id="output"></iframe><script>
+    function ejecutarCodigo() {
+        let codigo = document.getElementById("code").value;
+        let iframe = document.getElementById("output").contentWindow.document;
+        iframe.open();
+        iframe.write(codigo);
+        iframe.close();
+    }
+</script>
+
+</body>
+</html>
