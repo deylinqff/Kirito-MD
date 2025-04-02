@@ -2,27 +2,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ejecutor de Código HTML, CSS y JavaScript</title>
+    <title>Ejecutor de Código</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 10px;
+            margin: 0;
+            padding: 0;
         }
-        .editor-container {
+        .tabs {
             display: flex;
-            flex-wrap: wrap;
             width: 100%;
             max-width: 800px;
-            gap: 10px;
+            background: #333;
         }
-        .editor {
+        .tab {
             flex: 1;
-            min-width: 250px;
-            display: flex;
-            flex-direction: column;
+            text-align: center;
+            padding: 10px;
+            color: white;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+        }
+        .tab.active {
+            border-bottom: 3px solid #00bcd4;
+            background: #222;
+        }
+        .editor-container {
+            width: 100%;
+            max-width: 800px;
+            display: none;
+        }
+        .editor-container.active {
+            display: block;
         }
         textarea {
             width: 100%;
@@ -30,16 +44,10 @@
             font-family: monospace;
             padding: 10px;
         }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
         .output-container {
-            position: relative;
             width: 100%;
             max-width: 800px;
+            position: relative;
         }
         iframe {
             width: 100%;
@@ -58,32 +66,47 @@
     </style>
 </head>
 <body>
-    <h2>Ejecutor de Código HTML, CSS y JavaScript</h2>
-    <div class="editor-container">
-        <div class="editor">
-            <label>HTML & CSS & JS</label>
-            <textarea id="code" placeholder="Escribe tu código aquí..."></textarea>
-        </div>
-        <div class="editor">
-            <label>JavaScript</label>
-            <textarea id="js" placeholder="Escribe tu código JavaScript aquí..."></textarea>
-        </div>
-    </div>
-    <div class="output-container">
-        <button onclick="toggleFullScreen()">Pantalla Completa</button>
-        <iframe id="output"></iframe>
-    </div><script>
+    <div class="tabs">
+        <div class="tab active" onclick="changeTab('html')">HTML</div>
+        <div class="tab" onclick="changeTab('css')">CSS</div>
+        <div class="tab" onclick="changeTab('js')">JS</div>
+        <div class="tab" onclick="changeTab('result')">Result</div>
+    </div><div id="html" class="editor-container active">
+    <textarea id="html-code" placeholder="Escribe tu código HTML aquí..."></textarea>
+</div>
+<div id="css" class="editor-container">
+    <textarea id="css-code" placeholder="Escribe tu código CSS aquí..."></textarea>
+</div>
+<div id="js" class="editor-container">
+    <textarea id="js-code" placeholder="Escribe tu código JavaScript aquí..."></textarea>
+</div>
+
+<div class="output-container">
+    <button onclick="toggleFullScreen()">Pantalla Completa</button>
+    <iframe id="output"></iframe>
+</div>
+
+<script>
     function ejecutarCodigo() {
-        let htmlCss = document.getElementById("code").value;
-        let js = document.getElementById("js").value;
+        let html = document.getElementById("html-code").value;
+        let css = document.getElementById("css-code").value;
+        let js = document.getElementById("js-code").value;
         let iframe = document.getElementById("output").contentWindow.document;
         iframe.open();
-        iframe.write(`<!DOCTYPE html><html lang='es'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'><style>${htmlCss}</style></head><body>${htmlCss}<script>${js}<\/script></body></html>`);
+        iframe.write(`<!DOCTYPE html><html lang='es'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'><style>${css}</style></head><body>${html}<script>${js}<\/script></body></html>`);
         iframe.close();
     }
 
-    document.getElementById("code").addEventListener("input", ejecutarCodigo);
-    document.getElementById("js").addEventListener("input", ejecutarCodigo);
+    document.getElementById("html-code").addEventListener("input", ejecutarCodigo);
+    document.getElementById("css-code").addEventListener("input", ejecutarCodigo);
+    document.getElementById("js-code").addEventListener("input", ejecutarCodigo);
+
+    function changeTab(tab) {
+        document.querySelectorAll('.editor-container').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+        document.getElementById(tab).classList.add('active');
+        document.querySelector(`.tab[onclick="changeTab('${tab}')"]`).classList.add('active');
+    }
 
     function toggleFullScreen() {
         let iframe = document.getElementById("output");
