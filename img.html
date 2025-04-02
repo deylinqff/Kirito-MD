@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Animación de Texto en Caída</title>
+    <title>Animación de Texto</title>
     <style>
         body {
             background-color: black;
@@ -10,45 +10,39 @@
             font-family: Arial, sans-serif;
             text-align: center;
             overflow: hidden;
-        }
-        .container {
-            position: relative;
-            height: 100vh;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            justify-content: start;
+            height: 100vh;
         }
-        .falling-text {
+        .text-container {
             font-size: 1.5rem;
-            opacity: 0;
-            position: relative;
-            display: inline-block;
-            animation: fall 0.2s ease-in-out forwards;
+            white-space: nowrap;
         }
-        @keyframes fall {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .letter {
+            opacity: 0;
+            display: inline-block;
+            animation: appear 0.1s forwards;
+        }
+        @keyframes appear {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
 <body>
-    <div class="container" id="text-container"></div><script>
+    <div class="text-container" id="text-container"></div><script>
     const text = "Hola soy Kirito-Bot MD, desarrollado por Deylin. Soy su mejor proyecto hasta ahora. Antes, él se dedicaba a jugar Minecraft, pero desde el momento que supo que los bots de WhatsApp existían, optó por desarrollarme. Yo soy una copia de Yukisaub-Bot MD, desarrollada por Destroy. Fui mejorado por Deylin y optimizado. En mi REPOSITORIO no se encuentra ninguna evidencia de que soy una copia de Yukisaub-Bot MD, pero sí se encuentran los créditos del creador de Yuki Bot. Gracias por apoyarme. > Atte: © Deylin";
     const container = document.getElementById("text-container");
+    const colors = ["red", "orange", "yellow", "green", "blue", "purple", "cyan", "white"];
 
     let delay = 0;
     text.split('').forEach(char => {
         const span = document.createElement("span");
         span.textContent = char;
-        span.classList.add("falling-text");
+        span.classList.add("letter");
         span.style.animationDelay = `${delay}s`;
+        span.style.color = colors[Math.floor(Math.random() * colors.length)];
         container.appendChild(span);
         delay += 0.1;
     });
