@@ -1,95 +1,82 @@
-<!DOCTYPE html>
-<html lang="es">
+<!DOCTYPE html><html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabla Periódica Completa</title>
+    <title>Información sobre Kirito-Bot MD</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f0f0f0;
-        }
-        .tabla-periodica {
-            display: grid;
-            grid-template-columns: repeat(18, 1fr);
-            gap: 5px;
-            margin: 20px;
-        }
-        .elemento {
-            background-color: #4CAF50;
+            background-color: #000;
             color: white;
+            text-align: left;
             padding: 20px;
-            border-radius: 5px;
-            transition: transform 0.2s;
+            overflow-y: auto;
+            height: 100vh;
         }
-        .elemento:hover {
-            transform: scale(1.1);
+        #text {
+            font-size: 20px;
+            white-space: pre-wrap;
+            width: 60%;
+        }
+        .emoji {
+            position: absolute;
+            font-size: 20px;
+            animation: float 1s linear;
+        }
+        @keyframes float {
+            from {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Tabla Periódica de los Elementos</h1>
-    <div class="tabla-periodica">
-        <div class="elemento">H</div>
-        <div class="elemento">He</div>
-        <div class="elemento">Li</div>
-        <div class="elemento">Be</div>
-        <div class="elemento">B</div>
-        <div class="elemento">C</div>
-        <div class="elemento">N</div>
-        <div class="elemento">O</div>
-        <div class="elemento">F</div>
-        <div class="elemento">Ne</div>
-        <div class="elemento">Na</div>
-        <div class="elemento">Mg</div>
-        <div class="elemento">Al</div>
-        <div class="elemento">Si</div>
-        <div class="elemento">P</div>
-        <div class="elemento">S</div>
-        <div class="elemento">Cl</div>
-        <div class="elemento">Ar</div>
-        <div class="elemento">K</div>
-        <div class="elemento">Ca</div>
-        <div class="elemento">Sc</div>
-        <div class="elemento">Ti</div>
-        <div class="elemento">V</div>
-        <div class="elemento">Cr</div>
-        <div class="elemento">Mn</div>
-        <div class="elemento">Fe</div>
-        <div class="elemento">Co</div>
-        <div class="elemento">Ni</div>
-        <div class="elemento">Cu</div>
-        <div class="elemento">Zn</div>
-        <div class="elemento">Ga</div>
-        <div class="elemento">Ge</div>
-        <div class="elemento">As</div>
-        <div class="elemento">Se</div>
-        <div class="elemento">Br</div>
-        <div class="elemento">Kr</div>
-        <div class="elemento">Rb</div>
-        <div class="elemento">Sr</div>
-        <div class="elemento">Y</div>
-        <div class="elemento">Zr</div>
-        <div class="elemento">Nb</div>
-        <div class="elemento">Mo</div>
-        <div class="elemento">Tc</div>
-        <div class="elemento">Ru</div>
-        <div class="elemento">Rh</div>
-        <div class="elemento">Pd</div>
-        <div class="elemento">Ag</div>
-        <div class="elemento">Cd</div>
-        <div class="elemento">In</div>
-        <div class="elemento">Sn</div>
-        <div class="elemento">Sb</div>
-        <div class="elemento">Te</div>
-        <div class="elemento">I</div>
-        <div class="elemento">Xe</div>
-        <div class="elemento">Cs</div>
-        <div class="elemento">Ba</div>
-        <div class="elemento">La</div>
-        <div class="elemento">Ce</div>
-        <div class="elemento">Pr</div>
-        <div class="elemento">Nd</div>
-        <div class="elemento">Pm</div>
-        <div class="elemento">Sm</div>
+    <div id="text"></div>
+    <script>
+        const text = `Hola, soy Kirito-Bot MD, un asistente desarrollado por Deylin.Soy el resultado de un esfuerzo continuo por crear un bot de WhatsApp eficiente, versátil y optimizado. Mi desarrollo se basó en Yukisuou-Bot MD, creado por Destroy, pero he sido mejorado y optimizado para ofrecer una experiencia más fluida y avanzada.
+
+Aunque en mi repositorio no hay evidencia directa de mi origen, se han respetado los créditos correspondientes al creador de Yuki Bot, en reconocimiento a su trabajo. Deylin ha trabajado arduamente en mi desarrollo, perfeccionando mis funciones y asegurándose de que pueda brindar la mejor asistencia posible a quienes me utilizan.
+
+Agradezco su apoyo y confianza en este proyecto. Seguiré evolucionando para ofrecer un mejor servicio.
+
+Atentamente, © Deylin`;
+
+const emojiList = ['🔥', '🚀', '💡', '✨', '🤖'];
+    let index = 0;
+
+    function typeText() {
+        if (index < text.length) {
+            const char = text[index];
+            document.getElementById("text").innerHTML += char;
+            document.getElementById("text").scrollTop = document.getElementById("text").scrollHeight;
+
+            if (char !== ' ' && char !== '\n') {
+                createEmoji();
+            }
+            index++;
+            setTimeout(typeText, 50);
+        }
+    }
+
+    function createEmoji() {
+        const emoji = document.createElement("div");
+        emoji.classList.add("emoji");
+        emoji.innerText = emojiList[Math.floor(Math.random() * emojiList.length)];
+        emoji.style.left = Math.random() * window.innerWidth + "px";
+        emoji.style.top = Math.random() * window.innerHeight + "px";
+        document.body.appendChild(emoji);
+        setTimeout(() => {
+            emoji.remove();
+        }, 1000);
+    }
+
+    typeText();
+</script>
+
+</body>
+</html>
