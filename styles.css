@@ -18,7 +18,6 @@ body {
     animation: fadeIn 1s ease-in-out forwards;
 }
 
-/* Video de fondo */
 body::before {
     content: "";
     position: fixed;
@@ -26,8 +25,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: url('https://f.uguu.se/CGlCHdAb.mp4') no-repeat center center/cover;
-    background-size: cover;
+    background-color: black;  /* Cambié el fondo a negro */
     z-index: -1;
 }
 
