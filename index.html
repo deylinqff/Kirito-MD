@@ -13,8 +13,80 @@
     <meta name="twitter:image" content="https://i.ibb.co/Mk871YM8/file.jpg">
     <title>Kirito-Bot MD</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .bot-card {
+            margin-top: 20px;
+        }
+        .bot-info button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .bot-info button:hover {
+            background-color: #0056b3;
+        }
+        .menu-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .menu {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 10px;
+            background: white;
+            border: 1px solid #ddd;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            text-align: left;
+        }
+        .menu a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #333;
+        }
+        .menu a:hover {
+            background-color: #f0f0f0;
+        }
+        footer {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f8f8f8;
+        }
+    </style>
 </head>
 <body>
+
+    <button class="menu-button" onclick="toggleMenu()">☰</button>
+
+    <div class="menu" id="menu">
+        <a href="https://chat.whatsapp.com/F8KwM3rVqkS9HhR5msoRqQ">Grupo Oficial</a>
+        <a href="https://whatsapp.com/channel/0029VawF8fBBvvsktcInIz3m">Canal Oficial</a>
+        <a href="https://github.com/deylinqff/Kirito-Bot-MD">Repositorio</a>
+        <a href="Información.html">Información del Bot</a>
+        <a href="ejercicio-visual.html">🚀 HTML y CSS</a>
+    </div>
 
     <div class="bot-card">
         <img src="https://kirito-md.vercel.app/api/imagen?url=https%3A%2F%2Fi.ibb.co%2FfYGPj3wt%2FFA-Cd-ZFVIBIGBOg.png" alt="Kirito Bot Logo">
@@ -26,14 +98,19 @@
         <button onclick="window.location.href='https://whatsapp.com/channel/0029VawF8fBBvvsktcInIz3m'">𝑪𝒂𝒏𝒂𝒍 𝑶𝒇𝒊𝒄𝒊𝒂𝒍</button>
         <button onclick="window.location.href='https://github.com/deylinqff/Kirito-Bot-MD'">𝑹𝒆𝒑𝒐𝒔𝒊𝒕𝒐𝒓𝒊𝒐</button>
         <button onclick="window.location.href='Información.html'">𝐈𝐧𝐟𝐨𝐫𝐦𝐚𝐜𝐢𝐨𝐧 𝐝𝐞𝐥 𝐨𝐫𝐢𝐠𝐞𝐧 𝐝𝐞 𝐊𝐢𝐫𝐢𝐭𝐨- 𝐁𝐨𝐭 𝐌𝐃</button>
-        <button onclick="window.location.href=' ejercicio-visual.html'">🚀 𝐇𝐓𝐌𝐋 𝐲 𝐂𝐒𝐒</button>
+        <button onclick="window.location.href='ejercicio-visual.html'">🚀 𝐇𝐓𝐌𝐋 𝐲 𝐂𝐒𝐒</button>
     </div>
 
     <footer>
         <p><strong>Kirito-Bot</strong> | Todos los derechos reservados</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        function toggleMenu() {
+            let menu = document.getElementById("menu");
+            menu.style.display = (menu.style.display === "block") ? "none" : "block";
+        }
+    </script>
 
 </body>
 </html>
