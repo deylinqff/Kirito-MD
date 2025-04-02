@@ -2,47 +2,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ejecutor de Código HTML y CSS</title>
+    <title>Información sobre Kirito-Bot MD</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 20px;
+            background-color: #000;
+            color: white;
+            text-align: left;
+            padding: 20px;
+            overflow-y: auto;
+            height: 100vh;
         }
-        textarea {
-            width: 80%;
-            height: 150px;
-            margin-bottom: 10px;
-            font-family: monospace;
-            padding: 10px;
+        #text {
+            font-size: 20px;
+            white-space: pre-wrap;
+            width: 60%;
         }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
+        .emoji {
+            position: absolute;
+            font-size: 20px;
+            animation: float 1s linear;
         }
-        iframe {
-            width: 80%;
-            height: 300px;
-            border: 1px solid #ccc;
-            margin-top: 10px;
+        @keyframes float {
+            from {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
         }
     </style>
 </head>
 <body>
-    <h2>Ejecutor de Código HTML y CSS</h2>
-    <textarea id="code" placeholder="Escribe tu código HTML y CSS aquí..."></textarea>
-    <button onclick="ejecutarCodigo()">Ejecutar</button>
-    <iframe id="output"></iframe><script>
-    function ejecutarCodigo() {
-        let codigo = document.getElementById("code").value;
-        let iframe = document.getElementById("output").contentWindow.document;
-        iframe.open();
-        iframe.write(codigo);
-        iframe.close();
+    <div id="text"></div>
+    <script>
+        const text = `Hola, soy Kirito-Bot MD, un asistente desarrollado por Deylin.Soy el resultado de un esfuerzo continuo por crear un bot de WhatsApp eficiente, versátil y optimizado. Mi desarrollo se basó en Yukisuou-Bot MD, creado por Destroy, pero he sido mejorado y optimizado para ofrecer una experiencia más fluida y avanzada.
+
+Aunque en mi repositorio no hay evidencia directa de mi origen, se han respetado los créditos correspondientes al creador de Yuki Bot, en reconocimiento a su trabajo. Deylin ha trabajado arduamente en mi desarrollo, perfeccionando mis funciones y asegurándose de que pueda brindar la mejor asistencia posible a quienes me utilizan.
+
+Agradezco su apoyo y confianza en este proyecto. Seguiré evolucionando para ofrecer un mejor servicio.
+
+Atentamente, © Deylin`;
+
+const emojiList = ['🔥', '🚀', '💡', '✨', '🤖'];
+    let index = 0;
+
+    function typeText() {
+        if (index < text.length) {
+            const char = text[index];
+            document.getElementById("text").innerHTML += char;
+            document.getElementById("text").scrollTop = document.getElementById("text").scrollHeight;
+
+            if (char !== ' ' && char !== '\n') {
+                createEmoji();
+            }
+            index++;
+            setTimeout(typeText, 50);
+        }
     }
+
+    function createEmoji() {
+        const emoji = document.createElement("div");
+        emoji.classList.add("emoji");
+        emoji.innerText = emojiList[Math.floor(Math.random() * emojiList.length)];
+        emoji.style.left = Math.random() * window.innerWidth + "px";
+        emoji.style.top = Math.random() * window.innerHeight + "px";
+        document.body.appendChild(emoji);
+        setTimeout(() => {
+            emoji.remove();
+        }, 1000);
+    }
+
+    typeText();
 </script>
 
 </body>
