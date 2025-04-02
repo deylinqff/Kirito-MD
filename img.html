@@ -1,95 +1,62 @@
-<!DOCTYPE html>
-<html lang="es">
+<!DOCTYPE html><html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galería de Imágenes</title>
+    <title>Animación de Texto en Caída</title>
     <style>
         body {
+            background-color: black;
+            color: white;
             font-family: Arial, sans-serif;
             text-align: center;
-            padding: 20px;
+            overflow: hidden;
         }
-        .gallery {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-        }
-        .image-container {
+        .container {
+            position: relative;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            max-width: 200px;
+            justify-content: start;
         }
-        .image-container img {
-            width: 100%;
-            height: auto;
-            max-height: 150px;
+        .falling-text {
+            font-size: 2rem;
+            opacity: 0;
+            position: relative;
+            animation: fall 2s ease-in-out forwards;
         }
-        .download-btn {
-            margin-top: 10px;
-            padding: 10px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .download-btn:hover {
-            background-color: #0056b3;
+        @keyframes fall {
+            from {
+                opacity: 0;
+                transform: translateY(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
 <body>
-    <h2>Galería de Imágenes</h2>
-    <div class="gallery">
-        <!-- Imagen 1 -->
-        <div class="image-container">
-            <img src="https://kirito-md.vercel.app/api/imagen?url=https%3A%2F%2Fi.ibb.co%2FLzxgnCtP%2F202503141944163.png" alt="Imagen 1">
-            <button class="download-btn" onclick="downloadImage('https://kirito-md.vercel.app/api/imagen?url=https%3A%2F%2Fi.ibb.co%2FLzxgnCtP%2F202503141944163.png', 'imagen_1.png')">Descargar</button>
-        </div>
-        <!-- Imagen 2 -->
-        <div class="image-container">
-            <img src="https://kirito-md.vercel.app/api/imagen?url=https%3A%2F%2Fi.ibb.co%2FRGQS1pnY%2F202503141944161.png" alt="Imagen 2">
-            <button class="download-btn" onclick="downloadImage('https://kirito-md.vercel.app/api/imagen?url=https%3A%2F%2Fi.ibb.co%2FRGQS1pnY%2F202503141944161.png', 'imagen_2.png')">Descargar</button>
-        </div>
-        <!-- Imagen 3 -->
-        <div class="image-container">
-            <img src="https://kirito-md.vercel.app/api/imagen?url=https%3A%2F%2Fi.ibb.co%2FTDLfzs46%2F202503141944162.jpg" alt="Imagen 3">
-            <button class="download-btn" onclick="downloadImage('https://kirito-md.vercel.app/api/imagen?url=https%3A%2F%2Fi.ibb.co%2FTDLfzs46%2F202503141944162.jpg', 'imagen_3.jpg')">Descargar</button>
-        </div>
-        <!-- Imagen 4 -->
-        <div class="image-container">
-            <img src="https://kirito-md.vercel.app/api/imagen?url=https%3A%2F%2Fi.ibb.co%2FrKWJRLhD%2F202503141944165.jpg" alt="Imagen 4">
-            <button class="download-btn" onclick="downloadImage('https://kirito-md.vercel.app/api/imagen?url=https%3A%2F%2Fi.ibb.co%2FrKWJRLhD%2F202503141944165.jpg', 'imagen_4.jpg')">Descargar</button>
-        </div>
-        <!-- Imagen 5 -->
-        <div class="image-container">
-            <img src="https://kirito-md.vercel.app/api/imagen?url=https%3A%2F%2Fi.ibb.co%2F1JZJfBL9%2F202503141944166.png" alt="Imagen 5">
-            <button class="download-btn" onclick="downloadImage('https://kirito-md.vercel.app/api/imagen?url=https%3A%2F%2Fi.ibb.co%2F1JZJfBL9%2F202503141944166.png', 'imagen_5.png')">Descargar</button>
-        </div>
-        <!-- Imagen 6 -->
-        <div class="image-container">
-            <img src="https://kirito-md.vercel.app/api/imagen?url=https%3A%2F%2Fi.ibb.co%2Fdw4jFmgj%2F202503141944164.png" alt="Imagen 6">
-            <button class="download-btn" onclick="downloadImage('https://kirito-md.vercel.app/api/imagen?url=https%3A%2F%2Fi.ibb.co%2Fdw4jFmgj%2F202503141944164.png', 'imagen_6.png')">Descargar</button>
-        </div>
-        <!-- Imagen 7 -->
-        <div class="image-container">
-            <img src="https://kirito-md.vercel.app/api/imagen?url=https%3A%2F%2Fi.ibb.co%2F1JZJfBL9%2F202503141944166.png" alt="Imagen 7">
-            <button class="download-btn" onclick="downloadImage('https://kirito-md.vercel.app/api/imagen?url=https%3A%2F%2Fi.ibb.co%2F1JZJfBL9%2F202503141944166.png', 'imagen_7.png')">Descargar</button>
-        </div>
+    <div class="container">
+        <span class="falling-text" style="animation-delay: 0s;">S</span>
+        <span class="falling-text" style="animation-delay: 0.2s;">i</span>
+        <span class="falling-text" style="animation-delay: 0.4s;">n</span>
+        <span class="falling-text" style="animation-delay: 0.6s;">g</span>
+        <span class="falling-text" style="animation-delay: 0.8s;">e</span>
+        <span class="falling-text" style="animation-delay: 1s;">r</span>
+        <span class="falling-text" style="animation-delay: 1.2s;">♪</span>
+        <span class="falling-text" style="animation-delay: 1.4s;">S</span>
+        <span class="falling-text" style="animation-delay: 1.6s;">o</span>
+        <span class="falling-text" style="animation-delay: 1.8s;">n</span>
+        <span class="falling-text" style="animation-delay: 2s;">g</span>
+        <span class="falling-text" style="animation-delay: 2.2s;">♪</span>
+        <span class="falling-text" style="animation-delay: 2.4s;">D</span>
+        <span class="falling-text" style="animation-delay: 2.6s;">e</span>
+        <span class="falling-text" style="animation-delay: 2.8s;">s</span>
+        <span class="falling-text" style="animation-delay: 3s;">i</span>
+        <span class="falling-text" style="animation-delay: 3.2s;">g</span>
+        <span class="falling-text" style="animation-delay: 3.4s;">n</span>
     </div>
-
-    <script>
-        function downloadImage(url, filename) {
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = filename; // Nombre del archivo a descargar
-            document.body.appendChild(link); // Necesario para algunos navegadores
-            link.click();
-            document.body.removeChild(link); // Limpiar el DOM después de la descarga
-        }
-    </script>
 </body>
 </html>
