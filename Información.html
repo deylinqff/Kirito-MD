@@ -6,15 +6,12 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: flex-start;
-            align-items: flex-start;
-            height: 100vh;
             background-color: #000;
             color: white;
             text-align: left;
             padding: 20px;
-            overflow: hidden;
+            overflow-y: auto;
+            height: 100vh;
         }
         #text {
             font-size: 20px;
@@ -56,6 +53,7 @@ const emojiList = ['🔥', '🚀', '💡', '✨', '🤖'];
         if (index < text.length) {
             const char = text[index];
             document.getElementById("text").innerHTML += char;
+            document.getElementById("text").scrollTop = document.getElementById("text").scrollHeight;
             
             if (char !== ' ' && char !== '\n') {
                 createEmoji();
