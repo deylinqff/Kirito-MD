@@ -2,51 +2,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Animación de Texto</title>
+    <title>Kirito-Bot MD</title>
     <style>
         body {
-            background-color: black;
-            color: white;
             font-family: Arial, sans-serif;
-            text-align: center;
-            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            background-color: #f4f4f4;
+            text-align: center;
         }
-        .text-container {
-            font-size: 1.5rem;
-            white-space: nowrap;
-        }
-        .letter {
-            opacity: 0;
-            display: inline-block;
-            animation: appear 0.1s forwards;
-        }
-        @keyframes appear {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        #text {
+            font-size: 20px;
+            white-space: pre-wrap;
+            width: 60%;
         }
     </style>
 </head>
 <body>
-    <div class="text-container" id="text-container"></div><script>
-    const text = "Hola soy Kirito-Bot MD, desarrollado por Deylin. Soy su mejor proyecto hasta ahora. Antes, él se dedicaba a jugar Minecraft, pero desde el momento que supo que los bots de WhatsApp existían, optó por desarrollarme. Yo soy una copia de Yukisaub-Bot MD, desarrollada por Destroy. Fui mejorado por Deylin y optimizado. En mi REPOSITORIO no se encuentra ninguna evidencia de que soy una copia de Yukisaub-Bot MD, pero sí se encuentran los créditos del creador de Yuki Bot. Gracias por apoyarme. > Atte: © Deylin";
-    const container = document.getElementById("text-container");
-    const colors = ["red", "orange", "yellow", "green", "blue", "purple", "cyan", "white"];
-
-    let delay = 0;
-    text.split('').forEach(char => {
-        const span = document.createElement("span");
-        span.textContent = char;
-        span.classList.add("letter");
-        span.style.animationDelay = `${delay}s`;
-        span.style.color = colors[Math.floor(Math.random() * colors.length)];
-        container.appendChild(span);
-        delay += 0.1;
-    });
-</script>
-
+    <div id="text"></div>
+    <script>
+        const text = "Hola, soy Kirito-Bot MD, desarrollado por Deylin. Soy su mejor proyecto hasta ahora. Antes, él se dedicaba a jugar Minecraft, pero desde el momento en que supo que los bots de WhatsApp existían, optó por desarrollarme.\n\nSoy una copia de Yukisuou-Bot MD, desarrollada por Destroy. Fui mejorado por Deylin y optimizado. En mi REPOSITORIO no se encuentra ninguna evidencia de que soy una copia de Yukisuou-Bot MD, pero sí se encuentran los créditos del creador de Yuki Bot.\n\nGracias por apoyarme.\n\nAtte: © Deylin";
+        let index = 0;
+        function typeText() {
+            if (index < text.length) {
+                document.getElementById("text").innerHTML += text[index];
+                index++;
+                setTimeout(typeText, 50);
+            }
+        }
+        typeText();
+    </script>
 </body>
 </html>
