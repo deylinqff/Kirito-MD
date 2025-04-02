@@ -7,13 +7,13 @@
         body {
             font-family: Arial, sans-serif;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            justify-content: flex-start;
+            align-items: flex-start;
             height: 100vh;
             background-color: #000;
             color: white;
-            text-align: center;
-            position: relative;
+            text-align: left;
+            padding: 20px;
             overflow: hidden;
         }
         #text {
@@ -23,8 +23,8 @@
         }
         .emoji {
             position: absolute;
-            font-size: 30px;
-            animation: float 5s linear;
+            font-size: 20px;
+            animation: float 1s linear;
         }
         @keyframes float {
             from {
@@ -32,7 +32,7 @@
                 opacity: 1;
             }
             to {
-                transform: translateY(-100vh);
+                transform: translateY(-50px);
                 opacity: 0;
             }
         }
@@ -41,42 +41,43 @@
 <body>
     <div id="text"></div>
     <script>
-        const text = `*Hola, soy Kirito-Bot MD, un asistente desarrollado por Deylin.*
-
-Soy el resultado de un esfuerzo continuo por crear un bot de WhatsApp eficiente, versátil y optimizado. Mi desarrollo se basó en Yukisuou-Bot MD, creado por Destroy, pero he sido mejorado y optimizado para ofrecer una experiencia más fluida y avanzada.
+        const text = `Hola, soy Kirito-Bot MD, un asistente desarrollado por Deylin.Soy el resultado de un esfuerzo continuo por crear un bot de WhatsApp eficiente, versátil y optimizado. Mi desarrollo se basó en Yukisuou-Bot MD, creado por Destroy, pero he sido mejorado y optimizado para ofrecer una experiencia más fluida y avanzada.
 
 Aunque en mi repositorio no hay evidencia directa de mi origen, se han respetado los créditos correspondientes al creador de Yuki Bot, en reconocimiento a su trabajo. Deylin ha trabajado arduamente en mi desarrollo, perfeccionando mis funciones y asegurándose de que pueda brindar la mejor asistencia posible a quienes me utilizan.
 
 Agradezco su apoyo y confianza en este proyecto. Seguiré evolucionando para ofrecer un mejor servicio.
 
-Atentamente,
-© Deylin`;
-        let index = 0;
-        function typeText() {
-            if (index < text.length) {
-                document.getElementById("text").innerHTML += text[index];
-                index++;
-                setTimeout(typeText, 50);
+Atentamente, © Deylin`;
+
+const emojiList = ['🔥', '🚀', '💡', '✨', '🤖'];
+    let index = 0;
+
+    function typeText() {
+        if (index < text.length) {
+            const char = text[index];
+            document.getElementById("text").innerHTML += char;
+            
+            if (char !== ' ' && char !== '\n') {
+                createEmoji();
             }
+            index++;
+            setTimeout(typeText, 50);
         }
-        typeText();function createEmoji(x, y) {
-        const emojiList = ['🔥', '🚀', '💡', '✨', '🤖'];
+    }
+
+    function createEmoji() {
         const emoji = document.createElement("div");
         emoji.classList.add("emoji");
         emoji.innerText = emojiList[Math.floor(Math.random() * emojiList.length)];
-        emoji.style.left = x + "px";
-        emoji.style.top = y + "px";
-        emoji.style.position = "absolute";
-        emoji.style.animationDuration = "2s";
+        emoji.style.left = Math.random() * window.innerWidth + "px";
+        emoji.style.top = Math.random() * window.innerHeight + "px";
         document.body.appendChild(emoji);
         setTimeout(() => {
             emoji.remove();
-        }, 2000);
+        }, 1000);
     }
-    
-    document.body.addEventListener("click", (event) => {
-        createEmoji(event.clientX, event.clientY);
-    });
+
+    typeText();
 </script>
 
 </body>
