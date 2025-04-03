@@ -41,22 +41,6 @@ body::before {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Animación de colores neón cambiando de rojo, verde y azul */
-@keyframes neonRainbow {
-    0% { text-shadow: 0 0 10px red, 0 0 20px red, 0 0 30px red; }
-    33% { text-shadow: 0 0 10px green, 0 0 20px green, 0 0 30px green; }
-    66% { text-shadow: 0 0 10px blue, 0 0 20px blue, 0 0 30px blue; }
-    100% { text-shadow: 0 0 10px red, 0 0 20px red, 0 0 30px red; }
-}
-
-/* Animación para los bordes neón */
-@keyframes neonBorder {
-    0% { border-color: red; box-shadow: 0 0 10px red, 0 0 20px red; }
-    33% { border-color: green; box-shadow: 0 0 10px green, 0 0 20px green; }
-    66% { border-color: blue; box-shadow: 0 0 10px blue, 0 0 20px blue; }
-    100% { border-color: red; box-shadow: 0 0 10px red, 0 0 20px red; }
-}
-
 /* Aplicando animación en cadena */
 .menu-toggle, .side-menu, .bot-card, button, footer {
     opacity: 0;
@@ -70,12 +54,12 @@ body::before {
 button { animation-delay: 0.8s; }
 footer { animation-delay: 1s; }
 
-/* Estilo NEÓN con animación de arcoíris */
+/* Estilo NEÓN */
 h3, .menu-toggle, .side-menu ul li a, footer {
-    animation: neonRainbow 3s infinite alternate ease-in-out;
+    text-shadow: 0 0 10px #00ffea, 0 0 20px #00ffea, 0 0 30px #00b7ff;
 }
 
-/* Botones con animación de borde neón */
+/* Botones neón */
 button {
     background: transparent;
     color: #00ffea;
@@ -90,7 +74,6 @@ button {
     margin: 10px 0;
     text-shadow: 0 0 5px #00ffea;
     box-shadow: 0 0 10px #00ffea, 0 0 20px #00b7ff;
-    animation: neonBorder 3s infinite alternate ease-in-out;
 }
 
 button:hover {
