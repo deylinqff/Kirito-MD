@@ -1,774 +1,119 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crow's Club</title>
-    <link rel="shortcut icon" href="https://i.ibb.co/NnVrSjgY/file.jpg" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="./lib/css/dark-mode.css">
-   <style>
-        :root {
-            --secondary-color: #0056b3;
-            --text-color: #333;
-            --background-color: #f0f0f0;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        html,
+    <meta property="og:title" content="Kirito-Bot MD 👑 oficial">
+    <meta property="og:description" content="Kirito-Bot oficial 👑">
+    <meta property="og:image" content="https://i.ibb.co/Mk871YM8/file.jpg">
+    <meta property="og:image:width" content="300">
+    <meta property="og:image:height" content="300">
+    <meta property="og:url" content="https://kirito-md.vercel.app/">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:image" content="https://i.ibb.co/Mk871YM8/file.jpg">
+    <title>Kirito-Bot MD</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
         body {
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            height: 100%;
-            overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        body {
-            overflow-y: auto;
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            line-height: 1.6;
-            padding-top: 60px;
-            flex: 1;
-        }
-
-
-        @media (max-width: 768px) {
-            body {
-                padding-top: 50px;
-                font-size: 14px;
-            }
-        }
-
-        @media (min-width: 769px) {
-            body {
-                padding-top: 60px;
-                font-size: 16px;
-            }
-        }
-
-        .menu-icon {
-            font-size: 30px;
-            background-color: transparent;
-            border: none;
-            color: #333;
-            cursor: pointer;
-            padding: 10px;
-            position: absolute;
-            bottom: 0;
-            left: 20px;
-            z-index: 1100;
-        }
-
-
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: -250px;
-            width: 250px;
-            background-color: #fff;
-            height: 100%;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-            transition: left 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-            padding-top: 60px;
-            z-index: 1200;
-        }
-
-        .close-menu {
-            background: transparent;
-            color: #333;
-            font-size: 30px;
-            border: none;
-            cursor: pointer;
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            z-index: 1300;
-        }
-
-        .navbar a {
-            text-decoration: none;
-            color: #333;
-            font-size: 18px;
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            margin: 10px 0;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        .navbar a i {
-            margin-right: 10px;
-        }
-
-        .navbar a:hover {
-            background-color: #f1f1f1;
-        }
-
-        .menu-active .navbar {
-            left: 0;
-        }
-
-        .menu-active .menu-icon {
-            display: none;
-        }
-
-        .section {
-            padding: 20px;
-            display: none;
-            flex: 1;
-            border-radius: 10px;
             text-align: center;
-            background-color: #fff;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
-
-        .section.active {
+        .bot-card {
+            margin-top: 20px;
+        }
+        .bot-info button {
             display: block;
-        }
-
-        .logo-container {
-            margin: 30px auto;
-            width: 160px;
-            height: 160px;
-            border-radius: 50%;
-            background-color: #007BFF;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-            border: 4px solid #0056b3;
-        }
-
-        .logo-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .buttons-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 30px;
-            max-height: 70%;
-            overflow-y: auto;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .button-wrapper {
-            display: flex;
-            align-items: center;
-            margin: 15px 0;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .button-wrapper img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            margin-right: 15px;
-            border: 3px solid #0056b3;
-        }
-
-        button.channel {
-            padding: 15px 25px;
-            font-size: 16px;
-            cursor: pointer;
-            background-color: #007BFF;
-            color: white;
-            border: 3px solid #0056b3;
-            border-radius: 15px;
-            text-align: center;
-            width: 220px;
-            text-transform: uppercase;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            margin-bottom: 10px;
-        }
-
-        @media (max-width: 768px) {
-            button.channel {
-                width: 220px;
-                font-size: 14px;
-                padding: 12px 20px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            button.channel {
-                width: 180px;
-                font-size: 12px;
-                padding: 10px 15px;
-            }
-        }
-
-
-        button.channel:hover {
-            background-color: #0056b3;
-            color: #f4f4f9;
-            transform: translateY(-4px);
-        }
-
-        button.channel:active {
-            transform: translateY(3px);
-        }
-
-        .top-bar {
-            background-color: #fff;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            padding: 0 20px;
-        }
-
-        footer {
-            background-color: #007BFF;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-            width: 100%;
-            margin-top: auto;
-            flex-shrink: 0;
-        }
-
-        footer span {
-            font-weight: bold;
-        }
-
-        .product {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin: 20px 0;
-            padding: 15px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        button:focus,
-        a:focus {
-            outline: 2px solid var(--primary-color);
-            outline-offset: 4px;
-        }
-
-
-        .product img {
-            width: 120px;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-right: 20px;
-        }
-
-        .product-info {
-            flex-grow: 1;
-        }
-
-        .product-info h3 {
-            font-size: 18px;
-            color: #333;
-        }
-
-        .product-info p {
-            font-size: 14px;
-            color: #555;
-        }
-
-        .product-info .button-channel {
+            margin: 10px auto;
             padding: 10px 20px;
-            background-color: #007BFF;
+            font-size: 16px;
+            background-color: #007bff;
             color: white;
-            border: none;
-            border-radius: 20px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            border-radius: 5px;
+            border: none;
         }
-
-        .product-info .button-channel:hover {
+        .bot-info button:hover {
             background-color: #0056b3;
         }
-
-        .staff-member {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
+        .menu-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: transparent;
+            color: #007bff;
+            font-size: 24px;
+            cursor: pointer;
+            border: none;
+            outline: none;
         }
-
-        .staff-card {
-            display: flex;
-            align-items: center;
-            background-color: #fff;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-            margin: auto;
-        }
-
-        .staff-member img {
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            margin-right: 20px;
-            border: 3px solid #0056b3;
-        }
-
-        .staff-info h3 {
-            font-size: 18px;
-            color: #333;
-        }
-
-        .staff-info p {
-            font-size: 14px;
-            color: #555;
-        }
-
-        @media (max-width: 768px) {
-            .staff-member img {
-                width: 75px;
-                height: 75px;
-            }
-
-            .staff-info p {
-                font-size: 12px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .staff-member img {
-                width: 70px;
-                height: 70px;
-            }
-
-            .staff-info p {
-                font-size: 10px;
-            }
-        }
-
-        #about h2 {
-            font-size: 28px;
+        .menu-button:hover {
             color: #0056b3;
-            text-align: center;
-            margin-bottom: 20px;
-            text-transform: uppercase;
         }
-
-        .terms-container p {
-            font-size: 16px;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            text-align: justify;
+        .menu {
+            display: none;
+            position: absolute;
+            top: 50px;
+            left: 10px;
+            background: white;
+            border: 1px solid #ddd;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            text-align: left;
+            padding: 10px;
         }
-
-        .terms-content h3 {
-            font-size: 20px;
-            margin-top: 20px;
-            color: #007BFF;
-            border-left: 4px solid #0056b3;
-            padding-left: 10px;
-            text-transform: capitalize;
-        }
-
-        .terms-content p {
-            font-size: 14px;
-            color: #555;
-            margin: 10px 0;
-            line-height: 1.5;
-            text-align: justify;
-        }
-
-        .terms-content a {
-            color: #007BFF;
+        .menu a {
+            display: block;
+            padding: 10px;
             text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s ease;
-        }
-
-        .terms-content a:hover {
-            color: #0056b3;
-            text-decoration: underline;
-        }
-
-        @media (max-width: 768px) {
-            #about {
-                padding: 30px 15px;
-            }
-
-            #about h2 {
-                font-size: 24px;
-            }
-
-            .terms-container p,
-            .terms-content p {
-                font-size: 14px;
-            }
-
-            .terms-content h3 {
-                font-size: 18px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            #about {
-                padding: 20px 10px;
-            }
-
-            #about h2 {
-                font-size: 20px;
-            }
-
-            .terms-container p,
-            .terms-content p {
-                font-size: 12px;
-            }
-
-            .terms-content h3 {
-                font-size: 16px;
-            }
-        }
-
-        #settings h2 {
-            font-size: 28px;
-            color: #0056b3;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .settings-container {
-            margin-top: 20px;
-        }
-
-        .settings-container p {
-            font-size: 16px;
-            color: #555;
-            margin-bottom: 20px;
-        }
-
-        .setting-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 15px;
-            padding: 12px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-            background-color: #fff;
-        }
-
-        .setting-item:hover {
-            transform: translateY(-5px);
-        }
-
-        .setting-item label {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            font-size: 16px;
             color: #333;
         }
-
-        .setting-item input[type="checkbox"],
-        .setting-item select {
-            margin-left: 10px;
-            cursor: pointer;
+        .menu a:hover {
+            background-color: #f0f0f0;
         }
-
-        .save-settings {
-            width: 100%;
-            padding: 12px;
-            background-color: #0056b3;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            text-transform: uppercase;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
+        footer {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f8f8f8;
         }
-
-        .save-settings:hover {
-            background-color: #007BFF;
-        }
-
-        @media (max-width: 1024px) {
-            #settings {
-                padding: 35px 20px;
-            }
-
-            #settings h2 {
-                font-size: 26px;
-            }
-
-            .settings-container p {
-                font-size: 15px;
-            }
-
-            .setting-item label {
-                font-size: 15px;
-            }
-
-            .save-settings {
-                font-size: 15px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            #settings {
-                padding: 30px 15px;
-            }
-
-            #settings h2 {
-                font-size: 24px;
-            }
-
-            .settings-container p {
-                font-size: 14px;
-            }
-
-            .setting-item label {
-                font-size: 14px;
-            }
-
-            .save-settings {
-                font-size: 14px;
-            }
-
-            .setting-item {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .setting-item label {
-                margin-bottom: 8px;
-            }
-
-            .setting-item input[type="checkbox"],
-            .setting-item select {
-                margin-left: 0;
-                margin-top: 5px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            #settings {
-                padding: 20px 10px;
-            }
-
-            #settings h2 {
-                font-size: 22px;
-            }
-
-            .settings-container p {
-                font-size: 12px;
-            }
-
-            .setting-item label {
-                font-size: 12px;
-            }
-
-            .save-settings {
-                font-size: 12px;
-            }
-
-            .setting-item {
-                padding: 10px;
-            }
-
-            .setting-item label {
-                margin-bottom: 5px;
-            }
-
-            .setting-item input[type="checkbox"],
-            .setting-item select {
-                margin-top: 3px;
-            }
-        }
-
-        /* Estilo para el modo oscuro */
-        body.dark-mode {
-            background-color: #121212;
-            color: #f5f5f5;
-        }
-
-        body.dark-mode .section {
-            background-color: #121212;
-        }
-
-        body.dark-mode .navbar {
-            background-color: #121212;
-        }
-
-        body.dark-mode .close-menu {
-            color: #ffffff;
-        }
-
-        body.dark-mode a {
-            color: #ffffff;
-        }
-
-        body.dark-mode a:hover {
-            color: #121212;
-        }
-
-        body.dark-mode .terms-content p {
-            color: #f5f5f5;
-        }
-
-        body.dark-mode .terms-content a:hover {
-            color: #f5f5f5;
-        }
-
-        body.dark-mode .top-bar {
-            background-color: #121212;
-            color: #f5f5f5;
-        }
-
-
-        body.dark-mode .menu-icon {
-            color: #f0f0f0;
-        }
-
-        body.dark-mode .save-settings {
-            color: #fff;
-        }
-
-        body.dark-mode .settings-container p {
-            color: #fff;
-        }
-
-        body.dark-mode .settings-container  {
-            color: #fff;
-        }
-
-        body.dark-mode .settings-container  {
-            color: #fff;
-        }
-
     </style>
-
 </head>
-
-    <div id="registro" class="container" style="display: none;">
-        <h1>Registro de Usuario</h1>
-        <form id="form-registro">
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" required>
-            <label for="email">Correo Electrónico:</label>
-            <input type="email" id="email" name="email" required>
-            <label for="password">Contraseña:</label>
-            <input type="password" id="password" name="password" required>
-            <button type="submit">Registrarse</button>
-        </form>
-    </div>
-
 <body>
-    <div class="top-bar">
-        <button class="menu-icon" onclick="toggleMenu()">☰</button>
+
+    <button class="menu-button" onclick="toggleMenu()">☰</button>
+
+    <div class="menu" id="menu">
+        <a href="https://chat.whatsapp.com/F8KwM3rVqkS9HhR5msoRqQ">Grupo Oficial</a>
+        <a href="https://whatsapp.com/channel/0029VawF8fBBvvsktcInIz3m">Canal Oficial</a>
+        <a href="https://github.com/deylinqff/Kirito-Bot-MD">Repositorio</a>
+        <a href="Información.html">Información del Bot</a>
+        <a href="ejercicio-visual.html">🚀 HTML y CSS</a>
     </div>
 
-    <div class="navbar" id="navbar">
-        <button class="close-menu" onclick="toggleMenu()">✖</button>
-        <a href="javascript:void(0);" onclick="showSection('home')"><i class="fas fa-home"></i> Home</a>
-        <a href="javascript:void(0);" onclick="showSection('tienda')"><i class="fas fa-store"></i> Tienda</a>
-        <a href="javascript:void(0);" onclick="showSection('staff')"><i class="fas fa-users"></i> Staff</a>
-        <a href="javascript:void(0);" onclick="showSection('settings')"><i class="fas fa-cog"></i> Settings</a>
-        <a href="javascript:void(0);" onclick="showSection('about')"><i class="fas fa-info-circle"></i> About</a>
+    <div class="bot-card">
+        <img src="https://kirito-md.vercel.app/api/imagen?url=https%3A%2F%2Fi.ibb.co%2FfYGPj3wt%2FFA-Cd-ZFVIBIGBOg.png" alt="Kirito Bot Logo">
+        <h2>𝐊𝐈𝐑𝐈𝐓𝐎 - 𝐁𝐎𝐓 𝐌𝐃</h2>
     </div>
 
-    <div id="home" class="section active">
-        <div class="logo-container">
-            <img src="https://i.ibb.co/7dyHWPWb/file.jpg" alt="CrowBot Logo">
-        </div>
-        <div class="buttons-container">
-            <div class="button-wrapper">
-                <img src="https://i.ibb.co/8gPW1695/file.jpg" alt="WhatsApp">
-                <a href="https://whatsapp.com/channel/0029Vb1AFK6HbFV9kaB3b13W">
-                    <button class="channel"> 𝐂𝐀𝐍𝐀𝐋 𝐎𝐅𝐈𝐂𝐈𝐀𝐋 </button>
-                </a>
-            </div>
-            <div class="button-wrapper">
-                <img src="https://i.ibb.co/6JY3VZDs/file.jpg" alt="WhatsApp">
-                <a href="https://github.com/WillZek/CrowBot-ST">
-                    <button class="channel"> 𝐑𝐄𝐏𝐎𝐒𝐈𝐓𝐎𝐑𝐈𝐎 </button>
-                </a>
-            </div>
-            <div class="button-wrapper">
-                <img src="https://i.ibb.co/NnVrSjgY/file.jpg" alt="WhatsApp">
-                <a href="https://chat.whatsapp.com/B7POPrlJiZf7UWHJKvzVkx">
-                    <button class="channel"> 𝐆𝐑𝐔𝐏𝐎 𝐎𝐅𝐈𝐂𝐈𝐀𝐋 </button>
-                </a>
-            </div>
-        </div>
+    <div class="bot-info">
+        <button onclick="window.location.href='https://chat.whatsapp.com/F8KwM3rVqkS9HhR5msoRqQ'">𝑮𝒓𝒖𝒑𝒐 𝑶𝒇𝒊𝒄𝒊𝒂𝒍</button>
+        <button onclick="window.location.href='https://whatsapp.com/channel/0029VawF8fBBvvsktcInIz3m'">𝑪𝒂𝒏𝒂𝒍 𝑶𝒇𝒊𝒄𝒊𝒂𝒍</button>
+        <button onclick="window.location.href='https://github.com/deylinqff/Kirito-Bot-MD'">𝑹𝒆𝒑𝒐𝒔𝒊𝒕𝒐𝒓𝒊𝒐</button>
+        <button onclick="window.location.href='Información.html'">𝐈𝐧𝐟𝐨𝐫𝐦𝐚𝐜𝐢𝐨𝐧 𝐝𝐞𝐥 𝐨𝐫𝐢𝐠𝐞𝐧 𝐝𝐞 𝐊𝐢𝐫𝐢𝐭𝐨- 𝐁𝐨𝐭 𝐌𝐃</button>
+        <button onclick="window.location.href='ejercicio-visual.html'">🚀 𝐇𝐓𝐌𝐋 𝐲 𝐂𝐒𝐒</button>
     </div>
 
-        <div id="tienda" class="section">
-        <h2>Tienda</h2>
-        <div class="product">
-            <img src="https://i.ibb.co/bM2D3h6K/file.jpg" alt="Producto 1">
-            <div class="product-info">
-                <h3>Token Premium CrowBot</h3>
-                <p>Obtén Tu Token Premium Mensual, CrowBot 24/7 Por Tan Solo 3.5$</p>
-                <button class="button-channel" onclick="window.open('https://chat.whatsapp.com/HmH3Ti6GkeTA1Og1lwUuwB')">Comprar ahora</button>
-            </div>
-        </div>
-    </div>
+    <footer>
+        <p><strong>Kirito-Bot</strong> | Todos los derechos reservados</p>
+    </footer>
 
-    <div id="staff" class="section">
-        <div class="staff-member">
-            <div class="staff-card">
-                <img src="https://avatars.githubusercontent.com/u/126108471?v=4" alt="Miembro del staff 1">
-                <div class="staff-info">
-                    <h3>DarkCore</h3>
-                    <p>"Developer y owner de Lynx-Ai"</p>
-                </div>
-            </div>
-        </div>
+    <script>
+        function toggleMenu() {
+            let menu = document.getElementById("menu");
+            menu.style.display = (menu.style.display === "block") ? "none" : "block";
+        }
+    </script>
 
-        <div class="staff-member">
-            <div class="staff-card">
-                <img src="https://avatars.githubusercontent.com/u/175991547?v=4" alt="Miembro del staff 2">
-                <div class="staff-info">
-                    <h3>WillZek</h3>
-                    <p>"Creador y Owner De CrowBot"</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="staff-member">
-            <div class="staff-card">
-                <img src="https://avatars.githubusercontent.com/u/182808185?v=4" alt="Miembro del staff 3">
-                <div class="staff-info">
-                    <h3>Destroy</h3>
-                    <p>"Developer y Owner De YukiBot"</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="staff-member">
-            <div class="staff-card">
-                <img src="https://avatars.githubusercontent.com/u/158788969?v=4" alt="Miembro del staff 5">
-                <div class="staff-info">
-                    <h3>Prakharper</h3>
-                    <p>"Developer y Owner De PrakBot"
+</body>
+</html>
