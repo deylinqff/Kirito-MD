@@ -152,7 +152,7 @@
             chatBox.appendChild(userMessage);
 
             // Simulación de respuesta de IA
-            setTimeout(() => {
+            //setTimeout(() => {
                 const response = "Este es un ejemplo de respuesta del bot.";
                 const botMessage = document.createElement('div');
                 botMessage.classList.add('message', 'bot');
@@ -170,5 +170,6 @@
             if (e.key === 'Enter') sendMessage();
         });
     </script>
+<script type="module" src="./chat.js"></script>
 </body>
 </html>
