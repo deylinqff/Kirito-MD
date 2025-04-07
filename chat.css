@@ -101,3 +101,11 @@ body {
 #send-btn:hover {
     background-color: #0073e6;
 }
+
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 10px;
+    border: 1px solid #444;
+}
