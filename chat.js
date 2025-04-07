@@ -45,12 +45,24 @@ function appendImage(imageUrl) {
     const chatBox = document.getElementById("chat-box");
     const imageDiv = document.createElement("div");
     imageDiv.classList.add("message", "bot");
+
     const imageElement = document.createElement("img");
     imageElement.src = imageUrl;
     imageElement.alt = "Imagen generada por IA";
-    imageDiv.appendChild(imageElement);
-    chatBox.appendChild(imageDiv);
-    chatBox.scrollTop = chatBox.scrollHeight;
+
+    // Verificar si la imagen se carga correctamente
+    imageElement.onload = () => {
+        imageDiv.appendChild(imageElement);
+        chatBox.appendChild(imageDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    };
+
+    // Si la imagen no se puede cargar, mostrar un mensaje de error o una imagen de placeholder
+    imageElement.onerror = () => {
+        imageDiv.textContent = "Hubo un error al cargar la imagen.";
+        chatBox.appendChild(imageDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    };
 }
 
 function appendMessage(message, sender) {
