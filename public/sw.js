@@ -1,4 +1,4 @@
-self.addEventListener("install", (event) => {
+//self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open("kirito-cache-v1").then((cache) => {
       return cache.addAll([
