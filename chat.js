@@ -1,4 +1,4 @@
-import { obtenerRespuestaIA } from "./ai-api.js";
+import { obtenerRespuestaIA, generarImagen } from "./ai-api.js";
 
 document.getElementById("send-btn").addEventListener("click", sendMessage);
 document.getElementById("user-input").addEventListener("keypress", function(event) {
@@ -16,9 +16,17 @@ async function sendMessage() {
         appendMessage("👑 Escribiendo...", "bot");
 
         try {
-            const botResponse = await obtenerRespuestaIA(userInput);
-            removeTypingIndicator();
-            typeMessage(botResponse); // Añadido para la animación de escritura
+            if (userInput.toLowerCase().startsWith("generar imagen")) {
+                const prompt = userInput.slice(14).trim(); // Extraemos el texto después de "generar imagen"
+                const imageUrl = await generarImagen(prompt);
+                removeTypingIndicator();
+                appendMessage(`Aquí tienes tu imagen:`, "bot");
+                appendImage(imageUrl); // Función para mostrar la imagen
+            } else {
+                const botResponse = await obtenerRespuestaIA(userInput);
+                removeTypingIndicator();
+                typeMessage(botResponse); // Añadido para la animación de escritura
+            }
         } catch (error) {
             removeTypingIndicator();
             appendMessage("Hubo un error al obtener la respuesta.", "bot");
@@ -32,6 +40,19 @@ function appendMessage(message, sender) {
     messageDiv.classList.add("message", sender);
     messageDiv.textContent = message;
     chatBox.appendChild(messageDiv);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function appendImage(imageUrl) {
+    const chatBox = document.getElementById("chat-box");
+    const imageDiv = document.createElement("div");
+    imageDiv.classList.add("message", "bot");
+    const imageElement = document.createElement("img");
+    imageElement.src = imageUrl;
+    imageElement.alt = "Generada por IA";
+    imageElement.style.maxWidth = "100%"; // Para asegurarse de que la imagen no se salga del contenedor
+    imageDiv.appendChild(imageElement);
+    chatBox.appendChild(imageDiv);
     chatBox.scrollTop = chatBox.scrollHeight;
 }
 
