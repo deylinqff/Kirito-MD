@@ -1,4 +1,4 @@
-import { obtenerRespuestaIA } from "./ai-api.js";
+import { obtenerRespuestaIA } from "API/ai.js";
 
 document.getElementById("send-btn").addEventListener("click", sendMessage);
 document.getElementById("user-input").addEventListener("keypress", function(event) {
