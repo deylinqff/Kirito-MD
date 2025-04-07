@@ -1,7 +1,5 @@
-import { obtenerRespuestaIA } from "./ai-api.js";
-
-// El URL de la API para generar imágenes
-const API_IMAGEN_URL = "https://api.agungny.my.id/api/text2img?prompt=";
+import { generarImagen } from "./ia-img.js"; // Importar la función de ia-img.js
+import { obtenerRespuestaIA } from "./ai-api.js"; // Para obtener la respuesta de la IA
 
 document.getElementById("send-btn").addEventListener("click", sendMessage);
 document.getElementById("user-input").addEventListener("keypress", function(event) {
@@ -22,7 +20,7 @@ async function sendMessage() {
         if (userInput.toLowerCase().startsWith("generar imagen")) {
             const promptImagen = userInput.substring(15).trim(); // Obtener el texto después de "generar imagen"
             try {
-                const imagenUrl = await generarImagen(promptImagen);
+                const imagenUrl = await generarImagen(promptImagen); // Llamar a la función de ia-img.js
                 removeTypingIndicator();
                 appendImage(imagenUrl);
             } catch (error) {
@@ -40,13 +38,6 @@ async function sendMessage() {
             }
         }
     }
-}
-
-// Función para generar la imagen usando la API
-async function generarImagen(prompt) {
-    const response = await fetch(API_IMAGEN_URL + encodeURIComponent(prompt));
-    const data = await response.json();
-    return data.imageUrl; // Suponiendo que la respuesta tiene una propiedad 'imageUrl'
 }
 
 // Función para mostrar la imagen generada en el chat
