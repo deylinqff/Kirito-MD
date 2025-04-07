@@ -1,5 +1,5 @@
-import { generarImagen } from "./ia-img.js"; // Importar la función de ia-img.js
-import { obtenerRespuestaIA } from "./ai-api.js"; // Para obtener la respuesta de la IA
+import { generarImagen } from "./ia-img.js";
+import { obtenerRespuestaIA } from "./ai-api.js";
 
 document.getElementById("send-btn").addEventListener("click", sendMessage);
 document.getElementById("user-input").addEventListener("keypress", function (event) {
@@ -8,9 +8,22 @@ document.getElementById("user-input").addEventListener("keypress", function (eve
     }
 });
 
-// Función para detectar idioma y reproducir la voz
+// Función para detectar idioma y reproducir la voz, ignorando emojis, código, enlaces, etc.
 function speakText(text) {
-    const utterance = new SpeechSynthesisUtterance(text);
+    // Eliminar bloques de código
+    text = text.replace(/```[\s\S]*?```/g, '');
+
+    // Eliminar enlaces (http o https)
+    text = text.replace(/https?:\/\/\S+/g, '');
+
+    // Eliminar emojis
+    text = text.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{1F1E6}-\u{1F1FF}]/gu, '');
+
+    // Eliminar caracteres innecesarios de markdown
+    text = text.replace(/[*_~`#>]/g, '');
+
+    // Detectar idioma
+    const utterance = new SpeechSynthesisUtterance(text.trim());
     utterance.lang = text.match(/[áéíóúñ¿¡]/i) ? "es-ES" : "en-US";
     speechSynthesis.speak(utterance);
 }
@@ -21,9 +34,8 @@ async function sendMessage() {
         appendMessage(userInput, "user");
         document.getElementById("user-input").value = '';
 
-        appendMessage("✨ Escribiendo...", "bot");
+        appendMessage("👑 Escribiendo...", "bot");
 
-        // Verificar si es una solicitud de imagen
         if (userInput.toLowerCase().startsWith("generar imagen")) {
             const promptImagen = userInput.substring(15).trim();
             try {
