@@ -1,4 +1,7 @@
-import { obtenerRespuestaIA, generarImagen } from "./ai-api.js";
+import { obtenerRespuestaIA } from "./ai-api.js";
+
+// El URL de la API para generar imágenes
+const API_IMAGEN_URL = "https://api.agungny.my.id/api/text2img?prompt=";
 
 document.getElementById("send-btn").addEventListener("click", sendMessage);
 document.getElementById("user-input").addEventListener("keypress", function(event) {
@@ -15,23 +18,48 @@ async function sendMessage() {
 
         appendMessage("👑 Escribiendo...", "bot");
 
-        try {
-            if (userInput.toLowerCase().startsWith("generar imagen")) {
-                const prompt = userInput.slice(14).trim(); // Extraemos el texto después de "generar imagen"
-                const imageUrl = await generarImagen(prompt);
+        // Verificar si el mensaje comienza con "generar imagen"
+        if (userInput.toLowerCase().startsWith("generar imagen")) {
+            const promptImagen = userInput.substring(15).trim(); // Obtener el texto después de "generar imagen"
+            try {
+                const imagenUrl = await generarImagen(promptImagen);
                 removeTypingIndicator();
-                appendMessage(`Aquí tienes tu imagen:`, "bot");
-                appendImage(imageUrl); // Función para mostrar la imagen
-            } else {
+                appendImage(imagenUrl);
+            } catch (error) {
+                removeTypingIndicator();
+                appendMessage("Hubo un error al generar la imagen.", "bot");
+            }
+        } else {
+            try {
                 const botResponse = await obtenerRespuestaIA(userInput);
                 removeTypingIndicator();
-                typeMessage(botResponse); // Añadido para la animación de escritura
+                typeMessage(botResponse);
+            } catch (error) {
+                removeTypingIndicator();
+                appendMessage("Hubo un error al obtener la respuesta.", "bot");
             }
-        } catch (error) {
-            removeTypingIndicator();
-            appendMessage("Hubo un error al obtener la respuesta.", "bot");
         }
     }
+}
+
+// Función para generar la imagen usando la API
+async function generarImagen(prompt) {
+    const response = await fetch(API_IMAGEN_URL + encodeURIComponent(prompt));
+    const data = await response.json();
+    return data.imageUrl; // Suponiendo que la respuesta tiene una propiedad 'imageUrl'
+}
+
+// Función para mostrar la imagen generada en el chat
+function appendImage(imageUrl) {
+    const chatBox = document.getElementById("chat-box");
+    const imageDiv = document.createElement("div");
+    imageDiv.classList.add("message", "bot");
+    const imageElement = document.createElement("img");
+    imageElement.src = imageUrl;
+    imageElement.alt = "Imagen generada por IA";
+    imageDiv.appendChild(imageElement);
+    chatBox.appendChild(imageDiv);
+    chatBox.scrollTop = chatBox.scrollHeight;
 }
 
 function appendMessage(message, sender) {
@@ -40,19 +68,6 @@ function appendMessage(message, sender) {
     messageDiv.classList.add("message", sender);
     messageDiv.textContent = message;
     chatBox.appendChild(messageDiv);
-    chatBox.scrollTop = chatBox.scrollHeight;
-}
-
-function appendImage(imageUrl) {
-    const chatBox = document.getElementById("chat-box");
-    const imageDiv = document.createElement("div");
-    imageDiv.classList.add("message", "bot");
-    const imageElement = document.createElement("img");
-    imageElement.src = imageUrl;
-    imageElement.alt = "Generada por IA";
-    imageElement.style.maxWidth = "100%"; // Para asegurarse de que la imagen no se salga del contenedor
-    imageDiv.appendChild(imageElement);
-    chatBox.appendChild(imageDiv);
     chatBox.scrollTop = chatBox.scrollHeight;
 }
 
