@@ -40,7 +40,7 @@ async function sendMessage() {
     }
 }
 
-// Función para mostrar la imagen generada en el chat
+// Mostrar imágenes generadas por IA
 function appendImage(imageUrl) {
     const chatBox = document.getElementById("chat-box");
     const imageDiv = document.createElement("div");
@@ -53,6 +53,7 @@ function appendImage(imageUrl) {
     chatBox.scrollTop = chatBox.scrollHeight;
 }
 
+// Agregar mensaje normal
 function appendMessage(message, sender) {
     const chatBox = document.getElementById("chat-box");
     const messageDiv = document.createElement("div");
@@ -62,6 +63,7 @@ function appendMessage(message, sender) {
     chatBox.scrollTop = chatBox.scrollHeight;
 }
 
+// Eliminar el mensaje de "escribiendo..."
 function removeTypingIndicator() {
     const chatBox = document.getElementById("chat-box");
     const messages = chatBox.getElementsByClassName("bot");
@@ -70,20 +72,46 @@ function removeTypingIndicator() {
     }
 }
 
+// Detectar si la respuesta contiene código
+function containsCode(text) {
+    return /```[\s\S]*?```/.test(text);
+}
+
+function extractCode(text) {
+    const match = text.match(/```(?:\w*\n)?([\s\S]*?)```/);
+    return match ? match[1].trim() : text;
+}
+
+// Mostrar mensaje con animación de escritura y detección de código
 function typeMessage(message) {
     const chatBox = document.getElementById("chat-box");
-    const messageDiv = document.createElement("div");
-    messageDiv.classList.add("message", "bot");
-    chatBox.appendChild(messageDiv);
-    chatBox.scrollTop = chatBox.scrollHeight;
 
-    let i = 0;
-    messageDiv.textContent = ''; // Inicializa el mensaje vacío
-    const typingInterval = setInterval(() => {
-        messageDiv.textContent += message[i];
-        i++;
-        if (i === message.length) {
-            clearInterval(typingInterval);
-        }
-    }, 50); // Ajusta la velocidad de escritura
+    if (containsCode(message)) {
+        const code = extractCode(message);
+        const messageDiv = document.createElement("div");
+        messageDiv.classList.add("message", "bot");
+
+        const codeBox = document.createElement("div");
+        codeBox.classList.add("code-box");
+        codeBox.innerHTML = `<pre><code>${code}</code></pre>`;
+
+        messageDiv.appendChild(codeBox);
+        chatBox.appendChild(messageDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    } else {
+        const messageDiv = document.createElement("div");
+        messageDiv.classList.add("message", "bot");
+        chatBox.appendChild(messageDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        let i = 0;
+        messageDiv.textContent = '';
+        const typingInterval = setInterval(() => {
+            messageDiv.textContent += message[i];
+            i++;
+            if (i === message.length) {
+                clearInterval(typingInterval);
+            }
+        }, 50);
+    }
 }
