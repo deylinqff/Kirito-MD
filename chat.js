@@ -1,62 +1,59 @@
-import { obtenerRespuestaIA } from "api/ai.js";  // Asegúrate de que esta ruta sea correcta
-
 document.getElementById("send-btn").addEventListener("click", sendMessage);
-document.getElementById("user-input").addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-        sendMessage();
-    }
+document.getElementById("user-input").addEventListener("keypress", function (e) {
+    if (e.key === "Enter") sendMessage();
 });
 
-async function sendMessage() {
+function sendMessage() {
     const userInput = document.getElementById("user-input").value.trim();
-    if (userInput) {
-        appendMessage(userInput, "user");
-        document.getElementById("user-input").value = ''; // Limpiar el campo de entrada
+    if (userInput === "") return;
 
-        appendMessage("👑 Escribiendo...", "bot"); // Indicador de que el bot está escribiendo
+    // Mostrar mensaje del usuario
+    displayMessage(userInput, 'user');
 
-        try {
-            const botResponse = await obtenerRespuestaIA(userInput);
-            removeTypingIndicator();
-            typeMessage(botResponse); // Añadido para la animación de escritura
-        } catch (error) {
-            removeTypingIndicator();
-            appendMessage("Hubo un error al obtener la respuesta.", "bot");
-        }
-    }
+    // Limpiar el campo de texto
+    document.getElementById("user-input").value = "";
+
+    // Mostrar mensaje de IA (esperando respuesta)
+    displayMessage("Escribiendo...", 'ai', true);
+
+    // Llamar a la API de IA
+    fetchAIResponse(userInput);
 }
 
-function appendMessage(message, sender) {
-    const chatBox = document.getElementById("chat-box");
+function displayMessage(message, sender, isTyping = false) {
+    const messagesContainer = document.getElementById("messages");
+
     const messageDiv = document.createElement("div");
-    messageDiv.classList.add("message", sender);
-    messageDiv.textContent = message;
-    chatBox.appendChild(messageDiv);
-    chatBox.scrollTop = chatBox.scrollHeight;  // Desplaza el chat hacia abajo
+    messageDiv.classList.add(sender);
+    if (isTyping) messageDiv.classList.add('typing');
+    messageDiv.innerHTML = message;
+
+    messagesContainer.appendChild(messageDiv);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
 
-function removeTypingIndicator() {
-    const chatBox = document.getElementById("chat-box");
-    const messages = chatBox.getElementsByClassName("bot");
-    if (messages.length > 0) {
-        messages[messages.length - 1].remove(); // Elimina el indicador de "Escribiendo..."
+async function fetchAIResponse(userMessage) {
+    const response = await fetch("URL_DE_TU_API_DE_IA", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            message: userMessage,
+        }),
+    });
+
+    const data = await response.json();
+    const aiMessage = data.reply || "Lo siento, no pude entenderlo.";
+
+    // Actualizar el mensaje de IA
+    const messagesContainer = document.getElementById("messages");
+    const lastMessage = messagesContainer.lastElementChild;
+
+    // Eliminar "Escribiendo..." y mostrar respuesta de IA
+    if (lastMessage && lastMessage.classList.contains('ai') && lastMessage.classList.contains('typing')) {
+        lastMessage.remove();
     }
-}
 
-function typeMessage(message) {
-    const chatBox = document.getElementById("chat-box");
-    const messageDiv = document.createElement("div");
-    messageDiv.classList.add("message", "bot");
-    chatBox.appendChild(messageDiv);
-    chatBox.scrollTop = chatBox.scrollHeight; // Desplaza el chat hacia abajo
-
-    let i = 0;
-    messageDiv.textContent = ''; // Inicializa el mensaje vacío
-    const typingInterval = setInterval(() => {
-        messageDiv.textContent += message[i];
-        i++;
-        if (i === message.length) {
-            clearInterval(typingInterval); // Detener la animación al terminar
-        }
-    }, 50); // Ajusta la velocidad de escritura
+    displayMessage(aiMessage, 'ai');
 }
