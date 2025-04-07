@@ -109,3 +109,16 @@ img {
     margin-top: 10px;
     border: 1px solid #444;
 }
+
+.code-box {
+    background-color: #1c1c1c;
+    color: #00ff88;
+    border-left: 4px solid #0a84ff;
+    padding: 10px;
+    border-radius: 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-x: auto;
+}
