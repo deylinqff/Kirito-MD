@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kirito Bot - IA</title>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#000000">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     * {
       margin: 0;
@@ -137,6 +140,11 @@
       <button id="send-btn">➤</button>
     </div>
   </div>
+                // Función para alternar la visibilidad del menú
+        function toggleMenu() {
+            let menu = document.getElementById("menu");
+            menu.style.display = (menu.style.display === "block") ? "none" : "block";
+        }
 
   <script type="module" src="chat.js"></script>
 </body>
