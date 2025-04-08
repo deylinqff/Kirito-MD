@@ -1,4 +1,4 @@
-const IMAGE_API_URL = "https://eliasar-yt-api.vercel.app/api/ai/text2img?prompt=";
+const IMAGE_API_URL = "https://1yjs1yldj7.execute-api.us-east-1.amazonaws.com/default/ai_image?prompt=";
 
 async function generarImagen(prompt) {
     try {
