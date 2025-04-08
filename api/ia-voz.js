@@ -1,5 +1,4 @@
 import fetch from 'node-fetch';
-import { Readable } from 'stream';
 
 export default async function handler(req, res) {
     const { text } = req.query;
@@ -15,6 +14,8 @@ export default async function handler(req, res) {
             throw new Error('Error en la conexión con la API de Starlights');
         }
         const data = await response.json();
+        
+        console.log('Respuesta de la API de Starlights:', data);  // Agregado para depuración
 
         // Verificar si la IA responde con el formato esperado
         if (!data || !data.response) {
