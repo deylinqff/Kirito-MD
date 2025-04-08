@@ -1,4 +1,4 @@
-const API_URL = "https://delirius-apiofc.vercel.app/ia/llamaia?query=";
+const API_URL = "https://1yjs1yldj7.execute-api.us-east-1.amazonaws.com/default/ai_image?prompt=";
 
 async function obtenerRespuestaIA(mensaje) {
     try {
