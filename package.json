@@ -1,0 +1,19 @@
+{
+  "name": "kirito-bot-api",
+  "version": "1.0.0",
+  "description": "API  Kirito-Bot",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node api/ia-voz.js"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": ["kirito", "ia", "tts", "api", "vercel"],
+  "author": "Deylin",
+  "license": "MIT"
+}
