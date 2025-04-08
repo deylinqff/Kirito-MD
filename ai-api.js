@@ -1,4 +1,4 @@
-const API_URL = "https://1yjs1yldj7.execute-api.us-east-1.amazonaws.com/default/ai_image?prompt=";
+const API_URL = "https://apis-starlights-team.koyeb.app/starlight/gemini?text=";
 
 async function obtenerRespuestaIA(mensaje) {
     try {
