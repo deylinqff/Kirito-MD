@@ -1,4 +1,4 @@
-const API_URL = "https://api.ryzendesu.vip/api/ai/gemini-pro?text=";
+const API_URL = "https://delirius-apiofc.vercel.app/ia/llamaia?query=";
 
 async function obtenerRespuestaIA(mensaje) {
     try {
