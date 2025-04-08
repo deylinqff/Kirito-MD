@@ -39,12 +39,17 @@ async function sendMessage() {
         if (userInput.toLowerCase().startsWith("generar imagen")) {
             const promptImagen = userInput.substring(15).trim();
             try {
+                // Aquí llamas a la API para obtener la URL de la imagen generada
                 const imagenUrl = await generarImagen(promptImagen);
-                console.log('URL de la imagen generada:', imagenUrl); // Verifica la URL de la imagen generada
+
+                // Asegúrate de que la URL es correcta
+                console.log('URL de la imagen generada:', imagenUrl);
+
+                // Aquí pasas la URL a la función appendImage
                 removeTypingIndicator();
                 appendImage(imagenUrl);
             } catch (error) {
-                console.error('Error al generar la imagen:', error); // Log de error para más detalles
+                console.error('Error al generar la imagen:', error);
                 removeTypingIndicator();
                 appendMessage("Hubo un error al generar la imagen.", "bot");
             }
@@ -54,7 +59,7 @@ async function sendMessage() {
                 removeTypingIndicator();
                 typeMessage(botResponse);
             } catch (error) {
-                console.error('Error al obtener la respuesta:', error); // Log de error
+                console.error('Error al obtener la respuesta:', error);
                 removeTypingIndicator();
                 appendMessage("Hubo un error al obtener la respuesta.", "bot");
             }
@@ -63,19 +68,17 @@ async function sendMessage() {
 }
 
 function appendImage(imageUrl) {
-    console.log('Imagen URL en appendImage:', imageUrl); // Verifica que la URL está llegando correctamente
+    console.log('Imagen URL en appendImage:', imageUrl);
     const chatBox = document.getElementById("chat-box");
     const imageDiv = document.createElement("div");
     imageDiv.classList.add("message", "bot");
     const imageElement = document.createElement("img");
-    imageElement.src = imageUrl;
+    imageElement.src = imageUrl;  // Asegúrate de que la URL sea la correcta
     imageElement.alt = "Imagen generada por IA";
     imageElement.onload = () => {
-        // Si la imagen se carga correctamente
         console.log('Imagen cargada exitosamente');
     };
     imageElement.onerror = () => {
-        // Si ocurre un error al cargar la imagen
         console.error('Error al cargar la imagen');
         appendMessage("No se pudo cargar la imagen.", "bot");
     };
