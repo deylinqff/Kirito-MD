@@ -30,12 +30,26 @@
     }
 
     #chat-header {
-      padding: 15px;
+      padding: 15px 20px;
       background-color: #0a84ff;
       color: white;
-      text-align: center;
       font-size: 18px;
       font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #menu-btn {
+      background-color: transparent;
+      border: none;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    #menu-btn:hover {
+      color: #cce6ff;
     }
 
     #chat-box {
@@ -105,9 +119,11 @@
 <body>
 
   <div id="chat-container">
-    <!-- Título -->
-    <div id="chat-header">Kirito Bot IA</div>
-<button onclick="window.location.href='chat.html'">=</button>
+    <!-- Encabezado con botón de menú -->
+    <div id="chat-header">
+      <span>Kirito Bot IA</span>
+      <button id="menu-btn" onclick="window.location.href='index.html'">≡</button>
+    </div>
 
     <!-- Mensajes -->
     <div id="chat-box"></div>
