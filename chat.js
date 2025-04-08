@@ -34,7 +34,7 @@ async function sendMessage() {
         appendMessage(userInput, "user");
         document.getElementById("user-input").value = '';
 
-        appendMessage("👑 Escribiendo...", "bot");
+        appendMessage("✨ Escribiendo...", "bot");
 
         if (userInput.toLowerCase().startsWith("generar imagen")) {
             const promptImagen = userInput.substring(15).trim();
