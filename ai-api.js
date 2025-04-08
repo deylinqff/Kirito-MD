@@ -1,4 +1,4 @@
-const API_URL = "https://apis-starlights-team.koyeb.app/starlight/gemini?text=";
+const API_URL = "https://api.ryzendesu.vip/api/ai/gemini-pro?text=";
 
 async function obtenerRespuestaIA(mensaje) {
     try {
