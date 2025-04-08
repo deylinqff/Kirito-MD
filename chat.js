@@ -40,14 +40,14 @@ async function sendMessage() {
             const promptImagen = userInput.substring(15).trim();
             try {
                 // Aquí llamas a la API para obtener la URL de la imagen generada
-                const imagenUrl = await generarImagen(promptImagen);
+                const imagenBuffer = await generarImagen(promptImagen);
 
                 // Asegúrate de que la URL es correcta
-                console.log('URL de la imagen generada:', imagenUrl);
+                console.log('Buffer de la imagen generada:', imagenBuffer);
 
-                // Aquí pasas la URL a la función appendImage
+                // Aquí pasas el buffer a la función appendImage
                 removeTypingIndicator();
-                appendImage(imagenUrl);
+                appendImage(imagenBuffer);
             } catch (error) {
                 console.error('Error al generar la imagen:', error);
                 removeTypingIndicator();
@@ -67,14 +67,21 @@ async function sendMessage() {
     }
 }
 
-function appendImage(imageUrl) {
-    console.log('Imagen URL en appendImage:', imageUrl);
+function appendImage(imageBuffer) {
+    console.log('Buffer de la imagen en appendImage:', imageBuffer);
     const chatBox = document.getElementById("chat-box");
     const imageDiv = document.createElement("div");
     imageDiv.classList.add("message", "bot");
+
+    // Crear un Blob a partir del buffer de imagen y generar una URL temporal
+    const blob = new Blob([imageBuffer], { type: 'image/jpeg' }); // Asegúrate de que el tipo MIME sea correcto
+    const imageUrl = URL.createObjectURL(blob);
+
+    // Crear el elemento <img> y asignar la URL generada
     const imageElement = document.createElement("img");
-    imageElement.src = imageUrl;  // Asegúrate de que la URL sea la correcta
+    imageElement.src = imageUrl;
     imageElement.alt = "Imagen generada por IA";
+
     imageElement.onload = () => {
         console.log('Imagen cargada exitosamente');
     };
@@ -82,6 +89,7 @@ function appendImage(imageUrl) {
         console.error('Error al cargar la imagen');
         appendMessage("No se pudo cargar la imagen.", "bot");
     };
+
     imageDiv.appendChild(imageElement);
     chatBox.appendChild(imageDiv);
     chatBox.scrollTop = chatBox.scrollHeight;
