@@ -1,6 +1,14 @@
+import fetch from 'node-fetch';
+
 const API_URL = "https://apis-starlights-team.koyeb.app/starlight/gemini?text=";
 
-async function obtenerRespuestaIA(mensaje) {
+export default async function handler(req, res) {
+    const { text } = req.query;
+
+    if (!text) {
+        return res.status(400).json({ error: 'Texto requerido para interactuar con Kirito-Bot IA' });
+    }
+
     try {
         // Definir el "prompt" base con la personalidad de Kirito-Bot
         const promptBase = `
@@ -11,18 +19,21 @@ async function obtenerRespuestaIA(mensaje) {
         `;
         
         // Crear la consulta final con el mensaje del usuario
-        const consultaIA = promptBase + " " + mensaje;
+        const consultaIA = promptBase + " " + text;
 
         // Hacer la llamada a la API de Starlights Team
         const respuesta = await fetch(API_URL + encodeURIComponent(consultaIA));
         const data = await respuesta.json();
 
-        // Si la respuesta es exitosa, devolver la respuesta de la IA, sino, devolver un mensaje por defecto
-        return data.result || "Lo siento, no entendí eso.";
+        if (!data || !data.result) {
+            return res.status(500).json({ error: 'Error en la respuesta de la IA' });
+        }
+
+        // Devolver la respuesta de la IA
+        res.status(200).json({ respuesta: data.result });
+
     } catch (error) {
-        console.error("Error en la IA:", error);
-        return "Hubo un error al contactar a la IA.";
+        console.error("Error en la API de Kirito-Bot IA:", error);
+        res.status(500).json({ error: 'Error interno del servidor', message: error.message });
     }
 }
-
-export { obtenerRespuestaIA };
