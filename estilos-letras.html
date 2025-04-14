@@ -1,0 +1,126 @@
+ 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Generador de Letras Estilizadas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #fff;
+            text-align: center;
+            padding: 40px;
+        }
+        textarea {
+            width: 80%;
+            padding: 10px;
+            font-size: 18px;
+            margin: 10px 0;
+            background-color: #222;
+            color: #0f0;
+            border: 1px solid #333;
+            border-radius: 5px;
+        }
+        select, button {
+            padding: 10px 15px;
+            font-size: 16px;
+            margin: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>✨ Generador de Letras Estilizadas ✨</h1>
+<textarea id="inputText" rows="2" placeholder="Escribe tu texto aquí..."></textarea><br>
+
+    <select id="styleSelect">
+        <option value="emoji">🇪🇲🇴🇯🇮 (Emojis)</option>
+        <option value="bold">𝗡𝗲𝗴𝗿𝗶𝘁𝗮</option>
+        <option value="italic">𝘐𝘵á𝘭𝘪𝘤𝘢</option>
+        <option value="script">𝓢𝓬𝓻𝓲𝓹𝓽</option>
+        <option value="fancy">𝒇𝒂𝒏𝒄𝒚</option>
+        <option value="smallcaps">ꜱᴍᴀʟʟ ᴄᴀᴘꜱ</option>
+        <option value="square">🅂🅀🅄🄰🅁🄴</option>
+    </select><br>
+
+    <button onclick="convertText()">Convertir</button><br>
+
+    <textarea id="outputText" rows="2" placeholder="Aquí aparecerá el resultado..." readonly></textarea>
+
+    <script>
+        const styles = {
+            emoji: {
+                map: char => {
+                    const code = char.toUpperCase();
+                    return /[A-Z]/.test(code) ? String.fromCodePoint(0x1F1E6 + code.charCodeAt(0) - 65) + '‌' : char;
+                }
+            },
+            bold: {
+                base: '𝐀'.charCodeAt(0),
+                map: char => /[A-Z]/i.test(char) ? String.fromCodePoint((char === char.toUpperCase() ? 0x1D400 : 0x1D41A) + char.toLowerCase().charCodeAt(0) - 97) : char
+            },
+            italic: {
+                base: '𝐴'.charCodeAt(0),map: char => /[A-Z]/i.test(char) ? String.fromCodePoint((char === char.toUpperCase() ? 0x1D434 : 0x1D44E) + char.toLowerCase().charCodeAt(0) - 97) : char
+            },
+            script: {
+                map: char => {
+                    const scriptMap = {
+                        A: '𝓐', B: '𝓑', C: '𝓒', D: '𝓓', E: '𝓔', F: '𝓕', G: '𝓖',
+                        H: '𝓗', I: '𝓘', J: '𝓙', K: '𝓚', L: '𝓛', M: '𝓜', N: '𝓝',
+                        O: '𝓞', P: '𝓟', Q: '𝓠', R: '𝓡', S: '𝓢', T: '𝓣', U: '𝓤',
+                        V: '𝓥', W: '𝓦', X: '𝓧', Y: '𝓨', Z: '𝓩',
+                        a: '𝓪', b: '𝓫', c: '𝓬', d: '𝓭', e: '𝓮', f: '𝓯', g: '𝓰',
+                        h: '𝓱', i: '𝓲', j: '𝓳', k: '𝓴', l: '𝓵', m: '𝓶', n: '𝓷',
+                        o: '𝓸', p: '𝓹', q: '𝓺', r: '𝓻', s: '𝓼', t: '𝓽', u: '𝓾',
+                        v: '𝓿', w: '𝔀', x: '𝔁', y: '𝔂', z: '𝔃'
+                    };
+                    return scriptMap[char] || char;
+                }
+            },
+            fancy: {
+                map: char => {
+                    const fancyMap = {
+                        A: '𝒜', B: '𝐵', C: '𝒞', D: '𝒟', E: '𝐸', F: '𝐹', G: '𝒢',
+                        H: '𝐻', I: '𝐼', J: '𝒥', K: 'Ｋ', L: '𝐿', M: '𝑀', N: '𝒩',O: '𝒪', P: '𝒫', Q: '𝒬', R: '𝑅', S: '𝒮', T: '𝒯', U: '𝒰',
+                        V: '𝒱', W: '𝒲', X: '𝒳', Y: '𝒴', Z: '𝒵',
+                        a: '𝒶', b: '𝒷', c: '𝒸', d: '𝒹', e: '𝑒', f: '𝒻', g: '𝑔',
+                        h: '𝒽', i: '𝒾', j: '𝒿', k: '𝓀', l: '𝓁', m: '𝓂', n: '𝓃',
+                        o: '𝑜', p: '𝓅', q: '𝓆', r: '𝓇', s: '𝓈', t: '𝓉', u: '𝓊',
+                        v: '𝓋', w: '𝓌', x: '𝓍', y: '𝓎', z: '𝓏'
+                    };
+                    return fancyMap[char] || char;
+                }
+            },
+            smallcaps: {
+                map: char => {
+                    const scMap = {
+                        a: 'ᴀ', b: 'ʙ', c: 'ᴄ', d: 'ᴅ', e: 'ᴇ', f: 'ғ', g: 'ɢ',
+                        h: 'ʜ', i: 'ɪ', j: 'ᴊ', k: 'ᴋ', l: 'ʟ', m: 'ᴍ', n: 'ɴ',
+                        o: 'ᴏ', p: 'ᴘ', q: 'ǫ', r: 'ʀ', s: 's', t: 'ᴛ', u: 'ᴜ',
+                        v: 'ᴠ', w: 'ᴡ', x: 'x', y: 'ʏ', z: 'ᴢ'
+                    };
+                    return scMap[char.toLowerCase()] || char;
+                }
+            },
+            square: {
+                map: char => {
+                    const sqMap = {
+                        A: '🄰', B: '🄱', C: '🄲', D: '🄳', E: '🄴', F: '🄵', G: '🄶',H: '🄷', I: '🄸', J: '🄹', K: '🄺', L: '🄻', M: '🄼', N: '🄽',
+                        O: '🄾', P: '🄿', Q: '🅀', R: '🅁', S: '🅂', T: '🅃', U: '🅄',
+                        V: '🅅', W: '🅆', X: '🅇', Y: '🅈', Z: '🅉'
+                    };
+                    return sqMap[char.toUpperCase()] || char;
+                }
+            }
+        };
+
+        function convert
