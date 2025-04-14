@@ -19,12 +19,13 @@
 </head>
 <body>
 
- <!-- Botón de abrir menú -->
-<button class="menu-toggle" onclick="toggleMenu()">
-  <i class="fas fa-bars"></i>
-</button>
+ <!-- Encabezado con botón de menú -->
+<div id="chat-header">
+  <span>Kirito Bot IA</span>
+  <button id="menu-btn" onclick="toggleMenu()">|≡|</button>
+</div>
 
-<!-- Menú lateral -->
+<!-- Menú lateral (inicialmente oculto) -->
 <nav class="side-menu">
   <button class="close-menu" onclick="toggleMenu()">×</button>
   <ul>
