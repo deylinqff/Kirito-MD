@@ -1,8 +1,8 @@
- 
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generador de Letras Estilizadas</title>
     <style>
         body {
@@ -10,28 +10,41 @@
             background-color: #121212;
             color: #fff;
             text-align: center;
-            padding: 40px;
+            padding: 20px;
         }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
         textarea {
-            width: 80%;
+            width: 100%;
+            max-width: 500px;
             padding: 10px;
-            font-size: 18px;
+            font-size: 16px;
             margin: 10px 0;
             background-color: #222;
             color: #0f0;
             border: 1px solid #333;
             border-radius: 5px;
+            resize: none;
         }
+
         select, button {
-            padding: 10px 15px;
+            width: 100%;
+            max-width: 500px;
+            box-sizing: border-box;
+            padding: 12px;
             font-size: 16px;
-            margin: 10px;
+            margin: 10px 0;
             background-color: #28a745;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
+
         button:hover {
             background-color: #218838;
         }
@@ -40,7 +53,8 @@
 <body>
 
     <h1>✨ Generador de Letras Estilizadas ✨</h1>
-<textarea id="inputText" rows="2" placeholder="Escribe tu texto aquí..."></textarea><br>
+
+    <textarea id="inputText" rows="2" placeholder="Escribe tu texto aquí..."></textarea>
 
     <select id="styleSelect">
         <option value="emoji">🇪🇲🇴🇯🇮 (Emojis)</option>
@@ -50,9 +64,9 @@
         <option value="fancy">𝒇𝒂𝒏𝒄𝒚</option>
         <option value="smallcaps">ꜱᴍᴀʟʟ ᴄᴀᴘꜱ</option>
         <option value="square">🅂🅀🅄🄰🅁🄴</option>
-    </select><br>
+    </select>
 
-    <button onclick="convertText()">Convertir</button><br>
+    <button onclick="convertText()">Convertir</button>
 
     <textarea id="outputText" rows="2" placeholder="Aquí aparecerá el resultado..." readonly></textarea>
 
@@ -65,11 +79,10 @@
                 }
             },
             bold: {
-                base: '𝐀'.charCodeAt(0),
-                map: char => /[A-Z]/i.test(char) ? String.fromCodePoint((char === char.toUpperCase() ? 0x1D400 : 0x1D41A) + char.toLowerCase().charCodeAt(0) - 97) : char
+                map: char => /[a-zA-Z]/.test(char) ? String.fromCodePoint((char === char.toUpperCase() ? 0x1D400 : 0x1D41A) + char.toLowerCase().charCodeAt(0) - 97) : char
             },
             italic: {
-                base: '𝐴'.charCodeAt(0),map: char => /[A-Z]/i.test(char) ? String.fromCodePoint((char === char.toUpperCase() ? 0x1D434 : 0x1D44E) + char.toLowerCase().charCodeAt(0) - 97) : char
+                map: char => /[a-zA-Z]/.test(char) ? String.fromCodePoint((char === char.toUpperCase() ? 0x1D434 : 0x1D44E) + char.toLowerCase().charCodeAt(0) - 97) : char
             },
             script: {
                 map: char => {
@@ -90,7 +103,8 @@
                 map: char => {
                     const fancyMap = {
                         A: '𝒜', B: '𝐵', C: '𝒞', D: '𝒟', E: '𝐸', F: '𝐹', G: '𝒢',
-                        H: '𝐻', I: '𝐼', J: '𝒥', K: 'Ｋ', L: '𝐿', M: '𝑀', N: '𝒩',O: '𝒪', P: '𝒫', Q: '𝒬', R: '𝑅', S: '𝒮', T: '𝒯', U: '𝒰',
+                        H: '𝐻', I: '𝐼', J: '𝒥', K: 'Ｋ', L: '𝐿', M: '𝑀', N: '𝒩', O: '𝒪',
+                        P: '𝒫', Q: '𝒬', R: '𝑅', S: '𝒮', T: '𝒯', U: '𝒰',
                         V: '𝒱', W: '𝒲', X: '𝒳', Y: '𝒴', Z: '𝒵',
                         a: '𝒶', b: '𝒷', c: '𝒸', d: '𝒹', e: '𝑒', f: '𝒻', g: '𝑔',
                         h: '𝒽', i: '𝒾', j: '𝒿', k: '𝓀', l: '𝓁', m: '𝓂', n: '𝓃',
@@ -114,7 +128,8 @@
             square: {
                 map: char => {
                     const sqMap = {
-                        A: '🄰', B: '🄱', C: '🄲', D: '🄳', E: '🄴', F: '🄵', G: '🄶',H: '🄷', I: '🄸', J: '🄹', K: '🄺', L: '🄻', M: '🄼', N: '🄽',
+                        A: '🄰', B: '🄱', C: '🄲', D: '🄳', E: '🄴', F: '🄵', G: '🄶',
+                        H: '🄷', I: '🄸', J: '🄹', K: '🄺', L: '🄻', M: '🄼', N: '🄽',
                         O: '🄾', P: '🄿', Q: '🅀', R: '🅁', S: '🅂', T: '🅃', U: '🅄',
                         V: '🅅', W: '🅆', X: '🅇', Y: '🅈', Z: '🅉'
                     };
@@ -123,4 +138,12 @@
             }
         };
 
-        function convert
+        function convertText() {
+            const input = document.getElementById('inputText').value;
+            const style = document.getElementById('styleSelect').value;
+            const output = [...input].map(styles[style].map).join('');
+            document.getElementById('outputText').value = output;
+        }
+    </script>
+</body>
+</html>
