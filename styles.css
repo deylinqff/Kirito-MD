@@ -43,7 +43,6 @@ body::before {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Elementos animados */
 .menu-toggle, .side-menu, .bot-card, button, footer {
     opacity: 0;
     transform: translateY(20px);
@@ -56,9 +55,43 @@ body::before {
 button { animation-delay: 0.8s; }
 footer { animation-delay: 1s; }
 
-/* Texto y títulos sin sombra */
 h3, .menu-toggle, .side-menu ul li a, footer {
     text-shadow: none;
+}
+
+/* ========================= */
+/* BOTÓN MENÚ HAMBURGUESA   */
+/* ========================= */
+.menu-toggle {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1200;
+    background: transparent;
+    border: none;
+    font-size: 28px;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* Ocultar botón de menú cuando el menú está activo */
+.menu-active .menu-toggle {
+    display: none;
+}
+
+/* ========================= */
+/* BOTÓN CERRAR MENÚ "×"    */
+/* ========================= */
+.close-menu {
+    background: transparent;
+    color: #fff;
+    font-size: 30px;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1300;
 }
 
 /* Botones estilo app */
@@ -113,7 +146,7 @@ button:active {
     border: 2px solid #444;
 }
 
-/* MENÚ LATERAL limpio con íconos */
+/* MENÚ LATERAL */
 .side-menu {
     position: fixed;
     top: 0;
@@ -122,9 +155,14 @@ button:active {
     height: 100%;
     background-color: #111;
     transition: 0.3s ease;
-    padding-top: 20px;
-    z-index: 999;
+    padding-top: 60px; /* espacio para botón cerrar */
+    z-index: 1100;
     box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+}
+
+/* Activar menú */
+.menu-active .side-menu {
+    left: 0;
 }
 
 .side-menu ul {
@@ -171,26 +209,4 @@ footer {
     color: #ccc;
     font-weight: 500;
     box-shadow: 0 -1px 10px rgba(0,0,0,0.3);
-}
-
-/* Activación del menú lateral */
-.menu-active .side-menu {
-    left: 0;
-}
-
-.menu-active .menu-icon {
-    display: none;
-}
-
-/* Botón para cerrar el menú */
-.close-menu {
-    background: transparent;
-    color: #fff;
-    font-size: 30px;
-    border: none;
-    cursor: pointer;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    z-index: 1300;
 }
