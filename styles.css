@@ -194,16 +194,14 @@ body {
     margin-right: 10px;
 }
 
-/* Open Drawer Button */
+/* Botón para abrir el menú (posición normal, no fija) */
 .open-drawer {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
     background-color: #2ecc71;
     color: white;
     border: none;
     padding: 10px 15px;
-    border-radius: 50%;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 24px;
+    font-size: 18px;
+    margin: 10px;
 }
