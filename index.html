@@ -1,99 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App Interface</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>App Interface</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <!-- Header -->
-    <header class="app-header">
-        <div class="status-bar">
-            <span class="network">Movistar</span>
-            <span class="time">6:16 PM</span>
-            <span class="battery">🔋</span>
-        </div>
-        <div class="header-content">
-            <img src="logo.png" alt="Logo" class="logo">
-            <h1 class="title">Explore</h1>
-            <button class="menu-button">
-                <img src="menu-icon.png" alt="Menu Icon">
-            </button>
-        </div>
-    </header>
-
-    <!-- Search Bar -->
-    <section class="search-bar">
-        <input type="text" placeholder="Search people or tags" class="search-input">
-    </section>
-
-    <!-- Categories -->
-    <section class="categories">
-        <div class="category popular-now">
-            <img src="star-icon.png" alt="Star Icon">
-            <p>Popular Now</p>
-        </div>
-        <div class="category on-the-rise">
-            <img src="arrow-up-icon.png" alt="Arrow Up Icon">
-            <p>On the Rise</p>
-        </div>
-    </section>
-
-    <!-- Channels -->
-    <section class="channels">
-        <h2>Channels</h2>
-        <div class="channel comedy">
-            <img src="comedy-icon.png" alt="Comedy Icon">
-            <p>Comedy</p>
-        </div>
-        <div class="channel art-experimental">
-            <img src="art-icon.png" alt="Art Icon">
-            <p>Art & Experimental</p>
-        </div>
-        <div class="channel scary">
-            <img src="scary-icon.png" alt="Scary Icon">
-            <p>Scary</p>
-        </div>
-        <div class="channel cats">
-            <img src="cat-icon.png" alt="Cat Icon">
-            <p>Cats</p>
-        </div>
-    </section>
-
-    <!-- Menu Drawer -->
-    <div class="drawer" id="drawer">
-        <div class="drawer-header">
-            <img src="profile-pic.png" alt="Profile Picture" class="profile-pic">
-            <h2>Charithrya</h2>
-            <button class="close-drawer" onclick="toggleDrawer()">
-                <img src="close-icon.png" alt="Close Icon">
-            </button>
-        </div>
-        <ul class="drawer-menu">
-            <li><img src="notification-icon.png" alt="Notification"><span>Notification</span></li>
-            <li><img src="attendance-icon.png" alt="Attendance"><span>Attendance</span></li>
-            <li><img src="timetable-icon.png" alt="Timetable"><span>Timetable</span></li>
-            <li><img src="circular-icon.png" alt="Circular"><span>Circular</span></li>
-            <li><img src="homework-icon.png" alt="Homework"><span>Homework</span></li>
-            <li><img src="exam-timetable-icon.png" alt="Exam Timetable"><span>Exam Timetable</span></li>
-            <li><img src="report-card-icon.png" alt="Report Card"><span>Report Card</span></li>
-            <li><img src="fee-details-icon.png" alt="Fee Details"><span>Fee Details</span></li>
-            <li><img src="events-icon.png" alt="Events"><span>Events</span></li>
-            <li><img src="gallery-icon.png" alt="Gallery"><span>Gallery</span></li>
-            <li><img src="holiday-list-icon.png" alt="Holiday List"><span>Holiday List</span></li>
-            <li><img src="logout-icon.png" alt="Logout"><span>Logout</span></li>
-        </ul>
+  <!-- Header -->
+  <header class="app-header">
+    <div class="status-bar">
+      <span class="network">Movistar</span>
+      <span class="time" id="current-time">--:--</span>
+      <span class="battery">🔋</span>
     </div>
+    <div class="header-content">
+      <img src="https://d.uguu.se/NVzkMrYP.jpg" alt="Logo" class="logo" />
+      <h1 class="title">Explore</h1>
+      <button class="menu-button" onclick="toggleDrawer()">
+        <img src="https://d.uguu.se/NVzkMrYP.jpg" alt="Menu Icon" />
+      </button>
+    </div>
+  </header>
 
-    <!-- Button to open drawer -->
-    <button class="open-drawer" onclick="toggleDrawer()">☰</button>
+  <!-- Search Bar -->
+  <section class="search-bar">
+    <input type="text" placeholder="Search people or tags" class="search-input" />
+  </section>
 
-    <script>
-        function toggleDrawer() {
-            const drawer = document.getElementById('drawer');
-            drawer.classList.toggle('open');
-        }
-    </script>
+  <!-- Categories -->
+  <section class="categories">
+    <a href="chat.html" class="category popular-now">
+      <img src="https://d.uguu.se/NVzkMrYP.jpg" alt="Star Icon" />
+      <p>Popular Now</p>
+    </a>
+    <a href="chat.html" class="category on-the-rise">
+      <img src="https://d.uguu.se/NVzkMrYP.jpg" alt="Arrow Up Icon" />
+      <p>On the Rise</p>
+    </a>
+  </section>
+
+  <!-- Channels -->
+  <section class="channels">
+    <h2>Channels</h2>
+    <a href="chat.html" class="channel comedy">
+      <img src="https://d.uguu.se/NVzkMrYP.jpg" alt="Comedy Icon" />
+      <p>Comedy</p>
+    </a>
+    <a href="chat.html" class="channel art-experimental">
+      <img src="https://d.uguu.se/NVzkMrYP.jpg" alt="Art Icon" />
+      <p>Art & Experimental</p>
+    </a>
+    <a href="chat.html" class="channel scary">
+      <img src="https://d.uguu.se/NVzkMrYP.jpg" alt="Scary Icon" />
+      <p>Scary</p>
+    </a>
+    <a href="chat.html" class="channel cats">
+      <img src="https://d.uguu.se/NVzkMrYP.jpg" alt="Cat Icon" />
+      <p>Cats</p>
+    </a>
+  </section>
+
+  <!-- Menu Drawer -->
+  <div class="drawer" id="drawer">
+    <div class="drawer-header">
+      <img src="https://d.uguu.se/NVzkMrYP.jpg" alt="Profile Picture" class="profile-pic" />
+      <h2>Charithrya</h2>
+      <button class="close-drawer" onclick="toggleDrawer()">
+        <img src="https://d.uguu.se/NVzkMrYP.jpg" alt="Close Icon" />
+      </button>
+    </div>
+    <ul class="drawer-menu">
+      <li><a href="https://github.com/tuusuario"><img src="https://d.uguu.se/NVzkMrYP.jpg" alt="Notification" /><span>GitHub</span></a></li>
+      <li><a href="https://wa.me/tu_numero"><img src="https://d.uguu.se/NVzkMrYP.jpg" alt="Attendance" /><span>WhatsApp</span></a></li>
+      <li><a href="informacion.html"><img src="https://d.uguu.se/NVzkMrYP.jpg" alt="Info" /><span>Información</span></a></li>
+    </ul>
+  </div>
+
+  <!-- Button to open drawer -->
+  <button class="open-drawer" onclick="toggleDrawer()">☰</button>
+
+  <!-- Scripts -->
+  <script>
+    function toggleDrawer() {
+      const drawer = document.getElementById('drawer');
+      drawer.classList.toggle('open');
+    }
+
+    function updateTime() {
+      const now = new Date();
+      const hours = now.getHours();
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const suffix = hours >= 12 ? 'PM' : 'AM';
+      const formattedTime = `${(hours % 12) || 12}:${minutes} ${suffix}`;
+      document.getElementById('current-time').textContent = formattedTime;
+    }
+
+    setInterval(updateTime, 1000);
+    updateTime();
+  </script>
 </body>
 </html>
