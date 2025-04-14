@@ -1,4 +1,4 @@
-/* Reset de márgenes, rellenos y box-sizing */
+/* Reset general */
 * {
     margin: 0;
     padding: 0;
@@ -6,6 +6,7 @@
     font-family: 'Poppins', sans-serif;
 }
 
+/* Fondo y animación inicial */
 body {
     color: #fff;
     text-align: center;
@@ -17,6 +18,7 @@ body {
     position: relative;
     opacity: 0;
     animation: fadeIn 1s ease-in-out forwards;
+    background-color: #000;
 }
 
 body::before {
@@ -26,7 +28,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: black;  /* Cambié el fondo a negro */
+    background-color: black;
     z-index: -1;
 }
 
@@ -41,7 +43,7 @@ body::before {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Aplicando animación en cadena */
+/* Elementos animados */
 .menu-toggle, .side-menu, .bot-card, button, footer {
     opacity: 0;
     transform: translateY(20px);
@@ -54,39 +56,50 @@ body::before {
 button { animation-delay: 0.8s; }
 footer { animation-delay: 1s; }
 
-/* Estilo NEÓN */
+/* Texto y títulos con sombra neón */
 h3, .menu-toggle, .side-menu ul li a, footer {
     text-shadow: 0 0 10px #00ffea, 0 0 20px #00ffea, 0 0 30px #00b7ff;
 }
 
-/* Botones neón */
+/* BOTONES estilo app con icono y hover animado */
 button {
     background: transparent;
     color: #00ffea;
     border: 2px solid #00ffea;
     padding: 12px 20px;
     font-size: 1rem;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
-    transition: 0.3s ease;
     width: 90%;
     max-width: 250px;
     margin: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
     text-shadow: 0 0 5px #00ffea;
     box-shadow: 0 0 10px #00ffea, 0 0 20px #00b7ff;
+    transition: 0.3s ease;
+    transform: translateY(0);
 }
 
-button:hover {
+button i {
+    font-size: 1.1rem;
+}
+
+button:hover,
+button:active {
     background: #00ffea;
     color: #111;
+    transform: translateY(-5px) scale(1.05);
     box-shadow: 0 0 15px #00ffea, 0 0 30px #00b7ff;
 }
 
-/* Tarjeta del bot con efecto neón */
+/* Tarjeta de bot */
 .bot-card {
     background: rgba(17, 17, 17, 0.8);
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 15px;
     margin-top: 20px;
     text-align: center;
     width: 90%;
@@ -102,7 +115,7 @@ button:hover {
     border: 3px solid #00ffea;
 }
 
-/* Menú lateral */
+/* MENÚ LATERAL moderno con íconos */
 .side-menu {
     position: fixed;
     top: 0;
@@ -116,9 +129,36 @@ button:hover {
     box-shadow: 0 0 10px #00b7ff;
 }
 
+.side-menu ul {
+    list-style: none;
+    padding: 0 15px;
+}
+
+.side-menu ul li {
+    margin-bottom: 15px;
+}
+
+.side-menu ul li a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: #00ffea;
+    padding: 10px 15px;
+    border-radius: 10px;
+    transition: 0.3s ease;
+    font-weight: bold;
+    text-shadow: 0 0 5px #00ffea;
+}
+
+.side-menu ul li a i {
+    font-size: 1.1rem;
+}
+
 .side-menu ul li a:hover {
     background-color: #00ffea;
     color: #111;
+    transform: scale(1.05);
 }
 
 /* Footer */
@@ -136,8 +176,8 @@ footer {
     box-shadow: 0 -1px 10px #00b7ff;
 }
 
-/* Activación de menú lateral */
-.menu-active .navbar {
+/* Activación del menú lateral */
+.menu-active .side-menu {
     left: 0;
 }
 
@@ -145,10 +185,10 @@ footer {
     display: none;
 }
 
-/* Estilo del botón de cierre del menú */
+/* Botón para cerrar el menú */
 .close-menu {
     background: transparent;
-    color: #333;
+    color: #00ffea;
     font-size: 30px;
     border: none;
     cursor: pointer;
@@ -156,4 +196,5 @@ footer {
     top: 20px;
     right: 20px;
     z-index: 1300;
+    text-shadow: 0 0 10px #00ffea;
 }
