@@ -1,86 +1,99 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta property="og:title" content="Kirito-Bot MD 👑 oficial" />
-  <meta property="og:description" content="Kirito-Bot oficial 👑" />
-  <meta property="og:image" content="https://i.ibb.co/Mk871YM8/file.jpg" />
-  <meta property="og:image:width" content="300" />
-  <meta property="og:image:height" content="300" />
-  <meta property="og:url" content="https://kirito-md.vercel.app/" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:image" content="https://i.ibb.co/Mk871YM8/file.jpg" />
-  <meta name="theme-color" content="#000000" />
-  <title>Kirito-Bot MD</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="manifest" href="/manifest.json" />
-  <script src="https://kit.fontawesome.com/a3f33c5b26.js" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Interface</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Header -->
+    <header class="app-header">
+        <div class="status-bar">
+            <span class="network">Movistar</span>
+            <span class="time">6:16 PM</span>
+            <span class="battery">🔋</span>
+        </div>
+        <div class="header-content">
+            <img src="logo.png" alt="Logo" class="logo">
+            <h1 class="title">Explore</h1>
+            <button class="menu-button">
+                <img src="menu-icon.png" alt="Menu Icon">
+            </button>
+        </div>
+    </header>
 
- <!-- Encabezado con botón de menú -->
-<div id="chat-header">
-  <span>Kirito Bot IA</span>
-  <button id="menu-btn" onclick="toggleMenu()">|≡|</button>
-</div>
+    <!-- Search Bar -->
+    <section class="search-bar">
+        <input type="text" placeholder="Search people or tags" class="search-input">
+    </section>
 
-<!-- Menú lateral (inicialmente oculto) -->
-<nav class="side-menu">
-  <button class="close-menu" onclick="toggleMenu()">×</button>
-  <ul>
-    <li><a href="#">Grupo Oficial</a></li>
-    <li><a href="#">Canal Oficial</a></li>
-    <li><a href="#">Repositorio</a></li>
-    <li><a href="#">Info de Kirito-Bot</a></li>
-    <li><a href="#">HTML y CSS</a></li>
-    <li><a href="#">Chat IA</a></li>
-    <li><a href="#">Letras Estilo</a></li>
-  </ul>
-</nav>
+    <!-- Categories -->
+    <section class="categories">
+        <div class="category popular-now">
+            <img src="star-icon.png" alt="Star Icon">
+            <p>Popular Now</p>
+        </div>
+        <div class="category on-the-rise">
+            <img src="arrow-up-icon.png" alt="Arrow Up Icon">
+            <p>On the Rise</p>
+        </div>
+    </section>
 
-  <!-- Tarjeta principal -->
-  <div class="bot-card">
-    <img src="https://i.postimg.cc/SsZzzTfW/FA-Cd-ZFVIBIGBOg.png" alt="Kirito Bot Logo" />
-    <h2>𝐊𝐈𝐑𝐈𝐓𝐎 - 𝐁𝐎𝐓 𝐌𝐃</h2>
-  </div>
+    <!-- Channels -->
+    <section class="channels">
+        <h2>Channels</h2>
+        <div class="channel comedy">
+            <img src="comedy-icon.png" alt="Comedy Icon">
+            <p>Comedy</p>
+        </div>
+        <div class="channel art-experimental">
+            <img src="art-icon.png" alt="Art Icon">
+            <p>Art & Experimental</p>
+        </div>
+        <div class="channel scary">
+            <img src="scary-icon.png" alt="Scary Icon">
+            <p>Scary</p>
+        </div>
+        <div class="channel cats">
+            <img src="cat-icon.png" alt="Cat Icon">
+            <p>Cats</p>
+        </div>
+    </section>
 
-  <!-- Botones principales -->
-  <div class="bot-info">
-    <button onclick="window.location.href='https://chat.whatsapp.com/F8KwM3rVqkS9HhR5msoRqQ'">
-      <i class="fab fa-whatsapp"></i> Grupo Oficial
-    </button>
-    <button onclick="window.location.href='https://whatsapp.com/channel/0029VawF8fBBvvsktcInIz3m'">
-      <i class="fas fa-bullhorn"></i> Canal Oficial
-    </button>
-    <button onclick="window.location.href='https://github.com/deylinqff/Kirito-Bot-MD'">
-      <i class="fab fa-github"></i> Repositorio
-    </button>
-    <button onclick="window.location.href='Información.html'">
-      <i class="fas fa-info-circle"></i> Info del Bot
-    </button>
-    <button onclick="window.location.href='ejercicio-visual.html'">
-      <i class="fas fa-code"></i> HTML y CSS
-    </button>
-    <button onclick="window.location.href='menu.html'">
-      <i class="fas fa-robot"></i> Chat IA
-    </button>
-    <button onclick="window.location.href='estilos-letras.html'">
-      <i class="fas fa-dna"></i> Letras Estilo
-    </button>
-  </div>
+    <!-- Menu Drawer -->
+    <div class="drawer" id="drawer">
+        <div class="drawer-header">
+            <img src="profile-pic.png" alt="Profile Picture" class="profile-pic">
+            <h2>Charithrya</h2>
+            <button class="close-drawer" onclick="toggleDrawer()">
+                <img src="close-icon.png" alt="Close Icon">
+            </button>
+        </div>
+        <ul class="drawer-menu">
+            <li><img src="notification-icon.png" alt="Notification"><span>Notification</span></li>
+            <li><img src="attendance-icon.png" alt="Attendance"><span>Attendance</span></li>
+            <li><img src="timetable-icon.png" alt="Timetable"><span>Timetable</span></li>
+            <li><img src="circular-icon.png" alt="Circular"><span>Circular</span></li>
+            <li><img src="homework-icon.png" alt="Homework"><span>Homework</span></li>
+            <li><img src="exam-timetable-icon.png" alt="Exam Timetable"><span>Exam Timetable</span></li>
+            <li><img src="report-card-icon.png" alt="Report Card"><span>Report Card</span></li>
+            <li><img src="fee-details-icon.png" alt="Fee Details"><span>Fee Details</span></li>
+            <li><img src="events-icon.png" alt="Events"><span>Events</span></li>
+            <li><img src="gallery-icon.png" alt="Gallery"><span>Gallery</span></li>
+            <li><img src="holiday-list-icon.png" alt="Holiday List"><span>Holiday List</span></li>
+            <li><img src="logout-icon.png" alt="Logout"><span>Logout</span></li>
+        </ul>
+    </div>
 
-  <!-- Pie de página -->
-  <footer>
-    <p><strong>Kirito-Bot</strong> | Todos los derechos reservados</p>
-  </footer>
+    <!-- Button to open drawer -->
+    <button class="open-drawer" onclick="toggleDrawer()">☰</button>
 
-<script>
-  function toggleMenu() {
-    document.body.classList.toggle('menu-active');
-  }
-</script>
-
-  <script src="/main.js"></script>
+    <script>
+        function toggleDrawer() {
+            const drawer = document.getElementById('drawer');
+            drawer.classList.toggle('open');
+        }
+    </script>
 </body>
 </html>
