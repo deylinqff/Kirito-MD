@@ -19,24 +19,24 @@
 </head>
 <body>
 
-  <!-- Botón para abrir menú -->
-  <div class="menu-toggle" onclick="document.body.classList.toggle('menu-active')">
-    <button class="menu-icon"><i class="fas fa-bars"></i></button>
-  </div>
+ <!-- Botón de abrir menú -->
+<button class="menu-toggle" onclick="toggleMenu()">
+  <i class="fas fa-bars"></i>
+</button>
 
-  <!-- Menú lateral -->
-  <nav class="side-menu">
-    <button class="close-menu" onclick="document.body.classList.remove('menu-active')">&times;</button>
-    <ul>
-      <li><a href="https://chat.whatsapp.com/F8KwM3rVqkS9HhR5msoRqQ"><i class="fab fa-whatsapp"></i> Grupo Oficial</a></li>
-      <li><a href="https://whatsapp.com/channel/0029VawF8fBBvvsktcInIz3m"><i class="fas fa-bullhorn"></i> Canal Oficial</a></li>
-      <li><a href="https://github.com/deylinqff/Kirito-Bot-MD"><i class="fab fa-github"></i> Repositorio</a></li>
-      <li><a href="Información.html"><i class="fas fa-info-circle"></i> Info de Kirito-Bot</a></li>
-      <li><a href="ejercicio-visual.html"><i class="fas fa-code"></i> HTML y CSS</a></li>
-      <li><a href="menu.html"><i class="fas fa-robot"></i> Chat IA</a></li>
-      <li><a href="estilos-letras.html"><i class="fas fa-dna"></i> Letras Estilo</a></li>
-    </ul>
-  </nav>
+<!-- Menú lateral -->
+<nav class="side-menu">
+  <button class="close-menu" onclick="toggleMenu()">×</button>
+  <ul>
+    <li><a href="#">Grupo Oficial</a></li>
+    <li><a href="#">Canal Oficial</a></li>
+    <li><a href="#">Repositorio</a></li>
+    <li><a href="#">Info de Kirito-Bot</a></li>
+    <li><a href="#">HTML y CSS</a></li>
+    <li><a href="#">Chat IA</a></li>
+    <li><a href="#">Letras Estilo</a></li>
+  </ul>
+</nav>
 
   <!-- Tarjeta principal -->
   <div class="bot-card">
