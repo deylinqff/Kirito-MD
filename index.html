@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>App Interface</title>
+  <title>Interfaz de la App</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Header -->
+  <!-- Encabezado -->
   <header class="app-header">
     <div class="status-bar">
       <span class="network">Movistar</span>
@@ -16,59 +16,57 @@
     </div>
     <div class="header-content">
       <img src="https://d.uguu.se/NVzkMrYP.jpg" alt="Logo" class="logo" />
-      <h1 class="title">Explore</h1>
-        <button class="open-drawer" onclick="toggleDrawer()">☰</button>
-      </button>
+      <h1 class="title">Explorar</h1>
+      <button class="open-drawer" onclick="toggleDrawer()">☰</button>
     </div>
   </header>
 
-  <!-- Categories -->
-<section class="categories">
-  <a href="chat.html" class="category popular-now">
-    <img src="https://d.uguu.se/NVzkMrYP.jpg" alt="Star Icon" />
-  </a>
-  <a href="chat.html" class="category on-the-rise">
-    <img src="https://d.uguu.se/NVzkMrYP.jpg" alt="Arrow Up Icon" />
-  </a>
-</section>
-
-  <!-- Channels -->
-  <section class="Funciones">
-    <h2>Funciones</h2>
-    <a href="menu.html" class="channel comedy">
-      <img src="https://d.uguu.se/NVzkMrYP.jpg" alt="Comedy Icon" />
-      <p>Chat (IA)</p>
+  <!-- Categorías -->
+  <section class="categories">
+    <a href="chat.html" class="category popular-now">
+      <img src="https://d.uguu.se/NVzkMrYP.jpg" alt="Ícono de Estrella" />
     </a>
-    <a href="chat.html" class="channel art-experimental">
-      <img src="https://d.uguu.se/NVzkMrYP.jpg" alt="Art Icon" />
-      <p>Art & Experimental</p>
-    </a>
-    <a href="chat.html" class="channel scary">
-      <img src="https://d.uguu.se/NVzkMrYP.jpg" alt="Scary Icon" />
-      <p>Scary</p>
-    </a>
-    <a href="chat.html" class="channel cats">
-      <img src="https://d.uguu.se/NVzkMrYP.jpg" alt="Cat Icon" />
-      <p>Cats</p>
+    <a href="chat.html" class="category on-the-rise">
+      <img src="https://d.uguu.se/NVzkMrYP.jpg" alt="Ícono Flecha Arriba" />
     </a>
   </section>
 
-  <!-- Menu Drawer -->
+  <!-- Funciones -->
+  <section class="Funciones">
+    <h2>Funciones</h2>
+    <a href="menu.html" class="channel comedy">
+      <img src="https://d.uguu.se/NVzkMrYP.jpg" alt="Ícono Chat" />
+      <p>Chat (IA)</p>
+    </a>
+    <a href="chat.html" class="channel art-experimental">
+      <img src="https://d.uguu.se/NVzkMrYP.jpg" alt="Ícono Arte" />
+      <p>Arte & Experimental</p>
+    </a>
+    <a href="chat.html" class="channel scary">
+      <img src="https://d.uguu.se/NVzkMrYP.jpg" alt="Ícono Terror" />
+      <p>Terror</p>
+    </a>
+    <a href="chat.html" class="channel cats">
+      <img src="https://d.uguu.se/NVzkMrYP.jpg" alt="Ícono Gatos" />
+      <p>Gatos</p>
+    </a>
+  </section>
+
+  <!-- Menú Desplegable -->
   <div class="drawer" id="drawer">
     <div class="drawer-header">
-      <img src="https://d.uguu.se/NVzkMrYP.jpg" alt="Profile Picture" class="profile-pic" />
+      <img src="https://d.uguu.se/NVzkMrYP.jpg" alt="Foto de Perfil" class="profile-pic" />
       <h2>Charithrya</h2>
-      <button class="close-drawer" onclick="toggleDrawer()">
-      </button>
+      <button class="close-drawer" onclick="toggleDrawer()">❌</button>
     </div>
     <ul class="drawer-menu">
       <li><a href="https://github.com/tuusuario">🐱‍💻 <span>GitHub</span></a></li>
-      <li><a href="https://wa.me/tu_numero"><img src="https://d.uguu.se/NVzkMrYP.jpg" alt="Attendance" /><span>WhatsApp</span></a></li>
-      <li><a href="informacion.html"><img src="https://d.uguu.se/NVzkMrYP.jpg" alt="Info" /><span>Información</span></a></li>
+      <li><a href="https://wa.me/tu_numero">💬 <span>WhatsApp</span></a></li>
+      <li><a href="informacion.html">ℹ️ <span>Información</span></a></li>
     </ul>
   </div>
 
-  <!-- Button to open drawer -->
+  <!-- Botón fijo para abrir el menú -->
   <button class="open-drawer" onclick="toggleDrawer()">☰</button>
 
   <!-- Scripts -->
