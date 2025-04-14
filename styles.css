@@ -9,11 +9,8 @@
 /* Fondo y animación inicial */
 body {
     color: #fff;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    text-align: left; /* Cambiar de center a left */
+    display: block; /* Cambiar de flex a block */
     min-height: 100vh;
     position: relative;
     opacity: 0;
@@ -64,18 +61,6 @@ h3, .menu-toggle, .side-menu ul li a, footer {
 /* ========================= */
 .menu-toggle {
     position: fixed;
-    top: 15px;
-    left: 15px;
-    z-index: 1200;
-    background: transparent;
-    border: none;
-    font-size: 28px;
-    color: #fff;
-    cursor: pointer;
-}
-
-.menu-toggle {
-    position: fixed;
     top: 20px;
     left: 20px;
     z-index: 1001;
@@ -118,13 +103,14 @@ button {
     width: 90%;
     max-width: 250px;
     margin: 10px 0;
-    display: flex;
+    display: block; /* Cambiar de flex a block */
     align-items: center;
     justify-content: center;
     gap: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     transition: 0.3s ease;
     transform: translateY(0);
+    text-align: center; /* Asegura que el texto dentro de los botones esté centrado */
 }
 
 button i {
