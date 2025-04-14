@@ -1,210 +1,170 @@
-/* Reset general */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
 }
 
-/* Fondo y animación inicial */
-body {
-    color: #fff;
-    text-align: left; /* Cambiar de center a left */
-    display: block; /* Cambiar de flex a block */
-    min-height: 100vh;
-    position: relative;
-    opacity: 0;
-    animation: fadeIn 1s ease-in-out forwards;
-    background-color: #000;
-}
-
-body::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
+html, body {
     width: 100%;
     height: 100%;
-    background-color: black;
-    z-index: -1;
-}
-
-/* Animaciones */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes slideIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.menu-toggle, .side-menu, .bot-card, button, footer {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: slideIn 0.8s ease-in-out forwards;
-}
-
-.menu-toggle { animation-delay: 0.2s; }
-.side-menu { animation-delay: 0.4s; }
-.bot-card { animation-delay: 0.6s; }
-button { animation-delay: 0.8s; }
-footer { animation-delay: 1s; }
-
-h3, .menu-toggle, .side-menu ul li a, footer {
-    text-shadow: none;
-}
-
-/* ========================= */
-/* BOTÓN MENÚ HAMBURGUESA   */
-/* ========================= */
-.menu-toggle {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 1001;
-    background: transparent;
-    border: none;
+    font-family: Arial, sans-serif;
+    background: url('assets/images/fondo2.jpg') no-repeat center center fixed;
+    background-size: cover;
     color: white;
-    font-size: 28px;
-    cursor: pointer;
-}
-
-/* Ocultar botón de menú cuando el menú está activo */
-.menu-active .menu-toggle {
-    display: none;
-}
-
-/* ========================= */
-/* BOTÓN CERRAR MENÚ "×"    */
-/* ========================= */
-.close-menu {
-    background: transparent;
-    color: #fff;
-    font-size: 30px;
-    border: none;
-    cursor: pointer;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    z-index: 1300;
-}
-
-/* Botones estilo app */
-button {
-    background: #fff;
-    color: #000;
-    border: 2px solid #ccc;
-    padding: 12px 20px;
-    font-size: 1rem;
-    border-radius: 10px;
-    cursor: pointer;
-    width: 90%;
-    max-width: 250px;
-    margin: 10px 0;
-    display: block; /* Cambiar de flex a block */
-    align-items: center;
+    display: flex;
     justify-content: center;
-    gap: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    transition: 0.3s ease;
-    transform: translateY(0);
-    text-align: center; /* Asegura que el texto dentro de los botones esté centrado */
+    align-items: center;
 }
 
-button i {
-    font-size: 1.1rem;
+#chat-container {
+    width: 100%;
+    max-width: 500px;
+    height: 100vh;
+    background-color: #1e1e1e;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0;
+    box-shadow: none;
 }
 
-button:hover,
-button:active {
-    background: #eaeaea;
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
-
-/* Tarjeta de bot */
-.bot-card {
-    background: #1c1c1c;
-    padding: 20px;
-    border-radius: 15px;
-    margin-top: 20px;
-    text-align: center;
-    width: 90%;
-    max-width: 400px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-    border: 1px solid #333;
-}
-
-.bot-card img {
-    width: 150px;
-    border-radius: 5%;
-    margin-bottom: 15px;
-    border: 2px solid #444;
-}
-
-/* MENÚ LATERAL */
-.side-menu {
-    position: fixed;
-    top: 0;
-    left: -250px;
-    width: 250px;
-    height: 100%;
-    background-color: #111;
-    transition: 0.3s ease;
-    padding-top: 60px; /* espacio para botón cerrar */
-    z-index: 1100;
-    box-shadow: 2px 0 10px rgba(0,0,0,0.3);
-}
-
-/* Activar menú */
-.menu-active .side-menu {
-    left: 0;
-}
-
-.side-menu ul {
-    list-style: none;
-    padding: 0 15px;
-}
-
-.side-menu ul li {
-    margin-bottom: 15px;
-}
-
-.side-menu ul li a {
+#chat-header {
+    background-color: #0a84ff;
+    color: white;
+    padding: 15px;
     display: flex;
     align-items: center;
-    gap: 12px;
-    text-decoration: none;
-    color: #fff;
-    padding: 10px 15px;
+    font-size: 18px;
+    border-bottom: 1px solid #444;
+}
+
+.bot-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+#chat-box {
+    flex: 1;
+    padding: 15px 10px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #252525;
+}
+
+.message {
+    max-width: 85%;
+    padding: 10px;
     border-radius: 10px;
-    transition: 0.3s ease;
-    font-weight: 500;
+    font-size: 15px;
+    word-wrap: break-word;
 }
 
-.side-menu ul li a i {
-    font-size: 1.1rem;
+.user {
+    align-self: flex-end;
+    background-color: #0a84ff;
+    color: white;
 }
 
-.side-menu ul li a:hover {
-    background-color: #333;
-    color: #fff;
-    transform: scale(1.05);
+.bot {
+    align-self: flex-start;
+    background-color: #2e2e2e;
+    border: 1px solid #444;
+    color: white;
 }
 
-/* Footer */
-footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    background-color: #1a1a1a;
-    padding: 10px 0;
-    font-size: 0.9rem;
-    color: #ccc;
-    font-weight: 500;
-    box-shadow: 0 -1px 10px rgba(0,0,0,0.3);
+#chat-input {
+    display: flex;
+    padding: 10px;
+    background-color: #1e1e1e;
+    border-top: 1px solid #333;
+}
+
+#user-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 20px;
+    background-color: #252525;
+    color: white;
+    outline: none;
+}
+
+#send-btn {
+    background-color: #0a84ff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin-left: 8px;
+    border-radius: 50%;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+#send-btn:hover {
+    background-color: #0073e6;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-top: 10px;
+    border: 1px solid #444;
+}
+
+/* Caja de código tipo ChatGPT */
+.code-box {
+    background-color: #1c1c1c;
+    color: #00ff88;
+    border-left: 4px solid #0a84ff;
+    padding: 15px 10px 10px 10px;
+    border-radius: 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    position: relative;
+    overflow-x: auto;
+    white-space: pre-wrap;
+}
+
+.code-box pre {
+    margin: 0;
+}
+
+.copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background-color: #0a84ff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 3px 7px;
+    font-size: 12px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.copy-btn:hover {
+    background-color: #0073e6;
+}
+
+/* Botón de voz */
+.speak-btn {
+    background-color: transparent;
+    border: none;
+    color: #0a84ff;
+    font-size: 16px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    #chat-container {
+        max-width: 100%;
+        height: 100vh;
+        border-radius: 0;
+    }
 }
