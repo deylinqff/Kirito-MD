@@ -1,49 +1,79 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="og:title" content="Kirito-Bot MD 👑 oficial">
-    <meta property="og:description" content="Kirito-Bot oficial 👑">
-    <meta property="og:image" content="https://i.ibb.co/Mk871YM8/file.jpg">
-    <meta property="og:image:width" content="300">
-    <meta property="og:image:height" content="300">
-    <meta property="og:url" content="https://kirito-md.vercel.app/">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:image" content="https://i.ibb.co/Mk871YM8/file.jpg">
-    <title>Kirito-Bot MD</title>
-    <link rel="stylesheet" href="styles.css">
-<link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#000000">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta property="og:title" content="Kirito-Bot MD 👑 oficial" />
+  <meta property="og:description" content="Kirito-Bot oficial 👑" />
+  <meta property="og:image" content="https://i.ibb.co/Mk871YM8/file.jpg" />
+  <meta property="og:image:width" content="300" />
+  <meta property="og:image:height" content="300" />
+  <meta property="og:url" content="https://kirito-md.vercel.app/" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="https://i.ibb.co/Mk871YM8/file.jpg" />
+  <meta name="theme-color" content="#000000" />
+  <title>Kirito-Bot MD</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="manifest" href="/manifest.json" />
+  <script src="https://kit.fontawesome.com/a3f33c5b26.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
-    <div class="bot-card">
-        <img src="https://i.postimg.cc/SsZzzTfW/FA-Cd-ZFVIBIGBOg.png" alt="Kirito Bot Logo">
-        <h2>𝐊𝐈𝐑𝐈𝐓𝐎 - 𝐁𝐎𝐓 𝐌𝐃</h2>
-    </div>
+  <!-- Botón para abrir menú -->
+  <div class="menu-toggle" onclick="document.body.classList.toggle('menu-active')">
+    <button class="menu-icon"><i class="fas fa-bars"></i></button>
+  </div>
 
-    <div class="bot-info">
-        <button onclick="window.location.href='https://chat.whatsapp.com/F8KwM3rVqkS9HhR5msoRqQ'">𝑮𝒓𝒖𝒑𝒐 𝑶𝒇𝒊𝒄𝒊𝒂𝒍</button>
-        <button onclick="window.location.href='https://whatsapp.com/channel/0029VawF8fBBvvsktcInIz3m'">𝑪𝒂𝒏𝒂𝒍 𝑶𝒇𝒊𝒄𝒊𝒂𝒍</button>
-        <button onclick="window.location.href='https://github.com/deylinqff/Kirito-Bot-MD'">𝑹𝒆𝒑𝒐𝒔𝒊𝒕𝒐𝒓𝒊𝒐</button>
-        <button onclick="window.location.href='Información.html'">𝐈𝐧𝐟𝐨𝐫𝐦𝐚𝐜𝐢𝐨𝐧 𝐝𝐞𝐥 𝐨𝐫𝐢𝐠𝐞𝐧 𝐝𝐞 𝐊𝐢𝐫𝐢𝐭𝐨- 𝐁𝐨𝐭 𝐌𝐃</button>
-        <button onclick="window.location.href='ejercicio-visual.html'">💻 𝐇𝐓𝐌𝐋 𝐲 𝐂𝐒𝐒</button>
-        <button onclick="window.location.href='menu.html'">𝐂𝐇𝐀𝐓 𝐈𝐀</button>
-<button onclick="window.location.href='estilos-letras.html'">🧬</button>
-    </div>
+  <!-- Menú lateral -->
+  <nav class="side-menu">
+    <button class="close-menu" onclick="document.body.classList.remove('menu-active')">&times;</button>
+    <ul>
+      <li><a href="https://chat.whatsapp.com/F8KwM3rVqkS9HhR5msoRqQ"><i class="fab fa-whatsapp"></i> Grupo Oficial</a></li>
+      <li><a href="https://whatsapp.com/channel/0029VawF8fBBvvsktcInIz3m"><i class="fas fa-bullhorn"></i> Canal Oficial</a></li>
+      <li><a href="https://github.com/deylinqff/Kirito-Bot-MD"><i class="fab fa-github"></i> Repositorio</a></li>
+      <li><a href="Información.html"><i class="fas fa-info-circle"></i> Info de Kirito-Bot</a></li>
+      <li><a href="ejercicio-visual.html"><i class="fas fa-code"></i> HTML y CSS</a></li>
+      <li><a href="menu.html"><i class="fas fa-robot"></i> Chat IA</a></li>
+      <li><a href="estilos-letras.html"><i class="fas fa-dna"></i> Letras Estilo</a></li>
+    </ul>
+  </nav>
 
-    <footer>
-        <p><strong>Kirito-Bot</strong> | Todos los derechos reservados</p>
-    </footer>
+  <!-- Tarjeta principal -->
+  <div class="bot-card">
+    <img src="https://i.postimg.cc/SsZzzTfW/FA-Cd-ZFVIBIGBOg.png" alt="Kirito Bot Logo" />
+    <h2>𝐊𝐈𝐑𝐈𝐓𝐎 - 𝐁𝐎𝐓 𝐌𝐃</h2>
+  </div>
 
-    <script>
-        function toggleMenu() {
-            let menu = document.getElementById("menu");
-            menu.style.display = (menu.style.display === "block") ? "none" : "block";
-        }
-    </script>
-<script src="/main.js"></script>
+  <!-- Botones principales -->
+  <div class="bot-info">
+    <button onclick="window.location.href='https://chat.whatsapp.com/F8KwM3rVqkS9HhR5msoRqQ'">
+      <i class="fab fa-whatsapp"></i> Grupo Oficial
+    </button>
+    <button onclick="window.location.href='https://whatsapp.com/channel/0029VawF8fBBvvsktcInIz3m'">
+      <i class="fas fa-bullhorn"></i> Canal Oficial
+    </button>
+    <button onclick="window.location.href='https://github.com/deylinqff/Kirito-Bot-MD'">
+      <i class="fab fa-github"></i> Repositorio
+    </button>
+    <button onclick="window.location.href='Información.html'">
+      <i class="fas fa-info-circle"></i> Info del Bot
+    </button>
+    <button onclick="window.location.href='ejercicio-visual.html'">
+      <i class="fas fa-code"></i> HTML y CSS
+    </button>
+    <button onclick="window.location.href='menu.html'">
+      <i class="fas fa-robot"></i> Chat IA
+    </button>
+    <button onclick="window.location.href='estilos-letras.html'">
+      <i class="fas fa-dna"></i> Letras Estilo
+    </button>
+  </div>
+
+  <!-- Pie de página -->
+  <footer>
+    <p><strong>Kirito-Bot</strong> | Todos los derechos reservados</p>
+  </footer>
+
+  <script src="/main.js"></script>
 </body>
 </html>
