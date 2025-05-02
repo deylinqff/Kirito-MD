@@ -3,80 +3,113 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Interfaz de la App</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>Chat Básico</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f1f1f1;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    #chat {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      background: #fff;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .mensaje {
+      margin-bottom: 10px;
+      padding: 8px;
+      border-radius: 6px;
+      background: #e0e0e0;
+    }
+
+    #formulario {
+      display: flex;
+      padding: 10px;
+      background: #eee;
+    }
+
+    #usuario, #texto {
+      padding: 8px;
+      font-size: 16px;
+    }
+
+    #usuario {
+      width: 20%;
+      margin-right: 5px;
+    }
+
+    #texto {
+      flex: 1;
+      margin-right: 5px;
+    }
+
+    #enviar {
+      padding: 8px 16px;
+      font-size: 16px;
+    }
+  </style>
 </head>
 <body>
-  <!-- Encabezado -->
-  <header class="app-header">
-    <div class="status-bar">
-      <span class="network">powred by Deylin</span>
-      <span class="time" id="current-time">--:--</span>
-      <span class="battery">✨</span>
-    </div>
-    <div class="header-content">
-      <h1 class="title">Kirito-bot MD 👑</h1>
-      <button class="open-drawer" onclick="toggleDrawer()">☰</button>
-    </div>
-  </header>
 
-  <!-- Categorías -->
-  <section class="categories">
-    <a href="chat.html" class="category popular-now">
-      <img src="https://files.catbox.moe/njzuf2.jpg" alt="Ícono de Estrella" />
-    </a>
-    <a href="chat.html" class="category on-the-rise">
-      <img src="https://files.catbox.moe/56el7x.jpg" alt="Ícono Flecha Arriba" />
-    </a>
-  </section>
+  <div id="chat"></div>
 
-  <!-- Funciones -->
-  <section class="Funciones">
-    <h2>Funciones</h2>
-    <a href="menu.html" class="channel comedy">
-      <p>💬 Chat (IA)</p>
-    </a>
-    <a href="estilos-letras.html" class="channel art-experimental">
-      <p>🎨 Diseños de letras</p>
-    </a>
-    <a href="Información.html" class="channel scary">
-      <p>👻 Información de Kirito-Bot MD</p>
-    </a>
-  </section>
+  <form id="formulario">
+    <input type="text" id="usuario" placeholder="Tu nombre" required />
+    <input type="text" id="texto" placeholder="Mensaje" required />
+    <button id="enviar" type="submit">Enviar</button>
+  </form>
 
-  <!-- Menú Desplegable -->
-  <div class="drawer" id="drawer">
-    <div class="drawer-header">
-      <img src="https://files.catbox.moe/56el7x.jpg" alt="Foto de Perfil" class="profile-pic" />
-      <h2>Charithrya</h2>
-      <button class="close-drawer" onclick="toggleDrawer()">✖️</button>
-    </div>
-    <ul class="drawer-menu">
-      <li><a href="https://github.com/deylinqff/Kirito-Bot-MD">🐱‍💻 <span>Repositorio de GitHub</span></a></li>
-      <li><a href="https://wa.me/50433191934">💬 <span>Contáctame por WhatsApp</span></a></li>
-      <li><a href="https://whatsapp.com/channel/0029VawF8fBBvvsktcInIz3m">👥 <span>Canal de WhatsApp</span></a></li>
-      <li><a href="Información.html">ℹ️ <span>Información</span></a></li>
-    </ul>
-  </div>
-
-  <!-- Scripts -->
   <script>
-    function toggleDrawer() {
-      const drawer = document.getElementById('drawer');
-      drawer.classList.toggle('open');
+    const chat = document.getElementById("chat");
+    const formulario = document.getElementById("formulario");
+    const usuarioInput = document.getElementById("usuario");
+    const textoInput = document.getElementById("texto");
+
+    const BASE_URL = "http://localhost:10000/mensajes";
+
+    async function cargarMensajes() {
+      const res = await fetch(BASE_URL);
+      const mensajes = await res.json();
+
+      chat.innerHTML = "";
+      mensajes.forEach(msg => {
+        const div = document.createElement("div");
+        div.className = "mensaje";
+        div.innerHTML = `<strong>${msg.usuario}</strong>: ${msg.texto}`;
+        chat.appendChild(div);
+      });
+
+      chat.scrollTop = chat.scrollHeight;
     }
 
-    function updateTime() {
-      const now = new Date();
-      const hours = now.getHours();
-      const minutes = now.getMinutes().toString().padStart(2, '0');
-      const suffix = hours >= 12 ? 'PM' : 'AM';
-      const formattedTime = `${(hours % 12) || 12}:${minutes} ${suffix}`;
-      document.getElementById('current-time').textContent = formattedTime;
-    }
+    formulario.addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-    setInterval(updateTime, 1000);
-    updateTime();
+      const usuario = usuarioInput.value.trim();
+      const texto = textoInput.value.trim();
+      if (!usuario || !texto) return;
+
+      await fetch(BASE_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ usuario, texto })
+      });
+
+      textoInput.value = "";
+      cargarMensajes();
+    });
+
+    cargarMensajes();
+    setInterval(cargarMensajes, 3000);
   </script>
+
 </body>
 </html>
